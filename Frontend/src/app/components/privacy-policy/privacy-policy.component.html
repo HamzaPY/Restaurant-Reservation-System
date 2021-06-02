@@ -1,0 +1,345 @@
+<body>
+    <nav class="navbar navbar-expand-md">
+        <div class="container">
+          <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+          <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav justify-content-end ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/app">App</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Kontakt</a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="currCustomer == null" class="nav-link" data-toggle="modal" data-target="#registerModal" style="cursor: pointer;">Registrieren</a>
+          </li>
+          <a *ngIf="currCustomer == null" class="loginBtn" data-toggle="modal" data-target="#loginModal" style="cursor: pointer;">Einloggen</a>
+          <a *ngIf="currCustomer != null" class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+        </ul>
+    </div>
+    </div>
+    </nav>
+
+    <section>
+            
+    <div class="modal fade" id="registerModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" class="registerTitle" id="myModalLabel">Kundenregistrierung</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; ">{{error}}</h4>
+            <form  [formGroup]="registerForm2" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                  <label>Wählen Sie Profilbild</label>
+                  <input type="file" formControlName="imageFile" multiple (change)="selectImage($event)">
+              </div>
+
+              <div class="form-group">
+                  <label for="firstname">Vorname</label>
+                  <input class="form-control" type="text" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted2 && f.firstname.errors }">
+                  <div *ngIf="submitted2 && f.firstname.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstname.errors.required">Vorname ist erforderlich</div>
+                  </div>
+              </div>
+    
+              <div class="form-group">
+                  <label for="lastname">Nachname</label>
+                  <input class="form-control" type="text" formControlName="lastname" [ngClass]="{ 'is-invalid': submitted2 && f.lastname.errors }">
+                  <div *ngIf="submitted2 && f.lastname.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastname.errors.required">Nachname ist erforderlich</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="username">Nutzername</label>
+                  <input class="form-control" type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted2 && f.username.errors }">
+                  <div *ngIf="submitted2 && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required">Nutzername ist erforderlich</div>
+                  </div>
+              </div>
+    
+              <div class="form-group">
+                  <label for="password">Passwort</label>
+                  <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted2 && f.password.errors }">
+                  <div *ngIf="submitted2 && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Passwort ist erforderlich</div>
+                  <div *ngIf="f.password.errors.pattern">Das Passwort muss aus einem Großbuchstaben, einem Sonderzeichen und einer Mindestlänge von 8 bestehen</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label for="confPassword">Kennwort bestätigen</label>
+                <input class="form-control" type="password" formControlName="confPassword" [ngClass]="{ 'is-invalid': submitted2 && f.confPassword.errors }">
+                <div *ngIf="submitted2 && f.confPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.confPassword.errors.required">Kennwort bestätigen ist erforderlich</div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                  <label for="email">E-Mail-Addresse</label>
+                  <input class="form-control" type="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted2 && f.email.errors }">
+                  <div *ngIf="submitted2 && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email ist erforderlich</div>
+                  </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="termC">Ich habe die <a style="cursor: pointer; font-weight: 600; color: #FF4040;" href="/privacy">Datenschutzerklärung</a> gelesen und willige ein, dass meine Daten gespeichert werden.</label>
+                <input class="form-control" type="checkbox" formControlName="termC" [ngClass]="{ 'is-invalid': submitted2 && f.termC.errors }">
+                <div *ngIf="submitted2 && f.termC.errors" class="invalid-feedback">
+                <div *ngIf="f.termC.errors.required">Datenschutz ist erforderlich</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                  <button type="submit" id="signup-btn" style="margin-top: 30px;" class="btn btn-lg btn-danger btn-block">Registrieren</button>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </section>
+
+    <section>
+            
+      <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" class="loginTitle" id="myModalLabel">Kundenlogin</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; ">{{error}}</h4>
+              <form (ngSubmit)="submit()">
+                  <div class="form-group">
+                      <label for="username">Nutzername</label>
+                      <input type="text" name="username" class="form-control" [(ngModel)]="username" />
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Passwort</label>
+                      <input type="password" name="password" class="form-control" [(ngModel)]="password" />
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Anmeldung</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      </section>
+
+    <div class="container" style="margin-top: 50px;">
+        <h1 style="color:#FF4040; font-weight: 600; margin-bottom: 30px;">
+            Datenschutz-Bestimmungen
+          </h1>
+          <h2>
+            Datenschutz
+          </h2>
+          <p>
+            Wir haben diese Datenschutzerklärung (Fassung 10.02.2021-311260425) verfasst, um Ihnen gemäß der Vorgaben der Datenschutz-Grundverordnung (EU) 2016/679 zu erklären, welche Informationen wir sammeln, wie wir Daten verwenden und welche Entscheidungsmöglichkeiten Sie als Besucher dieser Webseite haben.<br><br>
+            Datenschutzerklärungen klingen für gewöhnlich sehr technisch. Diese Version soll Ihnen hingegen die wichtigsten Dinge so einfach und klar wie möglich beschreiben. Soweit es möglich ist, werden technische Begriffe leserfreundlich erklärt. Außerdem möchten wir vermitteln, dass wir mit dieser Website nur dann Informationen sammeln und verwenden, wenn eine entsprechende gesetzliche Grundlage gegeben ist. Das ist sicher nicht möglich, wenn man möglichst knappe, technische Erklärungen abgibt, so wie sie im Internet oft Standard sind, wenn es um Datenschutz geht. Ich hoffe Sie finden die folgenden Erläuterungen interessant und informativ und vielleicht ist die eine oder andere Information dabei, die Sie noch nicht kannten.<br>
+            Wenn trotzdem Fragen bleiben, möchten wir Sie bitten den vorhandenen Links zu folgen und sich weitere Informationen auf Drittseiten anzusehen, oder uns einfach eine E-Mail zu schreiben. Unsere Kontaktdaten finden Sie im Impressum.
+          </p>
+          <h2>
+            Cookies
+          </h2>
+          <p>
+            Unsere Website verwendet HTTP-Cookies um nutzerspezifische Daten zu speichern.<br>
+            Im Folgenden erklären wir, was Cookies sind und warum Sie genutzt werden, damit Sie die folgende Datenschutzerklärung besser verstehen.
+          </p>
+          <h2>
+            Was genau sind Cookies?
+          </h2>
+          <p>
+            Immer wenn Sie durch das Internet surfen, verwenden Sie einen Browser. Bekannte Browser sind beispielsweise Chrome, Safari, Firefox, Internet Explorer und Microsoft Edge. Die meisten Webseiten speichern kleine Text-Dateien in Ihrem Browser. Diese Dateien nennt man Cookies.
+            <br><br>
+            Eines ist nicht von der Hand zu weisen: Cookies sind echt nützliche Helferlein. Fast alle Webseiten verwenden Cookies. Genauer gesprochen sind es HTTP-Cookies, da es auch noch andere Cookies für andere Anwendungsbereiche gibt. HTTP-Cookies sind kleine Dateien, die von unserer Website auf Ihrem Computer gespeichert werden. Diese Cookie-Dateien werden automatisch im Cookie-Ordner, quasi dem “Hirn” Ihres Browsers, untergebracht. Ein Cookie besteht aus einem Namen und einem Wert. Bei der Definition eines Cookies müssen zusätzlich ein oder mehrere Attribute angegeben werden.
+            <br><br>
+            Cookies speichern gewisse Nutzerdaten von Ihnen, wie beispielsweise Sprache oder persönliche Seiteneinstellungen. Wenn Sie unsere Seite wieder aufrufen, übermittelt Ihr Browser die „userbezogenen“ Informationen an unsere Seite zurück. Dank der Cookies weiß unsere Website, wer Sie sind und bietet Ihnen Ihre gewohnte Standardeinstellung. In einigen Browsern hat jedes Cookie eine eigene Datei, in anderen wie beispielsweise Firefox sind alle Cookies in einer einzigen Datei gespeichert.
+            <br><br>
+            Es gibt sowohl Erstanbieter Cookies als auch Drittanbieter-Cookies. Erstanbieter-Cookies werden direkt von unserer Seite erstellt, Drittanbieter-Cookies werden von Partner-Webseiten (z.B. Google Analytics) erstellt. Jedes Cookie ist individuell zu bewerten, da jedes Cookie andere Daten speichert. Auch die Ablaufzeit eines Cookies variiert von ein paar Minuten bis hin zu ein paar Jahren. Cookies sind keine Software-Programme und enthalten keine Viren, Trojaner oder andere „Schädlinge“. Cookies können auch nicht auf Informationen Ihres PCs zugreifen.
+            <br><br>
+            So können zum Beispiel Cookie-Daten aussehen:
+            <br><br>
+            • Name: _ga<br>
+            • Ablaufzeit: 2 Jahre<br>
+            • Verwendung: Unterscheidung der Webseitenbesucher<br>
+            • Beispielhafter Wert: GA1.2.1326744211.152311260426<br><br>
+            Ein Browser sollte folgende Mindestgrößen unterstützen:
+            <br><br>
+            • Ein Cookie soll mindestens 4096 Bytes enthalten können<br>
+            • Pro Domain sollen mindestens 50 Cookies gespeichert werden können<br>
+            • Insgesamt sollen mindestens 3000 Cookies gespeichert werden können
+          </p>
+          <h2>
+            Wie kann ich Cookies löschen?
+          </h2>
+          <p>
+            Wie und ob Sie Cookies verwenden wollen, entscheiden Sie selbst. Unabhängig von welchem Service oder welcher Website die Cookies stammen, haben Sie immer die Möglichkeit Cookies zu löschen, nur teilweise zuzulassen oder zu deaktivieren. Zum Beispiel können Sie Cookies von Drittanbietern blockieren, aber alle anderen Cookies zulassen.
+            <br><br>
+            Wenn Sie feststellen möchten, welche Cookies in Ihrem Browser gespeichert wurden, wenn Sie Cookie-Einstellungen ändern oder löschen wollen, können Sie dies in Ihren Browser-Einstellungen finden:
+            <br><br>
+            Chrome: Cookies in Chrome löschen, aktivieren und verwalten
+            <br><br>
+            Safari: Verwalten von Cookies und Websitedaten mit Safari
+            <br><br>
+            Firefox: Cookies löschen, um Daten zu entfernen, die Websites auf Ihrem Computer abgelegt haben
+            <br><br>
+            Internet Explorer: Löschen und Verwalten von Cookies
+            <br><br>
+            Microsoft Edge: Löschen und Verwalten von Cookies
+            <br><br>
+            Falls Sie grundsätzlich keine Cookies haben wollen, können Sie Ihren Browser so einrichten, dass er Sie immer informiert, wenn ein Cookie gesetzt werden soll. So können Sie bei jedem einzelnen Cookie entscheiden, ob Sie das Cookie erlauben oder nicht. Die Vorgangsweise ist je nach Browser verschieden. Am besten ist es Sie suchen die Anleitung in Google mit dem Suchbegriff “Cookies löschen Chrome” oder “Cookies deaktivieren Chrome” im Falle eines Chrome Browsers oder tauschen das Wort “Chrome” gegen den Namen Ihres Browsers, z.B. Edge, Firefox, Safari aus.
+          </p>
+          <h2>
+            Wie sieht es mit meinem Datenschutz aus?
+          </h2>
+          <p>
+            Seit 2009 gibt es die sogenannten „Cookie-Richtlinien“. Darin ist festgehalten, dass das Speichern von Cookies eine Einwilligung von Ihnen verlangt. Innerhalb der EU-Länder gibt es allerdings noch sehr unterschiedliche Reaktionen auf diese Richtlinien. In Deutschland wurden die Cookie-Richtlinien nicht als nationales Recht umgesetzt. Stattdessen erfolgte die Umsetzung dieser Richtlinie weitgehend in § 15 Abs.3 des Telemediengesetzes (TMG).
+            <br><br>
+            Wenn Sie mehr über Cookies wissen möchten und technischen Dokumentationen nicht scheuen, empfehlen wir https://tools.ietf.org/html/rfc6265, dem Request for Comments der Internet Engineering Task Force (IETF) namens “HTTP State Management Mechanism”.
+          </p>
+          <h2>
+            Speicherung persönlicher Daten
+          </h2>
+          <p>
+            Persönliche Daten, die Sie uns auf dieser Website elektronisch übermitteln, wie zum Beispiel Name, E-Mail-Adresse, Adresse oder andere persönlichen Angaben im Rahmen der Übermittlung eines Formulars oder Kommentaren im Blog, werden von uns gemeinsam mit dem Zeitpunkt und der IP-Adresse nur zum jeweils angegebenen Zweck verwendet, sicher verwahrt und nicht an Dritte weitergegeben.
+            <br><br>
+            Wir nutzen Ihre persönlichen Daten somit nur für die Kommunikation mit jenen Besuchern, die Kontakt ausdrücklich wünschen und für die Abwicklung der auf dieser Webseite angebotenen Dienstleistungen und Produkte. Wir geben Ihre persönlichen Daten ohne Zustimmung nicht weiter, können jedoch nicht ausschließen, dass diese Daten beim Vorliegen von rechtswidrigem Verhalten eingesehen werden.
+            <br><br>
+            Wenn Sie uns persönliche Daten per E-Mail schicken – somit abseits dieser Webseite – können wir keine sichere Übertragung und den Schutz Ihrer Daten garantieren. Wir empfehlen Ihnen, vertrauliche Daten niemals unverschlüsselt per E-Mail zu übermitteln.
+            <br><br>
+            Die Rechtsgrundlage besteht nach Artikel 6  Absatz 1 a DSGVO (Rechtmäßigkeit der Verarbeitung) darin, dass Sie uns die Einwilligung zur Verarbeitung der von Ihnen eingegebenen Daten geben. Sie können diesen Einwilligung jederzeit widerrufen – eine formlose E-Mail reicht aus, Sie finden unsere Kontaktdaten im Impressum.
+          </p>
+          <h2>
+            Rechte laut Datenschutzgrundverordnung
+          </h2>
+          <p>
+            Ihnen stehen laut den Bestimmungen der DSGVO grundsätzlich die folgende Rechte zu:
+            <br><br>
+            • Recht auf Berichtigung (Artikel 16 DSGVO)<br>
+            • Recht auf Löschung („Recht auf Vergessenwerden“) (Artikel 17 DSGVO)<br>
+            • Recht auf Einschränkung der Verarbeitung (Artikel 18 DSGVO)<br>
+            • Recht auf Benachrichtigung – Mitteilungspflicht im Zusammenhang mit der Berichtigung oder Löschung personenbezogener Daten oder der Einschränkung der Verarbeitung (Artikel 19 DSGVO)<br>
+            • Recht auf Datenübertragbarkeit (Artikel 20 DSGVO)<br>
+            • Widerspruchsrecht (Artikel 21 DSGVO)<br>
+            • Recht, nicht einer ausschließlich auf einer automatisierten Verarbeitung — einschließlich Profiling — beruhenden Entscheidung unterworfen zu werden (Artikel 22 DSGVO)<br><br>
+            Wenn Sie glauben, dass die Verarbeitung Ihrer Daten gegen das Datenschutzrecht verstößt oder Ihre datenschutzrechtlichen Ansprüche sonst in einer Weise verletzt worden sind, können Sie sich an die Bundesbeauftragte für den Datenschutz und die Informationsfreiheit (BfDI) wenden.
+          </p>
+          <h2>
+            Google Maps Datenschutzerklärung
+          </h2>
+          <p>
+            Wir benützen auf unserer Website Google Maps der Firma Google Inc. Für den europäischen Raum ist das Unternehmen Google Ireland Limited (Gordon House, Barrow Street Dublin 4, Irland) für alle Google-Dienste verantwortlich. Mit Google Maps können wir Ihnen Standorte besser zeigen und damit unser Service an Ihre Bedürfnisse anpassen. Durch die Verwendung von Google Maps werden Daten an Google übertragen und auf den Google-Servern gespeichert. Hier wollen wir nun genauer darauf eingehen, was Google Maps ist, warum wir diesen Google-Dienst in Anspruch nehmen, welche Daten gespeichert werden und wie Sie dies unterbinden können.
+          </p>
+          <h2>
+            Was ist Google Maps?
+          </h2>
+          <p>
+            Google Maps ist ein Internet-Kartendienst der Firma Google. Mit Google Maps können Sie online über einen PC, ein Tablet oder eine App genaue Standorte von Städten, Sehenswürdigkeiten, Unterkünften oder Unternehmen suchen. Wenn Unternehmen auf Google My Business vertreten sind, werden neben dem Standort noch weitere Informationen über die Firma angezeigt. Um die Anfahrtsmöglichkeit anzuzeigen, können Kartenausschnitte eines Standorts mittels HTML-Code in eine Website eingebunden werden. Google Maps zeigt die Erdoberfläche als Straßenkarte oder als Luft- bzw. Satellitenbild. Dank der Street View Bilder und den hochwertigen Satellitenbildern sind sehr genaue Darstellungen möglich.
+          </p>
+          <h2>
+            Warum verwenden wir Google Maps auf unserer Webseite?
+          </h2>
+          <p>
+            All unsere Bemühungen auf dieser Seite verfolgen das Ziel, Ihnen eine nützliche und sinnvolle Zeit auf unserer Webseite zu bieten. Durch die Einbindung von Google Maps können wir Ihnen die wichtigsten Informationen zu diversen Standorten liefern. Sie sehen auf einen Blick wo wir unseren Firmensitz haben. Die Wegbeschreibung zeigt Ihnen immer den besten bzw. schnellsten Weg zu uns. Sie können den Anfahrtsweg für Routen mit dem Auto, mit öffentlichen Verkehrsmitteln, zu Fuß oder mit dem Fahrrad abrufen. Für uns ist die Bereitstellung von Google Maps Teil unseres Kundenservice. 
+          </p>
+          <h2>
+            Welche Daten werden von Google Maps gespeichert?
+          </h2>
+          <p>
+            Damit Google Maps ihren Dienst vollständig anbieten kann, muss das Unternehmen Daten von Ihnen aufnehmen und speichern. Dazu zählen unter anderem die eingegebenen Suchbegriffe, Ihre IP-Adresse und auch die Breiten- bzw. Längenkoordinaten. Benutzen Sie die Routenplaner-Funktion wird auch die eingegebene Startadresse gespeichert. Diese Datenspeicherung passiert allerdings auf den Webseiten von Google Maps. Wir können Sie darüber nur informieren, aber keinen Einfluss nehmen. Da wir Google Maps in unsere Webseite eingebunden haben, setzt Google mindestens ein Cookie (Name: NID) in Ihrem Browser. Dieses Cookie speichert Daten über Ihr Userverhalten. Google nutzt diese Daten in erster Linie, um eigene Dienste zu optimieren und individuelle, personalisierte Werbung für Sie bereitzustellen.
+            <br><br>
+            Folgendes Cookie wird aufgrund der Einbindung von Google Maps in Ihrem Browser gesetzt:
+            <br><br>
+            • Name: NID<br>
+            • Wert: 188=h26c1Ktha7fCQTx8rXgLyATyITJ311260427-5<br>
+            • Verwendungszweck: NID wird von Google verwendet, um Werbeanzeigen an Ihre Google-Suche anzupassen. Mit Hilfe des Cookies „erinnert“ sich Google an Ihre am häufigsten eingegebenen Suchanfragen oder Ihre frühere Interaktion mit Anzeigen. So bekommen Sie immer maßgeschneiderte Werbeanzeigen. Das Cookie enthält eine einzigartige ID, die Google benutzt, um Ihre persönlichen Einstellungen für Werbezwecke zu sammeln.<br>
+            • Ablaufdatum: nach 6 Monaten
+            <br><br>
+            • Anmerkung: Wir können bei den Angaben der gespeicherten Daten keine Vollständigkeit gewährleisten. Speziell bei der Verwendung von Cookies sind Veränderungen nie auszuschließen. Um das Cookie NID zu identifizieren, wurde eine eigene Testseite angelegt, wo ausschließlich Google Maps eingebunden war.
+          </p>
+          <h2>
+            Wie kann ich meine Daten löschen bzw. die Datenspeicherung verhindern?
+          </h2>
+          <p>
+            Mit der 2019 eingeführten automatischen Löschfunktion von Standort- und Aktivitätsdaten werden Informationen zur Standortbestimmung und Web-/App-Aktivität – abhängig von Ihrer Entscheidung – entweder 3 oder 18 Monate gespeichert und dann gelöscht. Zudem kann man diese Daten über das Google-Konto auch jederzeit manuell aus dem Verlauf löschen. Wenn Sie Ihre Standorterfassung vollständig verhindern wollen, müssen Sie im Google-Konto die Rubrik „Web- und App-Aktivität“ pausieren. Klicken Sie „Daten und Personalisierung“ und dann auf die Option „Aktivitätseinstellung“. Hier können Sie die Aktivitäten ein- oder ausschalten.
+            <br><br>
+            In Ihrem Browser können Sie weiters auch einzelne Cookies deaktivieren, löschen oder verwalten. Je nach dem welchen Browser Sie verwenden, funktioniert dies immer etwas anders. Die folgenden Anleitungen zeigen, wie Sie Cookies in Ihrem Browser verwalten:
+            <br><br>
+            Chrome: Cookies in Chrome löschen, aktivieren und verwalten
+            <br><br>
+            Safari: Verwalten von Cookies und Websitedaten mit Safari
+            <br><br>
+            Firefox: Cookies löschen, um Daten zu entfernen, die Websites auf Ihrem Computer abgelegt haben
+            <br><br>
+            Internet Explorer: Löschen und Verwalten von Cookies
+            <br><br>
+            Microsoft Edge: Löschen und Verwalten von Cookies
+            <br><br>
+            Falls Sie grundsätzlich keine Cookies haben wollen, können Sie Ihren Browser so einrichten, dass er Sie immer informiert, wenn ein Cookie gesetzt werden soll. So können Sie bei jedem einzelnen Cookie entscheiden, ob Sie es erlauben oder nicht.
+            <br><br>
+            Google ist aktiver Teilnehmer beim EU-U.S. Privacy Shield Framework, wodurch der korrekte und sichere Datentransfer persönlicher Daten geregelt wird. Mehr Informationen dazu finden Sie auf https://www.privacyshield.gov/participant?id=a2zt000000001L5AAI. Wenn Sie mehr über die Datenverarbeitung von Google erfahren wollen, empfehlen wir Ihnen die hauseigene Datenschutzerklärung des Unternehmens unter https://policies.google.com/privacy?hl=de.
+          </p>
+          <h2>
+            jQuery CDN Datenschutzerklärung
+          </h2>
+          <p>
+            Um Ihnen unsere Website bzw. all unsere einzelnen Unterseiten (Webseiten) auf unterschiedlichen Geräten schnell und problemlos auszuliefern, nutzen wir Dienste von jQuery CDN des Unternehmens jQuery Foundation. jQuery wird über das Content Delivery Network (CDN) des amerikanischen Software-Unternehmens StackPath (LCC 2012 McKinney Ave. Suite 1100, Dallas, TX 75201, USA) verteilt. Durch diesen Dienst werden personenbezogene Daten von Ihnen gespeichert, verwaltet und verarbeitet.
+            <br><br>
+            Ein Content Delivery Network (CDN) ist ein Netzwerk regional verteilter Server, die über das Internet miteinander verbunden sind. Durch dieses Netzwerk können Inhalte, speziell sehr große Dateien, auch bei großen Lastspitzen schnell ausgeliefert werden.
+            <br><br>
+            jQuery nutzt JavaScript-Bibliotheken, um unsere Website-Inhalte zügig ausliefern zu können. Dafür lädt ein CDN-Server die nötigen Dateien. Sobald eine Verbindung zum CDN-Server aufgebaut ist, wird Ihre IP-Adresse erfasst und gespeichert. Das geschieht nur, wenn diese Daten nicht schon durch einen vergangenen Websitebesuch in Ihrem Browser gespeichert sind.
+            <br><br>
+            In den Datenschutz-Richtlinien von StackPath wird ausdrücklich erwähnt, dass StackPath aggregierte und anonymisierte Daten von diversen Diensten (wie eben auch jQuery) für die Erweiterung der Sicherheit und für eigene Dienste benutzen. Durch diese Daten können Sie als Person allerdings nicht identifiziert werden.
+            <br><br>
+            Wenn Sie nicht wollen, dass es zu dieser Datenübertragung kommt, haben Sie immer auch die Möglichkeit Java-Scriptblocker wie beispielsweise ghostery.com oder noscript.net zu installieren. Sie können aber auch einfach in Ihrem Browser die Ausführung von JavaScript-Codes deaktivieren. Wenn Sie sich für die Deaktivierung von JavaScript-Codes entscheiden, verändern sich auch die gewohnten Funktionen. So wird beispielsweise eine Website nicht mehr so schnell geladen.
+            <br><br>
+            StackPath ist aktiver Teilnehmer beim EU-U.S. Privacy Shield Framework, wodurch der korrekte und sichere Datentransfer persönlicher Daten geregelt wird. Mehr Informationen dazu finden Sie auf https://www.privacyshield.gov/participant?id=a2zt0000000CbahAAC&status=Active.
+            Mehr Informationen zum Datenschutz bei StackPath finden Sie unter https://www.stackpath.com/legal/privacy-statement/ und zu jQuery unter https://openjsf.org/wp-content/uploads/sites/84/2019/11/OpenJS-Foundation-Privacy-Policy-2019-11-15.pdf.
+          </p>
+          <h2>
+            BootstrapCDN Datenschutzerklärung
+          </h2>
+          <p>
+            Um Ihnen all unsere einzelnen Webseiten (Unterseiten unserer Website) auf allen Geräten schnell und sicher ausliefern zu können, nutzen wir das Content Delivery Network (CDN) BootstrapCDN des amerikanischen Software-Unternehmens StackPath, LLC 2012 McKinney Ave. Suite 1100, Dallas, TX 75201, USA.
+            <br><br>
+            Ein Content Delivery Network (CDN) ist ein Netzwerk regional verteilter Server, die über das Internet miteinander verbunden sind. Durch dieses Netzwerk können Inhalte, speziell sehr große Dateien, auch bei großen Lastspitzen schnell ausgeliefert werden.
+            <br><br>
+            BootstrapCDN funktioniert so, dass sogenannte JavaScript-Bibliotheken an Ihren Browser ausgeliefert werden. Lädt nun Ihr Browser eine Datei vom BootstrapCDN herunter, wird Ihre IP-Adresse während der Verbindung zum Bootstrap-CDN-Server an das Unternehmen StockPath übermittelt.
+            <br><br>
+            StackPath erwähnt auch in der hauseigenen Datenschutzerklärung, dass das Unternehmen aggregierte und anonymisierte Daten von diversen Diensten (wie BootstrapCDN) für die Erweiterung der Sicherung und für andere StackPath-Dienste und Clients verwenden. All diese Daten können aber keine Person identifizieren.
+            <br><br>
+            Wenn Sie diese Datenübertragung unterbinden wollen, können Sie einen JavaScript-Blocker (siehe beispielsweise https://noscript.net/) installieren oder in Ihrem Browser die Ausführung von JavaScript-Codes deaktivieren. Bitte beachten Sie aber, dass dadurch die Website nicht mehr das gewohnte Service (wie etwa schnelle Ladegeschwindigkeit) bieten kann.
+            <br><br>
+            StackPath ist aktiver Teilnehmer beim EU-U.S. Privacy Shield Framework, wodurch der korrekte und sichere Datentransfer persönlicher Daten geregelt wird. Mehr Informationen dazu finden Sie auf https://www.privacyshield.gov/participant?id=a2zt0000000CbahAAC&status=Active.
+            Mehr Informationen zum Datenschutz bei StackPath bzw. BootstrapCDN finden Sie auf https://www.bootstrapcdn.com/privacy-policy/.
+            <br><br>
+            Quelle: Erstellt mit dem Datenschutz Generator von AdSimple in Kooperation mit fashiongott.de
+          </p>
+    </div>
+  
+  <footer class="mobFoot" style="margin-top: 60px;">
+      <div class="container">
+         <span style="margin-right: 10px;">&copy;</span> <img src="../../../assets/img/GostroMob.png">  <span style="margin-left: 10px; margin-bottom: -40px;">All Rights Reserved.</span> 
+      </div>
+  </footer>
+  <hr style="margin-top: 30px;">
+</body>
+    

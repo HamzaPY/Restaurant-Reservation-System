@@ -1,0 +1,61 @@
+<body>
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav justify-content-end ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/adminDashboard">Instrumententafel</a>
+        </li>
+        <a class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+      </ul>
+    </div>
+    </div>
+    </nav>
+
+    <div class="container">
+            <div class="col-sm-8 mx-auto">
+              <h5 class="text-center">Restaurants verwalten</h5><br>
+              <hr style="margin-bottom: 70px;">
+          </div>
+          <div class="spinner-border" id="loading" role="status"> 
+          </div> 
+          <p *ngIf="Restaurants.length <= 0 && shower == 1" class="no-data text-center noData">Es wurden noch keine Restaurants hinzugefügt!</p>
+      
+          <!-- Employee list -->
+          <div style="overflow-x:auto;">
+          <table class="table table-bordered" *ngIf="Restaurants.length > 0">
+            <thead class="tHead">
+              <tr>
+                <th scope="col">Restaurant Name</th>
+                <th scope="col">Restaurant Ort</th>
+                <th scope="col">Restaurant Kontakt</th>
+                <th scope="col">Restaurant Kategorie</th>
+                <th scope="col">Operationen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let rest of Restaurants; let i = index">
+                <td>{{rest.name}}</td>
+                <td>{{rest.city}}</td>
+                <td>{{rest.contact}}</td>
+                <td>{{rest.category}}</td>
+                <td class="text-center edit-block">
+                    <span class="edit" [routerLink]="['/editRestaurant/', rest._id]">
+                        <button type="button" class="btn btn-success btn-sm" style="margin-right: 20px;">Bearbeiten</button>
+                      </span>
+                      <span class="delete" (click)="removeEmployee(rest._id, rest.name)">
+                        <button type="button" class="btn btn-danger btn-sm">Löschen</button>
+                      </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        </div>
+
+</body>

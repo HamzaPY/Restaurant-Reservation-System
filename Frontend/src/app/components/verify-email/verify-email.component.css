@@ -1,0 +1,1200 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+
+
+.spinner-border{ 
+    z-index: 1; 
+    width: 150px; 
+    height: 150px; 
+    margin-top: 60px;
+    margin-left: 680px;
+    border: 16px solid #f3f3f3; 
+    border-radius: 50%; 
+    border-top: 16px solid #eb3c2e; 
+    width: 120px; 
+    height: 120px; 
+    animation: spin 2s linear infinite; 
+    } 
+      
+    @keyframes spin { 
+      0% { transform: rotate(0deg); } 
+      100% { transform: rotate(360deg); } 
+    }
+
+    .spinner-border2{ 
+        z-index: 1; 
+        margin-top: 30px;
+        margin-left: 145px;
+        margin-bottom: 20px;
+        border: 16px solid #f3f3f3; 
+        border-radius: 50%; 
+        border-top: 16px solid #eb3c2e; 
+        width: 100px; 
+        height: 100px; 
+        animation: spin 2s linear infinite; 
+        } 
+          
+        @keyframes spin { 
+          0% { transform: rotate(0deg); } 
+          100% { transform: rotate(360deg); } 
+        }
+
+    form {
+        margin: 0px auto 0px;
+        padding: 40px 40px 40px;
+        border-radius: 5px;
+        font-size: 1.1em;
+        background-color: white;
+      }
+      
+      label {
+        color: #eb3c2e;
+        font-weight: bold;
+      }
+
+
+.navbar-brand {
+    padding-top: 30px;
+}
+
+.nav-link {
+    color: black;
+    padding-top: 45px;
+    margin-right: 40px;
+    font-weight: bold;
+    margin-bottom: 11px;
+}
+
+.loginBtn { 
+    margin-top: 33px;
+    margin-bottom: 10px;
+    padding: 12px 15px 12px 15px; 
+    border-radius: 5px;
+    background: #FF4040;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: red;
+}
+
+.loginBtn:hover {
+    color: white;
+    background-color: #d43737;
+}
+
+h1 {
+    font-size: 45px;
+    color: white;
+    font-family: 'Inter', sans-serif;
+}
+
+h3 {
+	font-weight: bold;
+    color:black;
+    font-family: 'FontAwesome', 'Inter';
+}
+
+h2 {
+    margin-top: 200px;
+    text-align: center;
+    font-size: 26px;
+    font-weight: 500;
+    color: #FF4040;
+    font-family: 'Inter', sans-serif;
+}
+
+h4 {
+    font-size: 24px;
+    font-weight: 500;
+    color:black;
+    font-family: 'Inter', sans-serif;
+}
+
+.locAcusin {
+    margin-top: -5px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+}
+
+.booker {
+    font-size: 13px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 0px;
+}
+
+.webLoc {
+    margin-top: 37px;
+    margin-left: 45px;
+}
+
+.carousel-nav-icon {
+    height: 48px;
+    width: 48px;
+ }
+ .carousel-item .col, .col-sm, .col-md {
+       margin: 8px;
+       height: 300px;
+       background-size: cover;
+       background-position: center center;
+}
+
+.cateCard {
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow;
+    cursor: pointer;
+}
+
+.cateCard:hover{
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    cursor: pointer;
+}
+
+.slash {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.deskJumb {
+    background-image: url("../../../assets/img/back.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 200px;
+}
+
+.footer {
+    margin-top: 200px;
+}
+
+.android {
+    margin-top: 88px;
+    height: 80px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+    background-color: #eb3c2e;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+}
+
+.android-text {
+    margin-top: 10px;
+    float: right; 
+    margin-left: 10px;
+    line-height: 20px;
+}
+
+.aText1 {
+    text-align: left;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.aText2 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.android:hover {
+    background-color: #8b0000;
+    color: white;
+}
+
+.ios2:hover {
+    background-color:#4B4B4B;
+    color: white;
+}
+
+.ios2 {
+    margin-left: -10px;
+    margin-top: 64px;
+    height: 80px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+}
+
+.arrows {
+    margin-left: 500px; 
+    margin-bottom: 100px;
+    position: relative;
+    bottom: -125px;
+    right: 510px;
+    z-index: 1;
+    font-size: 40px; 
+    color:black;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-size: 22px;
+    border: 1px solid #c7c7c7;
+    border-radius: 30px;
+    background-color: white;
+}
+
+.arrows2 {
+    position: relative;
+    bottom: -125px;
+    right: -522px;
+    z-index: 1;
+    font-size: 40px; 
+    color:black;
+    padding-left: 18px;
+    padding-right: 18px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    font-size: 22px;
+    border: 1px solid #c7c7c7;
+    border-radius: 30px;
+    background-color: white;
+}
+
+.arrows:hover, .arrows2:hover {
+    background-color: #f5f5f5;
+}
+  
+.dashbutton {
+    position: absolute;
+    top: 384px;
+    left: 1153px;
+    text-decoration: none;
+    color: white;
+    background-color: #FF4040;
+    border-radius: 30px;
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 17px;
+    padding-top: 17px;
+    margin-bottom: 20px;
+    margin-left: -80px;
+    font-size: 15px;
+}
+
+.dashbutton:hover {
+    background-color: #d43737;
+}
+
+.dashbuttonFox {
+    position: absolute;
+    top: 384px;
+    left: 1219px;
+    text-decoration: none;
+    color: white;
+    background-color: #FF4040;
+    border-radius: 30px;
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 17px;
+    padding-top: 17px;
+    margin-bottom: 20px;
+    margin-left: -80px;
+    font-size: 15px;
+}
+
+.dashbuttonFox:hover {
+    background-color: #d43737;
+}
+
+select  {
+    font-family: 'FontAwesome', 'Inter';
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+    
+    background: url("../../../assets/img/menuArrow.png") no-repeat right white;
+}
+
+input {
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.reserve {
+    background-color: white;
+    margin-left: 300px;
+    padding-left: 65px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top-left-radius: 35px;
+    border-bottom-left-radius: 35px;
+    cursor: pointer;
+    border: 1px solid white;
+
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+    background: url("../../../assets/img/menuArrow.png") no-repeat right white;
+}
+
+agm-map {
+    height: 400px;
+  }
+  
+  .autocomplete-container {
+    padding: 1rem 0 1rem 0;
+    width: 50%;
+  }
+
+
+.reserve2 {
+    background-color: white;
+    margin-left: -29px;
+    padding-left: 45px;
+    padding-right: 40px;
+    border-left: 2px solid #dbdbdb;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    cursor: pointer;
+}
+
+.reserve3 {
+    background-color: white;
+    margin-left: -29px;
+    padding-left: 45px;
+    padding-right: 40px;
+    border-left: 2px solid #dbdbdb;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    cursor: pointer;
+}
+
+.caln {
+    font-family: 'FontAwesome', 'Inter';
+    position: relative;
+    left: 90px;
+    top: 19px;
+}
+
+.timen {
+    font-family: 'FontAwesome', 'Inter';
+    position: relative;
+    left: 15px;
+    top: 19px;
+}
+
+.peoplen {
+    font-family: 'FontAwesome', 'Inter';
+    position: relative;
+    left: 18px;
+    top: 19px;
+}
+
+.locn {
+    font-family: 'FontAwesome', 'Inter';
+    position: relative;
+    left: 0px;
+    bottom: 1px;
+}
+
+.calarrow {
+    font-family: 'FontAwesome', 'Inter';
+    position: relative;
+    right: 35px;
+    top: 17px;
+    font-size: 20px;
+}
+
+.searcher {
+    background-color: white;
+    margin-left: -1px;
+    padding-left: 20px;
+    padding-right: 110px;
+    border-left: 2px solid #dbdbdb;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    font-family: 'FontAwesome', 'Inter';
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+}
+
+
+.searcherFox {
+    background-color: white;
+    margin-left: -1px;
+    padding-left: 20px;
+    padding-right: 0px;
+    border-left: 2px solid #dbdbdb;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    font-family: 'FontAwesome', 'Inter';
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+    -webkit-appearance: none; 
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    border: 1px solid white;
+    padding: 20px 35px 20px 35px;
+    font-size: 35px;
+  }
+
+  .locBox {
+    box-shadow: 0 6px 10px rgba(0,0,0,.08), 0 0 6px rgba(0,0,0,.05);
+    transition: .3s transform cubic-bezier(.155,1.105,.295,1.12),.3s box-shadow,.3s -webkit-transform cubic-bezier(.155,1.105,.295,1.12);
+    cursor: pointer;
+}
+
+.locBox:hover{
+    transform: scale(1.03);
+    box-shadow: 0 10px 20px rgba(0,0,0,.12), 0 4px 8px rgba(0,0,0,.06);
+    cursor: pointer;
+}
+
+.allRestList {
+    margin-top: 30px;
+}
+
+.restList {
+    margin-top: 70px;
+}
+
+.deliList {
+    margin-top: 60px;
+}
+
+.bookList {
+    margin-top: 60px;
+}
+
+
+.restList2 {
+    margin-top: 60px;
+}
+
+.restList3 {
+    margin-top: 60px;
+}
+
+
+.euroP {
+    font-size: 15px;
+}
+
+.getCurrLoc {
+    font-size: 16px; 
+    margin-top: 20px; 
+    margin-bottom: 20px; 
+    cursor: pointer;
+}
+
+.mobHomeHeader {
+    display: none;
+}
+
+.mobCuisineList {
+    display: none;
+}
+
+.mobAllRest {
+    display: none;
+}
+
+.mobRestList1 {
+    display: none;
+}
+
+.mobRestList2 {
+    display: none;
+}
+
+.mobRestList3 {
+    display: none;
+}
+
+.flex-container {
+    box-sizing: border-box;
+    display: flex;
+}
+
+.registerTitle {
+    margin-left: 92px; 
+    margin-top: 30px; 
+    color: #FF4040; 
+    font-size: 26px; 
+    font-weight: 600;
+}
+
+.loginTitle {
+    margin-left: 132px; 
+    margin-top: 30px; 
+    color: #FF4040; 
+    font-size: 26px; 
+    font-weight: 600;
+}
+
+.mobGetLoc {
+    display: none;
+}
+
+.mobLogo {
+    display: none;
+}
+
+    @media (min-width: 1360px) and (max-width: 1700px) {
+        .reserve {
+            margin-left: 30px;
+        }
+    }
+
+    @media (min-width: 1700px) {
+        .caln {
+            left: 340px;
+            top: 19px;
+        }
+        .dashbutton {
+            position: absolute;
+            top: 384px;
+            left: 1403px;
+        }
+        .dashbuttonFox {
+            position: absolute;
+            top: 384px;
+            left: 1470px;
+        }
+        .reserve {
+            margin-left: 280px;
+        }
+    }
+
+    @media (min-width: 1360px) and (max-width: 1400px) {
+        .reserve {
+            margin-left: 30px;
+        }
+        .dashbuttonFox {
+            position: absolute;
+            top: 384px;
+            left: 1195px;
+        }
+    }
+    
+    @media (min-width: 1340px) and (max-width: 1360px) {
+        .caln {
+            left: 60px;
+            top: 19px;
+        }
+        .dashbutton {
+            position: absolute;
+            top: 384px;
+            left: 1124px;
+        }
+        .dashbuttonFox {
+            position: absolute;
+            top: 384px;
+            left: 1165px;
+        }
+        .reserve {
+            margin-left: 0px;
+        }
+    }
+
+    @media (min-width: 1000px) and (max-width: 1340px) {
+        .caln {
+            left: 60px;
+            top: 19px;
+        }
+        .dashbutton {
+            position: absolute;
+            top: 384px;
+            left: 1115px;
+        }
+        .dashbuttonFox {
+            position: absolute;
+            top: 384px;
+            left: 1180px;
+        }
+        .reserve {
+            margin-right: 8px;
+            margin-left: 0px;
+        }
+        .reserve2 {
+            margin-right: 8px;
+        }
+    }
+
+    @media only screen and (max-width: 400px) {
+        .navbar-brand {
+          padding-top: 10px;
+        }
+
+        h2 {
+            margin-top: 200px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            color: #FF4040;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mobJumbH {
+            font-size: 32px; 
+            margin-top: 40px; 
+            line-height: 38px; 
+            margin-left: 0px;
+        }
+
+        .mobJumb {
+            background-image: url("../../../assets/img/mobBack.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-left: 50px;
+        }
+
+        .flex-container {
+            display: flex;
+        }
+
+
+        .reserveMob {
+            background-color: white;
+            margin-left: -45px;
+            border: 1px solid white;
+            padding-top: 17px;
+            padding-bottom: 17px;
+            border-radius: 32px;
+            padding-left: 60px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .reserve2Mob {
+            background-color: white;
+            margin-left: -125px;
+            border: 1px solid white;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            border-radius: 32px;
+            padding-left: 28px;
+            padding-right: 28px;
+            cursor: pointer;
+            margin-top: 0px;
+        }
+
+        .reserve3Mob {
+            background-color: white;
+            margin-left: -40px;
+            border: 1px solid white;
+            padding-top: 17px;
+            padding-bottom: 17px;
+            border-radius: 32px;
+            padding-left: 60px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .searcherMob {
+            background-color: white;
+            margin-left: -40px;
+            border: 1px solid white;
+            padding-top: 17px;
+            padding-bottom: 17px;
+            border-radius: 32px;
+            padding-left: 60px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .dashbuttonMob {
+            margin-left: -15px;
+            text-decoration: none;
+            color: white;
+            background-color: #FF4040;
+            padding-top: 17px;
+            padding-bottom: 17px;
+            border-radius: 32px;
+            padding-left: 10px;
+            font-size: 15px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .calnMob {
+            font-family: 'FontAwesome', 'Inter';
+            position: relative;
+            left: 10px;
+            top: 15px;
+        }
+
+        .lineMob {
+            font-family: 'FontAwesome', 'Inter';
+            position: relative;
+            left: -129px;
+            top: 13px;
+        }
+
+        .timenMob {
+            font-family: 'FontAwesome', 'Inter';
+            position: relative;
+            left: -110px;
+            top: 16px;
+        }
+
+        .peoplenMob {
+            font-family: 'FontAwesome', 'Inter';
+            position: relative;
+            left: 10px;
+            top: -1px;
+        }
+
+        .locnMob {
+            font-family: 'FontAwesome', 'Inter';
+            position: relative;
+            left: 10px;
+            top: -2px;
+        }
+
+        .deskHomeHeader {
+            display: none;
+        }
+
+        .mobHomeHeader {
+            display: block;
+        }
+
+        .deskAllRest {
+            display: none;
+        }
+
+        .mobAllRest {
+            display: block;
+        }
+
+        .deskRestList1 {
+            display: none;
+        }
+
+        .mobRestList1 {
+            display: block;
+        }
+
+        .deskRestList2 {
+            display: none;
+        }
+
+        .mobRestList2 {
+            display: block;
+        }
+
+        .deskRestList3 {
+            display: none;
+        }
+
+        .mobRestList3 {
+            display: block;
+        }
+
+        .deskCuisineList {
+            display: none;
+        }
+
+        .mobCuisineList {
+            display: block;
+        }
+
+        .deskGetLoc {
+            display: none;
+        }
+
+        .mobGetLoc {
+            display: block;
+        }
+
+        .deskLogo {
+            display: none;
+        }
+
+        .mobLogo {
+            display: block;
+        }
+
+        .navbar-toggler-icon {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .webLoc {
+            font-size: 11px;
+            margin-top: 20px;
+            margin-left: -30px;
+        }
+
+        .mobLocH {
+            font-size: 18px;
+        }
+
+        .mobLoc {
+            margin-top: 15px;
+        }
+
+        .deskFooter {
+            display: none;
+        }
+
+        .cateCard {
+            flex: 0 0 auto;
+            width: 270px;
+            margin-right: 15px;
+        }
+                
+        .scrolling-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+
+        .mobFoot {
+            text-align: center;
+        }
+
+        label {
+            font-size: 15px;
+        }
+
+        .registerTitle {
+            color: #FF4040; 
+            font-size: 24px;
+            text-align: center;
+            line-height: 30px;
+            margin-left: 40px; 
+            margin-top: 20px;
+        }
+
+        .loginTitle {
+            color: #FF4040; 
+            font-size: 24px;
+            text-align: center;
+            line-height: 30px;
+            margin-left: 75px; 
+            margin-top: 20px;
+        }
+
+        .btnCall {
+            background-color: white;
+            color: black;
+            padding-left: 12px;
+            padding-right: 10px;
+            font-size: 11px;   
+            border: 1px solid #d3d3d3;
+            margin-bottom: 10px;
+        }
+        
+        .btnCall:hover {
+            border: 1px solid #FF4040;
+        }
+    }
+
+    
+    @media only screen and (max-width: 600px) and (min-width: 400px) {
+        .navbar-brand {
+          padding-top: 10px;
+        }
+
+        h2 {
+            margin-top: 200px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            color: #FF4040;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .mobJumbH {
+            font-size: 32px; 
+            margin-top: 40px; 
+            line-height: 38px; 
+            margin-left: 15px;
+        }
+
+        .mobJumb {
+            background-image: url("../../../assets/img/mobBack.png");
+            background-repeat: no-repeat;
+            background-size: cover;
+            padding-left: 50px;
+        }
+
+        .flex-container {
+            display: flex;
+        }
+
+
+        .reserveMob {
+            background-color: white;
+            margin-left: -45px;
+            border: 1px solid white;
+            padding-top: 17px;
+            padding-bottom: 17px;
+            border-radius: 32px;
+            padding-left: 60px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .reserve2Mob {
+            background-color: white;
+            margin-left: -135px;
+            border: 1px solid white;
+            padding-top: 0px;
+            padding-bottom: 0px;
+            border-radius: 32px;
+            padding-left: 28px;
+            padding-right: 28px;
+            cursor: pointer;
+            margin-top: 0px;
+        }
+
+        .reserve3Mob {
+            background-color: white;
+            margin-left: -40px;
+            border: 1px solid white;
+            padding-top: 17px;
+            padding-bottom: 17px;
+            border-radius: 32px;
+            padding-left: 60px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .searcherMob {
+            background-color: white;
+            margin-left: -40px;
+            border: 1px solid white;
+            padding-top: 17px;
+            padding-bottom: 17px;
+            border-radius: 32px;
+            padding-left: 60px;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .dashbuttonMob {
+            margin-left: -15px;
+            text-decoration: none;
+            color: white;
+            background-color: #FF4040;
+            padding-top: 17px;
+            padding-bottom: 17px;
+            border-radius: 32px;
+            padding-left: 10px;
+            font-size: 15px;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .calnMob {
+            font-family: 'FontAwesome', 'Inter';
+            position: relative;
+            left: 7px;
+            top: 15px;
+        }
+
+        .lineMob {
+            font-family: 'FontAwesome', 'Inter';
+            position: relative;
+            left: -159px;
+            top: 13px;
+        }
+
+        .timenMob {
+            font-family: 'FontAwesome', 'Inter';
+            position: relative;
+            left: -130px;
+            top: 16px;
+        }
+
+        .peoplenMob {
+            font-family: 'FontAwesome', 'Inter';
+            position: relative;
+            left: 10px;
+            top: -1px;
+        }
+
+        .locnMob {
+            font-family: 'FontAwesome', 'Inter';
+            position: relative;
+            left: 10px;
+            top: -2px;
+        }
+
+        .getCurrLoc {
+            font-size: 13px; 
+            margin-top: 10px; 
+            margin-bottom: 20px; 
+            cursor: pointer;
+        }
+
+        .deskHomeHeader {
+            display: none;
+        }
+
+        .mobHomeHeader {
+            display: block;
+        }
+
+        .deskAllRest {
+            display: none;
+        }
+
+        .mobAllRest {
+            display: block;
+        }
+
+        .deskRestList1 {
+            display: none;
+        }
+
+        .mobRestList1 {
+            display: block;
+        }
+
+        .deskRestList2 {
+            display: none;
+        }
+
+        .mobRestList2 {
+            display: block;
+        }
+
+        .deskRestList3 {
+            display: none;
+        }
+
+        .mobRestList3 {
+            display: block;
+        }
+
+        .deskCuisineList {
+            display: none;
+        }
+
+        .mobCuisineList {
+            display: block;
+        }
+
+        .deskGetLoc {
+            display: none;
+        }
+
+        .mobGetLoc {
+            display: block;
+        }
+
+        .deskLogo {
+            display: none;
+        }
+
+        .mobLogo {
+            display: block;
+        }
+
+        .navbar-toggler-icon {
+            margin-top: 5px;
+            font-size: 14px;
+        }
+
+        .webLoc {
+            font-size: 12px;
+            margin-top: 20px;
+            margin-left: -70px;
+        }
+
+        .mobLocH {
+            font-size: 18px;
+        }
+
+        .mobLoc {
+            margin-top: 15px;
+        }
+
+        .deskFooter {
+            display: none;
+        }
+
+        .cateCard {
+            flex: 0 0 auto;
+            width: 270px;
+            margin-right: 15px;
+        }
+                
+        .scrolling-wrapper {
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+        }
+
+        .mobFoot {
+            text-align: center;
+        }
+
+        label {
+            font-size: 15px;
+        }
+
+        .registerTitle {
+            color: #FF4040; 
+            font-size: 24px;
+            text-align: center;
+            line-height: 30px;
+            margin-left: 55px; 
+            margin-top: 20px;
+        }
+
+        .loginTitle {
+            color: #FF4040; 
+            font-size: 24px;
+            text-align: center;
+            line-height: 30px;
+            margin-left: 90px; 
+            margin-top: 20px;
+        }
+
+        .btnCall {
+            background-color: white;
+            color: black;
+            padding-left: 12px;
+            padding-right: 10px;
+            font-size: 12px;   
+            border: 1px solid #d3d3d3;
+            margin-bottom: 10px;
+        }
+        
+        .btnCall:hover {
+            border: 1px solid #FF4040;
+        }
+    }

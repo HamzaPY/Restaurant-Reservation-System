@@ -1,0 +1,378 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.spinner-border{ 
+  z-index: 1; 
+  width: 150px; 
+  height: 150px; 
+  margin-left: 500px;
+  margin-top: 0px;
+  border: 16px solid #f3f3f3; 
+  border-radius: 50%; 
+  border-top: 16px solid #eb3c2e; 
+  width: 120px; 
+  height: 120px; 
+  animation: spin 2s linear infinite; 
+  } 
+    
+  @keyframes spin { 
+    0% { transform: rotate(0deg); } 
+    100% { transform: rotate(360deg); } 
+  }
+
+  .spinner-border2{ 
+    z-index: 1; 
+    margin-top: 50px;
+    margin-left: 145px;
+    margin-bottom: 20px;
+    border: 12px solid #f3f3f3; 
+    border-radius: 50%; 
+    border-top: 12px solid #eb3c2e; 
+    width: 100px; 
+    height: 100px; 
+    animation: spin 2s linear infinite; 
+    } 
+      
+    @keyframes spin { 
+      0% { transform: rotate(0deg); } 
+      100% { transform: rotate(360deg); } 
+    }
+  
+
+.navbar-brand {
+  padding-top: 30px;
+}
+
+.nav-link {
+  color: black;
+  padding-top: 45px;
+  margin-right: 40px;
+  font-weight: bold;
+  margin-bottom: 11px;
+}
+
+.loginBtn { 
+  margin-top: 33px;
+  margin-bottom: 10px;
+  padding: 12px 15px 12px 15px; 
+  border-radius: 5px;
+  background: #FF4040;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: red;
+}
+
+.loginBtn:hover {
+  color: white;
+  background-color: #d43737;
+}
+
+
+form {
+    margin: 10px auto 0px;
+    padding: 40px 40px 40px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    background-color: white;
+  }
+  
+  label {
+    color: #eb3c2e;
+    font-weight: bold;
+  }
+
+h1 {
+  font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+    color: #eb3c2e;
+}
+
+h3 {
+  font-family: 'Inter', sans-serif;
+	font-weight: bold;
+  color: #eb3c2e;
+}
+
+h4 {
+	font-weight: bold;
+  color: #eb3c2e;
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+  margin-top: 90px;
+}
+
+
+h2 {
+  font-family: 'Inter', sans-serif;
+    margin-top: 40px;
+  color: #eb3c2e;
+	text-align: center;
+}
+
+h5 {
+    margin-top: 80px;
+    color: #eb3c2e;
+	  text-align: center;
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+}
+
+h6 {
+  font-family: 'Inter', sans-serif;
+  color: black;
+  font-weight: 600;
+  font-size: 22px;
+  margin-top: 8px;
+  margin-left: 20px;
+}
+
+.categories {
+  border: 1px solid rgb(202, 202, 202); 
+  padding: 12px;
+  border-radius: 8px;
+}
+
+.items {
+  margin-top: 5px;
+  border: 1px solid rgb(202, 202, 202); 
+  padding: 5px;
+  border-radius: 8px;
+}
+
+.item {
+  font-family: 'Inter', sans-serif;
+  color: rgb(99, 99, 99);
+  font-weight: 400;
+  font-size: 17px;
+  margin-top: 10px;
+}
+
+.desc {
+  font-family: 'Inter', sans-serif;
+  color: rgb(156, 156, 156);
+  font-weight: 400;
+  font-size: 13px;
+  margin-top: -10px;
+}
+
+.tHead {
+    color: white;
+    background-color: #ff3d3d;
+}
+
+th {
+    border: 2px solid #636363;
+    text-align: center;
+    font-size: 19px;
+    padding: 20px;
+}
+
+td {
+    border: 2px solid #636363;
+    text-align: center;
+    font-size: 16px;
+    color: #4f4f4f;
+}
+
+.catTitle {
+  margin-left: 90px; 
+  margin-top: 40px;
+}
+
+.itemTitle {
+  margin-left: 110px; 
+  margin-top: 40px;
+}
+
+.mobMenu {
+  display: none;
+}
+
+.mobItems {
+  display: none;
+}
+
+.noData {
+  color: #eb3c2e; 
+  font-size: 23px; 
+  font-weight: bold;
+}
+
+.mobLogo {
+  display: none;
+}
+
+@media only screen and (max-width: 400px) {
+  .navbar-brand {
+    padding-top: 10px;
+  }
+
+  .deskLogo {
+    display: none;
+  }
+
+  .mobLogo {
+      display: block;
+  }
+
+  .navbar-toggler-icon {
+      margin-top: 5px;
+      font-size: 14px;
+  }
+
+  h5 {
+    font-size: 30px;
+  }
+
+  .catTitle {
+    font-size: 25px;
+    margin-left: 35px; 
+    margin-top: 20px;
+    line-height: 30px;
+    text-align: center;
+  }
+
+  label {
+    font-size: 15px;
+  }
+
+  .itemTitle {
+    font-size: 25px;
+    margin-left: 55px; 
+    margin-top: 20px;
+    line-height: 30px;
+    text-align: center;
+  }
+
+  .spinner-border2 {
+    margin-left: 125px;
+  }
+
+  .manItems {
+    font-size: 25px;
+  }
+
+  .deskMenu {
+    display: none;
+  }
+
+  .mobMenu {
+    display: block;
+  }
+
+  .deskItems {
+    display: none;
+  }
+
+  .mobItems {
+    display: block;
+  }
+
+  .spinner-border { 
+    z-index: 1; 
+    margin-top: 20px;
+    margin-left: 125px;
+    margin-bottom: 20px;
+    border: 12px solid #f3f3f3; 
+    border-radius: 50%; 
+    border-top: 12px solid #eb3c2e; 
+    width: 100px; 
+    height: 100px; 
+    animation: spin 2s linear infinite; 
+  } 
+
+  .noData {
+    font-size: 19px; 
+  }
+
+}
+
+@media only screen and (max-width: 600px) and (min-width: 400px) {
+  .navbar-brand {
+    padding-top: 10px;
+  }
+
+  .deskLogo {
+    display: none;
+  }
+
+  .mobLogo {
+      display: block;
+  }
+
+  .navbar-toggler-icon {
+      margin-top: 5px;
+      font-size: 14px;
+  }
+
+  h5 {
+    font-size: 30px;
+  }
+
+  .catTitle {
+    font-size: 25px;
+    margin-left: 55px; 
+    margin-top: 20px;
+    line-height: 25px;
+    text-align: center;
+  }
+
+  .itemTitle {
+    font-size: 25px;
+    margin-left: 75px; 
+    margin-top: 20px;
+    line-height: 25px;
+    text-align: center;
+  }
+
+  label {
+    font-size: 15px;
+  }
+
+  .manItems {
+    font-size: 25px;
+  }
+
+  .deskMenu {
+    display: none;
+  }
+
+  .mobMenu {
+    display: block;
+  }
+
+  .deskItems {
+    display: none;
+  }
+
+  .mobItems {
+    display: block;
+  }
+
+  .spinner-border { 
+    z-index: 1; 
+    margin-top: 20px;
+    margin-left: 145px;
+    margin-bottom: 20px;
+    border: 12px solid #f3f3f3; 
+    border-radius: 50%; 
+    border-top: 12px solid #eb3c2e; 
+    width: 100px; 
+    height: 100px; 
+    animation: spin 2s linear infinite; 
+  } 
+
+  .noData {
+    font-size: 19px; 
+  }
+
+}

@@ -1,0 +1,276 @@
+<div *ngIf="currCustomer != null">
+<ngx-ui-loader></ngx-ui-loader>   
+<body>
+    <nav class="navbar navbar-expand-md">
+        <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav justify-content-end ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/app">App</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Kontakt</a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="currCustomer != null" class="nav-link" href="/custProfile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="currCustomer == null" class="nav-link" data-toggle="modal" data-target="#registerModal" style="cursor: pointer;">Registrieren</a>
+          </li>
+          <a *ngIf="currCustomer == null" class="loginBtn" data-toggle="modal" data-target="#loginModal" style="cursor: pointer;">Einloggen</a>
+          <a *ngIf="currCustomer != null" class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+        </ul>
+    </div>
+    </div>
+    </nav>
+
+    
+    <section>
+            
+      <div class="modal fade" id="registerModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" class="registerTitle" id="myModalLabel">Kundenregistrierung</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; font-weight: 400; ">{{error}}</h4>
+              <form  [formGroup]="registerForm4" (ngSubmit)="onSubmit2()">
+                <div class="form-group">
+                    <label>Wählen Sie Profilbild</label>
+                    <input type="file" formControlName="imageFile" multiple (change)="selectImage($event)">
+                </div>
+  
+                <div class="form-group">
+                    <label for="firstname">Vorname</label>
+                    <input class="form-control" type="text" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted4 && f2.firstname.errors }">
+                    <div *ngIf="submitted4 && f2.firstname.errors" class="invalid-feedback">
+                    <div *ngIf="f2.firstname.errors.required">Vorname ist erforderlich</div>
+                    </div>
+                </div>
+      
+                <div class="form-group">
+                    <label for="lastname">Nachname</label>
+                    <input class="form-control" type="text" formControlName="lastname" [ngClass]="{ 'is-invalid': submitted4 && f2.lastname.errors }">
+                    <div *ngIf="submitted4 && f2.lastname.errors" class="invalid-feedback">
+                    <div *ngIf="f2.lastname.errors.required">Nachname ist erforderlich</div>
+                    </div>
+                </div>
+  
+                <div class="form-group">
+                    <label for="username">Nutzername</label>
+                    <input class="form-control" type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted4 && f2.username.errors }">
+                    <div *ngIf="submitted4 && f2.username.errors" class="invalid-feedback">
+                    <div *ngIf="f2.username.errors.required">Nutzername ist erforderlich</div>
+                    </div>
+                </div>
+      
+                <div class="form-group">
+                    <label for="password">Passwort</label>
+                    <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted4 && f2.password.errors }">
+                    <div *ngIf="submitted4 && f2.password.errors" class="invalid-feedback">
+                    <div *ngIf="f2.password.errors.required">Passwort ist erforderlich</div>
+                    <div *ngIf="f2.password.errors.pattern">Das Passwort muss aus einem Großbuchstaben, einem Sonderzeichen und einer Mindestlänge von 8 bestehen</div>
+                    </div>
+                </div>
+   
+                <div class="form-group">
+                    <label for="confPassword">Kennwort bestätigen</label>
+                  <input class="form-control" type="password" formControlName="confPassword" [ngClass]="{ 'is-invalid': submitted4 && f2.confPassword.errors }">
+                  <div *ngIf="submitted4 && f2.confPassword.errors" class="invalid-feedback">
+                  <div *ngIf="f2.confPassword.errors.required">Kennwort bestätigen ist erforderlich</div>
+                  </div>
+                </div>
+      
+                <div class="form-group">
+                    <label for="email">E-Mail-Addresse</label>
+                    <input class="form-control" type="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted4 && f2.email.errors }">
+                    <div *ngIf="submitted4 && f2.email.errors" class="invalid-feedback">
+                    <div *ngIf="f2.email.errors.required">Email ist erforderlich</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                  <label for="termC" class="termC">Ich habe die <a style="cursor: pointer; font-weight: 600; color: #FF4040;" href="/privacy">Datenschutzerklärung</a> gelesen und willige ein, dass meine Daten gespeichert werden.</label>
+                  <input class="form-control" type="checkbox" formControlName="termC" [ngClass]="{ 'is-invalid': submitted4 && f2.termC.errors }" required>
+                  <div *ngIf="submitted4 && f2.termC.errors" class="invalid-feedback">
+                  <div *ngIf="f2.termC.errors.required">Datenschutz ist erforderlich</div>
+                  </div>
+                </div>
+  
+                <div class="form-group">
+                    <button type="submit" id="signup-btn" style="margin-top: 30px;" class="btn btn-lg btn-danger btn-block">Registrieren</button>
+                </div>
+            </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      </section>
+  
+      <section>
+              
+        <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" class="loginTitle" id="myModalLabel">Kundenlogin</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; font-weight: 400;">{{error}}</h4>
+                <form (ngSubmit)="submit()">
+                    <div class="form-group">
+                        <label for="username">Nutzername</label>
+                        <input type="text" name="username" class="form-control" [(ngModel)]="username" />
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Passwort</label>
+                        <input type="password" name="password" class="form-control" [(ngModel)]="password" />
+                    </div>
+                    <div class="form-group">
+                      <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Anmeldung</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+    </section>
+  
+    <section class="Booker">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-8 offset-md-2">
+                <h4 class="text-center" style="margin-bottom: 30px; margin-top: 80px;">Kundenprofil</h4><hr>
+                  <div class="form-horizontal">
+                      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                        <div class="form-group">
+                            <label>Profilbild</label><br>
+                            <img src={{custImage}} width="90" height="90"><br><br>
+                            <input type="file" formControlName="cImageFile" multiple (change)="selectImage2($event)">
+                        </div>
+                        <div class="form-group">
+                            <label>Nutzername</label>
+                            <input type="text"class="form-control" formControlName="cUsername" [ngClass]="{ 'is-invalid': submitted && f.cUsername.errors }">
+                            <div *ngIf="submitted && f.cUsername.errors" class="invalid-feedback">
+                              <div *ngIf="f.cUsername.errors.required">Nutzername ist erforderlich</div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>Vorname</label>
+                            <input type="text"class="form-control" formControlName="cFirst" [ngClass]="{ 'is-invalid': submitted && f.cFirst.errors }">
+                            <div *ngIf="submitted && f.cFirst.errors" class="invalid-feedback">
+                              <div *ngIf="f.cFirst.errors.required">Vorname ist erforderlich</div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>Nachname</label>
+                            <input type="text"class="form-control" formControlName="cLast" [ngClass]="{ 'is-invalid': submitted && f.cLast.errors }">
+                            <div *ngIf="submitted && f.cLast.errors" class="invalid-feedback">
+                              <div *ngIf="f.cLast.errors.required">Nachname ist erforderlich</div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                            <label>E-Mail-Addresse</label>
+                            <input type="email"class="form-control" formControlName="cEmail" [ngClass]="{ 'is-invalid': submitted && f.cEmail.errors }">
+                            <div *ngIf="submitted && f.cEmail.errors" class="invalid-feedback">
+                              <div *ngIf="f.cEmail.errors.required">E-Mail-Addresse ist erforderlich</div>
+                              <div *ngIf="f.cEmail.errors.email">E-Mail muss eine gültige E-Mail-Adresse sein</div>
+                            </div>
+                          </div>
+                          <div class="form-group">
+                              <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">speichern</button>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="RatedRest" style="margin-top: -40px;">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-8 offset-md-2">
+                <h2 style="margin-bottom: 20px; margin-top: 80px; text-align: left;">Letzte bewertete Restaurants</h2><hr>
+                <h3 *ngIf="currentRating.length <= 0" style="margin-top: 50px;">Es sind noch keine Restaurants bewertet!</h3>
+                <div class="row">
+                    <div *ngFor="let rate of currentRating; let i = index" class="col-md-6 col-12" style="margin-bottom: 15px;">
+                        <div style="border: 1px solid rgb(202, 202, 202); border-radius: 4px; padding-bottom: 15px;">
+                            <div class="row">
+                                <div class="col-12">
+                                    <h5 style="cursor: pointer;" (click)="goToRest(rate.userTheRest)"><fa-icon style="color: #df353a;" [icon]="faHotel"></fa-icon>&nbsp; {{rate.userTheRest}} &nbsp;<fa-icon style="color: #df353a;" [icon]="faHotel"></fa-icon></h5>
+                                </div>
+                                <div class="col-10 offset-1">
+                                  <hr>
+                                </div>
+                                <div class="col-6">
+                                  <div class="mover">
+                                      <bar-rating [rate]="rate.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                                  </div>
+                                </div>
+                                <div class="col-6">
+                                    <h6 style="margin-top: 14px;"><fa-icon style="color: #df353a;" [icon]="faCalendar"></fa-icon>&nbsp; {{rate.userTheDate}}</h6>
+                                </div>
+                                <div class="col-11" style="margin-top: 10px;">
+                                    <h6><fa-icon style="color: #df353a;" [icon]="faCommentAlt"></fa-icon>&nbsp;&nbsp; {{rate.comment}}</h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ReserveRest" style="margin-top: 20px;">
+        <div class="container">
+            <div class="row">
+              <div class="col-md-8 offset-md-2">
+                <h2 style="margin-bottom: 20px; margin-top: 80px; text-align: left;">Letzte reservierte Restaurants</h2><hr>
+                <h3 *ngIf="currentReserve.length <= 0" style="margin-top: 50px;">Es sind noch keine Restaurants reserviert!</h3>
+                <div class="row">
+                    <div *ngFor="let reserve of currentReserve; let i = index" class="col-md-6 col-12" style="margin-bottom: 15px;">
+                        <div style="border: 1px solid rgb(180, 180, 180); border-radius: 4px; padding-bottom: 15px;">
+                          <div class="row">
+                            <div class="col-12">
+                                <h5 style="cursor: pointer;" (click)="goToRest(reserve.restName)"><fa-icon style="color: #df353a;" [icon]="faHotel"></fa-icon>&nbsp; {{reserve.restName}} &nbsp;<fa-icon style="color: #df353a;" [icon]="faHotel"></fa-icon></h5>
+                            </div>
+                            <div class="col-10 offset-1">
+                              <hr>
+                            </div>
+                            <div class="col-6">
+                              <h6 style="margin-top: 14px;"><fa-icon style="color: #df353a;" [icon]="faClock"></fa-icon>&nbsp; {{reserve.timeReserve}}</h6>
+                            </div>
+                            <div class="col-6">
+                                <h6 style="margin-top: 14px;"><fa-icon style="color: #df353a;" [icon]="faCalendar"></fa-icon>&nbsp; {{reserve.dateReserve}}</h6>
+                            </div>
+                            <div class="col-12" style="margin-top: 10px;">
+                              <h6 *ngIf="reserve.tableReserve == 1"><fa-icon style="color: #df353a;" [icon]="faUser"></fa-icon>&nbsp; Reserviert für {{reserve.tableReserve}} Person</h6>
+                              <h6 *ngIf="reserve.tableReserve > 1"><fa-icon style="color: #df353a;" [icon]="faUser"></fa-icon>&nbsp; Reserviert für {{reserve.tableReserve}} People</h6>
+                            </div>
+                          </div>  
+                        </div>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </section>
+    <hr style="margin-top: 100px;">
+</body>
+</div>

@@ -1,0 +1,52 @@
+<body>
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav justify-content-end ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/restDashboard">Instrumententafel</a>
+        </li>
+        <a class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+      </ul>
+    </div>
+    </div>
+    </nav>
+    
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="form-horizontal">
+              <h5 class="text-center" style="margin-bottom: 30px;">Element aktualisieren</h5><hr>
+                <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Artikelname</label>
+                        <input type="text" formControlName="iName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.iName.errors }" />
+                        <div *ngIf="submitted && f.iName.errors" class="invalid-feedback">
+                            <div *ngIf="f.iName.errors.required">Item Name ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Artikelpreis in € (Euro)</label>
+                        <input type="number" formControlName="iPrice" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.iPrice.errors }" />
+                        <div *ngIf="submitted && f.iPrice.errors" class="invalid-feedback">
+                            <div *ngIf="f.iPrice.errors.required">Item Price ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Artikelbeschreibung</label>
+                      <input type="text" formControlName="iDesc" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Aktualisieren</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.navbar-brand {
+    padding-top: 30px;
+}
+
+.nav-link {
+    color: black;
+    padding-top: 45px;
+    margin-right: 40px;
+    font-weight: bold;
+    margin-bottom: 11px;
+}
+
+.loginBtn { 
+    margin-top: 33px;
+    margin-bottom: 10px;
+    padding: 12px 15px 12px 15px; 
+    border-radius: 5px;
+    background: #FF4040;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: red;
+}
+
+.loginBtn:hover {
+    color: white;
+    background-color: #d43737;
+}
+
+form {
+    margin: 30px auto 70px;
+    padding: 40px 40px 40px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    background-color: white;
+  }
+  
+  label {
+    color: #eb3c2e;
+    font-weight: bold;
+  }
+
+h1 {
+  font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+    color: #eb3c2e;
+}
+
+h3 {
+  font-family: 'Inter', sans-serif;
+	font-weight: bold;
+  color: #eb3c2e;
+}
+
+
+h2 {
+  font-family: 'Inter', sans-serif;
+    margin-top: 40px;
+  color: #eb3c2e;
+	text-align: center;
+}
+
+h5 {
+    margin-top: 80px;
+    color: #eb3c2e;
+	  text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+}
+  
+.mobLogo {
+  display: none;
+}
+
+@media only screen and (max-width: 600px) {
+  .navbar-brand {
+    padding-top: 10px;
+  }
+  .deskLogo {
+    display: none;
+  }
+
+  .mobLogo {
+      display: block;
+  }
+
+  .navbar-toggler-icon {
+      margin-top: 5px;
+      font-size: 14px;
+  }
+  
+}
+  

@@ -1,0 +1,247 @@
+<ngx-ui-loader></ngx-ui-loader>
+<body ngxUiLoaderBlurred>
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <p *ngIf="currentCountry != null && currentCity != null" class="webLoc"><span class="locn"><img src="../../../assets/img/loc.png">&nbsp;&nbsp;</span>{{currentCity}}, {{currentCountry}}</p>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav justify-content-end ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/app">App</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Kontakt</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="currCustomer != null" class="nav-link" href="/custProfile">Profile</a>
+        </li>
+        <li class="nav-item">
+          <a *ngIf="currCustomer == null" class="nav-link" data-toggle="modal" data-target="#registerModal" style="cursor: pointer;">Registrieren</a>
+        </li>
+        <a *ngIf="currCustomer == null" class="loginBtn" data-toggle="modal" data-target="#loginModal" style="cursor: pointer;">Einloggen</a>
+        <a *ngIf="currCustomer != null" class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+      </ul>
+  </div>
+  </div>
+  </nav>
+    <header class="deskSearchHeader">
+      <div class="jumbotron deskJumb mt-4">
+          <h1 class="text-center">Wählen Sie Ihr Lieblingsrestaurant</h1><br>
+      </div>
+  </header>
+
+  <header class="mobSearchHeader">
+    <div class="jumbotron mobJumb mt-2">
+        <h1 class="mobJumbH">Wählen Sie Ihr Lieblingsrestaurant</h1><br>
+    </div>
+</header> 
+  
+  
+  <section>
+            
+    <div class="modal fade" id="registerModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" class="registerTitle" id="myModalLabel">Kundenregistrierung</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; ">{{error}}</h4>
+            <form  [formGroup]="registerForm2" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                  <label>Wählen Sie Profilbild</label>
+                  <input type="file" formControlName="imageFile" multiple (change)="selectImage($event)">
+              </div>
+
+              <div class="form-group">
+                  <label for="firstname">Vorname</label>
+                  <input class="form-control" type="text" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted2 && f.firstname.errors }">
+                  <div *ngIf="submitted2 && f.firstname.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstname.errors.required">Vorname ist erforderlich</div>
+                  </div>
+              </div>
+    
+              <div class="form-group">
+                  <label for="lastname">Nachname</label>
+                  <input class="form-control" type="text" formControlName="lastname" [ngClass]="{ 'is-invalid': submitted2 && f.lastname.errors }">
+                  <div *ngIf="submitted2 && f.lastname.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastname.errors.required">Nachname ist erforderlich</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="username">Nutzername</label>
+                  <input class="form-control" type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted2 && f.username.errors }">
+                  <div *ngIf="submitted2 && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required">Nutzername ist erforderlich</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="password">Passwort</label>
+                  <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted2 && f.password.errors }">
+                  <div *ngIf="submitted2 && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Passwort ist erforderlich</div>
+                  <div *ngIf="f.password.errors.pattern">Das Passwort muss aus einem Großbuchstaben, einem Sonderzeichen und einer Mindestlänge von 8 bestehen</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label for="confPassword">Kennwort bestätigen</label>
+                <input class="form-control" type="password" formControlName="confPassword" [ngClass]="{ 'is-invalid': submitted2 && f.confPassword.errors }">
+                <div *ngIf="submitted2 && f.confPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.confPassword.errors.required">Kennwort bestätigen ist erforderlich</div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                  <label for="email">E-Mail-Addresse</label>
+                  <input class="form-control" type="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted2 && f.email.errors }">
+                  <div *ngIf="submitted2 && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email ist erforderlich</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label for="termC" class="termC">Ich habe die <a style="cursor: pointer; font-weight: 600; color: #FF4040;" href="/privacy">Datenschutzerklärung</a> gelesen und willige ein, dass meine Daten gespeichert werden.</label>
+                <input class="form-control" type="checkbox" formControlName="termC" [ngClass]="{ 'is-invalid': submitted2 && f.termC.errors }" required>
+                <div *ngIf="submitted2 && f.termC.errors" class="invalid-feedback">
+                <div *ngIf="f.termC.errors.required">Datenschutz ist erforderlich</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                  <button type="submit" id="signup-btn" style="margin-top: 30px;" class="btn btn-lg btn-danger btn-block">Registrieren</button>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </section>
+
+    <section>
+            
+      <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" class="loginTitle" id="myModalLabel">Kundenlogin</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; font-family: 'Inter', sans-serif; ">{{error}}</h4>
+              <form (ngSubmit)="submit()">
+                  <div class="form-group">
+                      <label for="username">Nutzername</label>
+                      <input type="text" name="username" class="form-control" [(ngModel)]="username" />
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Passwort</label>
+                      <input type="password" name="password" class="form-control" [(ngModel)]="password" />
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Anmeldung</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      </section>
+
+    <section class="searchResults deskSearcher">
+        <div class="container">
+          <div class="row">
+              <div class="col-12 col-md-12 mt-3">
+                <div class="spinner-border" id="loading" role="status"> 
+                </div> 
+                <div *ngIf="allRest.length <= 0 && shower == 1">
+                  <h2 style="color:  #FF4040; font-size: 30px; margin-top: 100px; text-align: center;">Sorry, keine Restaurants gefunden!</h2>
+                </div>
+                <div *ngIf="allRest.length > 0">
+                  <h3 style="margin-bottom: 40px;">{{allRest.length}} Restaurants zur Verfügung</h3>
+                </div>
+                  <div class="card" style="margin-top: 30px;" *ngFor="let rest of allRest; let i = index">
+                    <div class="card-horizontal">
+                        <div class="img-square-wrapper">
+                          <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><img src="{{rest.image}}" height="184" width="320"></a>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-6">
+                              <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><h4 class="card-title">{{rest.name}}</h4></a>
+                            </div>
+                            <div class="col-2" style="margin-top: -30px;">
+                              <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                            </div>
+                            <div class="col-2" style="margin-top: -17px;">
+                              <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                            </div>
+                          </div>
+                          <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                          <h6 style="margin-top: 30px;">Mitnahme</h6>
+                          <a style="text-decoration: none; color:#FF4040;" href="tel:{{rest.contact}}"><button class="btn btnCall"><fa-icon style="margin-right: 6px; margin-left: -20px;" [icon]="faPhoneAlt"></fa-icon>{{rest.contact}}</button></a>
+                        </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+    </section>
+
+    <section class="searchResults mobSearcher" style="margin-top: 10px;">
+      <div class="container">
+        <div class="row">
+            <div class="col-12">
+              <div class="spinner-border2" id="loading2" role="status"> 
+              </div> 
+              <div *ngIf="allRest.length <= 0 && shower == 1">
+                <h2 style="color:  #FF4040; font-size: 20px; margin-top: 30px; text-align: center;">Sorry, keine Restaurants gefunden!</h2>
+              </div>
+              <div *ngIf="allRest.length > 0">
+                <h3 style="margin-bottom: 30px;">{{allRest.length}} Restaurants zur Verfügung</h3>
+              </div>
+                <div class="card" style="margin-top: 30px;" *ngFor="let rest of allRest; let i = index">
+                  <div class="img-square-wrapper">
+                    <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><img src="{{rest.image}}" class="mobImageSearch"></a>
+                  </div>
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-12" style="margin-top: 10px; margin-left: -10px;">
+                        <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><h4 class="card-title">{{rest.name}}</h4></a>
+                      </div>
+                      <div class="col-12" style="margin-top: -3px; margin-left: -8px;">
+                        <h5 style="font-size: 13px;" class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                      </div>
+                      <div class="col-4" style="margin-top: -10px; margin-left: -8px;">
+                        <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                      </div>
+                      <div class="col-8" style="margin-top: 3px;">
+                        <h4 style="font-size: 14px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                      </div>
+                      <div class="col-12" style="margin-top: -20px; margin-left: -8px;">
+                        <h6>Mitnahme</h6>
+                        <a style="text-decoration: none; color:#FF4040;" href="tel:{{rest.contact}}"><button class="btn btnCall"><fa-icon style="margin-right: 6px; margin-left: -20px;" [icon]="faPhoneAlt"></fa-icon>{{rest.contact}}</button></a>
+                      </div>
+                    </div>  
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr *ngIf="allRest.length > 0" style="margin-top: 50px;">
+        </div>
+  </section>
+</body>
+    

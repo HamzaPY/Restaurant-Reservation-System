@@ -1,0 +1,1193 @@
+<ngx-ui-loader></ngx-ui-loader>
+<body ngxUiLoaderBlurred>
+    <nav class="navbar navbar-expand-md">
+        <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <p *ngIf="currentCountry != null && currentCity != null" class="webLoc"><span class="locn"><img src="../../../assets/img/loc.png">&nbsp;&nbsp;</span>{{currentCity}}, {{currentCountry}}</p>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav justify-content-end ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/app">App</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Kontakt</a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="currCustomer != null" class="nav-link" href="/custProfile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="currCustomer == null" class="nav-link" data-toggle="modal" data-target="#registerModal" style="cursor: pointer;">Registrieren</a>
+          </li>
+          <a *ngIf="currCustomer == null" class="loginBtn" data-toggle="modal" data-target="#loginModal" style="cursor: pointer;">Einloggen</a>
+          <a *ngIf="currCustomer != null" class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+        </ul>
+    </div>
+    </div>
+    </nav>
+    <header class="deskHomeHeader">
+        <div class="jumbotron deskJumb mt-4">
+            <h1 class="text-center">Finden Sie Ihr Lieblingsrestaurant </h1><br>
+                <div class="flex-container">
+                  <span class="caln"><img src="../../../assets/img/calender.png">&nbsp;&nbsp;</span>
+                  <input
+                  type="text"
+                  class="reserve"
+                  placeholder="Choose date"
+                  bsDatepicker
+                  [(ngModel)]="currDate"
+                  [bsValue]="currDate"
+                  [minDate]="currentDate"
+                  (ngModelChange)="reservingTime()"
+                  [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                  [bsConfig]="bsConfig">
+                  <span class="timen"><img src="../../../assets/img/time.png">&nbsp;&nbsp;</span>
+                  <select class="reserve2" name="time" [(ngModel)]="searcher.searchTime">
+                    <option *ngFor="let time of times" value="{{time}}">{{time}}
+                  </select>
+                  <span class="peoplen"><img src="../../../assets/img/people.png">&nbsp;&nbsp;</span>
+                  <select class="reserve3" name="table" [(ngModel)]="searcher.searchTables">
+                    <option value="1">1 Person</option>
+                      <option *ngFor="let table of tables" value="{{table}}">{{table}} Personen
+                    </option>
+                  </select>
+                  <input type="text" class="searcher" id="searcherEdge" name="location" [(ngModel)]="searcher.searchLoc" placeholder="&#xf002;&nbsp;&nbsp; Standort" (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
+                  <input type="text" class="searcherFox" id="searcherFox" name="location" [(ngModel)]="searcher.searchLoc" placeholder="&#xf002;&nbsp;&nbsp; Standort" (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off" #search3>
+                  <div>
+                  <button class="btn dashbutton" id="buttonEdge" (click)="searchRest()">Go!</button>
+                  <button class="btn dashbuttonFox" id="buttonFox" (click)="searchRest()">Go!</button>
+                </div>
+                </div>
+          </div>
+    </header>
+
+    <header class="mobHomeHeader">
+      <div class="jumbotron mobJumb mt-2">
+        <h1 class="mobJumbH">Finden Sie Ihr Lieblingsrestaurant </h1>
+        <div class="flex-container">
+          <span class="calnMob"><img src="../../../assets/img/calender.png"></span>
+          <input
+          type="text"
+          class="reserveMob"
+          placeholder="Choose date"
+          bsDatepicker
+          [(ngModel)]="currDate"
+          [bsValue]="currDate"
+          [minDate]="currentDate"
+          (ngModelChange)="reservingTime()"
+          [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+          [bsConfig]="bsConfig">
+          <span class="lineMob"><img src="../../../assets/img/line.png"></span>
+          <span class="timenMob"><img src="../../../assets/img/time.png"></span>
+          <select class="reserve2Mob" name="time" [(ngModel)]="searcher.searchTime">
+            <option *ngFor="let time of times" value="{{time}}">{{time}}
+          </select>
+        </div>
+          <span class="peoplenMob"><img src="../../../assets/img/people.png"></span>
+          <select class="reserve3Mob" name="table" [(ngModel)]="searcher.searchTables">
+            <option value="1">1 Person</option>
+              <option *ngFor="let table of tables" value="{{table}}">{{table}} Personen
+            </option>
+          </select>
+          <br>
+          <span class="locnMob"><img src="../../../assets/img/mobLoc.png"></span>
+          <input type="text" class="searcherMob" name="location" [(ngModel)]="searcher.searchLoc" placeholder="&nbsp;Standort" (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off" #search2>
+          <div>
+            <button class="btn dashbuttonMob" (click)="searchRest()">Go!</button>
+        </div>
+      </div>
+  </header>
+
+  <section>      
+    <div class="modal fade" id="supportModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" class="supportTitle" id="myModalLabel">Support</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+              <div class="container">
+                  <div class="row">
+                    <div class="col-1 offset-1">
+                        <a class="whatApp" href="https://wa.me/message/BWNSJ5WMXFEFK1"><i class="fa fa-whatsapp"></i></a>
+                    </div>
+                    <div class="col-1 offset-3">
+                        <h3 class="supportOr">Or</h3>
+                    </div>
+                    <div class="col-1 offset-3">
+                        <a class="emailo"><i class="fa fa-envelope"></i></a>
+                    </div>
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+  <section>
+            
+    <div class="modal fade" id="registerModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" class="registerTitle" id="myModalLabel">Kundenregistrierung</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; ">{{error}}</h4>
+            <form  [formGroup]="registerForm2" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                  <label>Wählen Sie Profilbild</label>
+                  <input type="file" formControlName="imageFile" multiple (change)="selectImage($event)">
+              </div>
+
+              <div class="form-group">
+                  <label for="firstname">Vorname</label>
+                  <input class="form-control" type="text" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted2 && f.firstname.errors }">
+                  <div *ngIf="submitted2 && f.firstname.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstname.errors.required">Vorname ist erforderlich</div>
+                  </div>
+              </div>
+    
+              <div class="form-group">
+                  <label for="lastname">Nachname</label>
+                  <input class="form-control" type="text" formControlName="lastname" [ngClass]="{ 'is-invalid': submitted2 && f.lastname.errors }">
+                  <div *ngIf="submitted2 && f.lastname.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastname.errors.required">Nachname ist erforderlich</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label for="username">Nutzername</label>
+                  <input class="form-control" type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted2 && f.username.errors }">
+                  <div *ngIf="submitted2 && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required">Nutzername ist erforderlich</div>
+                  </div>
+              </div>
+    
+              <div class="form-group">
+                  <label for="password">Passwort</label>
+                  <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted2 && f.password.errors }">
+                  <div *ngIf="submitted2 && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Passwort ist erforderlich</div>
+                  <div *ngIf="f.password.errors.pattern">Das Passwort muss aus einem Großbuchstaben, einem Sonderzeichen und einer Mindestlänge von 8 bestehen</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label for="confPassword">Kennwort bestätigen</label>
+                <input class="form-control" type="password" formControlName="confPassword" [ngClass]="{ 'is-invalid': submitted2 && f.confPassword.errors }">
+                <div *ngIf="submitted2 && f.confPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.confPassword.errors.required">Kennwort bestätigen ist erforderlich</div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                  <label for="email">E-Mail-Addresse</label>
+                  <input class="form-control" type="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted2 && f.email.errors }">
+                  <div *ngIf="submitted2 && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email ist erforderlich</div>
+                  </div>
+              </div>
+              
+              <div class="form-group">
+                <label for="termC" class="termC">Ich habe die <a style="cursor: pointer; font-weight: 600; color: #FF4040;" href="/privacy">Datenschutzerklärung</a> gelesen und willige ein, dass meine Daten gespeichert werden.</label>
+                <input class="form-control" type="checkbox" formControlName="termC" [ngClass]="{ 'is-invalid': submitted2 && f.termC.errors }" required>
+                <div *ngIf="submitted2 && f.termC.errors" class="invalid-feedback">
+                <div *ngIf="f.termC.errors.required">Datenschutz ist erforderlich</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                  <button type="submit" id="signup-btn" style="margin-top: 30px;" class="btn btn-lg btn-danger btn-block">Registrieren</button>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </section>
+
+    <section>
+            
+      <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" class="loginTitle" id="myModalLabel">Kundenlogin</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; ">{{error}}</h4>
+              <form (ngSubmit)="submit()">
+                  <div class="form-group">
+                      <label for="username">Nutzername</label>
+                      <input type="text" name="username" class="form-control" [(ngModel)]="username" />
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Passwort</label>
+                      <input type="password" name="password" class="form-control" [(ngModel)]="password" />
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Anmeldung</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+      </section>
+
+    <div *ngIf="currentCountry == null && currentCity == null" class="container deskGetLoc">
+      <div class="row">
+        <div class="col-md-12">
+          <h3 class="getCurrLoc" (click)="setCurrentLocation()">&#xf124; &nbsp; Holen Sie sich den aktuellen Standort, um die nächstgelegenen Restaurants anzuzeigen!</h3><hr>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="currentCountry == null && currentCity == null" class="container mobGetLoc">
+      <div class="row">
+        <div class="col-12">
+          <button class="btn btnCall" (click)="setCurrentLocation()"><fa-icon [icon]="faLocationArrow"></fa-icon>&nbsp; Holen Sie sich den aktuellen Standort, um die nächstgelegenen Restaurants anzuzeigen!</button><hr>
+        </div>
+      </div>
+    </div>
+      <!-- All Restaurants -->
+
+      <section *ngIf="currentCountry == null && currentCity == null && showAll.length > 0" class="allRestList deskAllRest" >
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-12 col-md-12">
+                <h2>Restaurants vorhanden</h2>
+                <hr style="margin-bottom: 30px;">
+                <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+    
+                <!--Controls-->
+                <div class="controls-top">
+                  <a *ngIf="showAll.length >= 5" class="btn-floating" href="#multi-item-example" data-slide="prev"><fa-icon class="arrows" [icon]="faArrowCircleLeft"></fa-icon></a>
+                  <a *ngIf="showAll.length >= 5" class="btn-floating" href="#multi-item-example" data-slide="next"><fa-icon class="arrows2" [icon]="faArrowCircleRight"></fa-icon></a>
+                </div>
+                <!--/.Controls-->
+    
+    
+            <div class="carousel-inner" role="listbox">
+    
+              <!--First slide-->
+              <div class="carousel-item active">
+                <div class="col-md-3" style="float:left" *ngFor="let rest of showAll.slice(0,4); let i = index">
+                <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+                <div class="card cateCard mb-2">
+                    <img class="card-img-top" height="145" width="300" 
+                      src="{{rest.image}}" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 class="card-title">{{rest.name}}</h4>
+                      <div class="row">
+                        <div class="col-6" style="margin-top: -19px;">
+                          <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                        </div>
+                        <div class="col-6"  style="margin-top: -6px;">
+                          <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                        </div>
+                      </div>
+                      <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                      <h5 class="booker"><fa-icon style="font-size: 16px;" [icon]="faChartLine"></fa-icon>&nbsp;&nbsp;Booked {{rest.bookings}} times</h5>
+                    </div>
+                  </div>
+                </a>
+                </div>
+              </div>
+    
+              <div class="carousel-item" *ngIf="showAll.length >= 5">
+                <div class="col-md-3" style="float:left" *ngFor="let rest of showAll.slice(4,8); let i = index">
+                  <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+                <div class="card cateCard mb-2">
+                    <img class="card-img-top" height="145" width="300" 
+                      src="{{rest.image}}" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 class="card-title">{{rest.name}}</h4>
+                      <div class="row">
+                        <div class="col-6" style="margin-top: -19px;">
+                          <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                        </div>
+                        <div class="col-6"  style="margin-top: -6px;">
+                          <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                        </div>
+                      </div>
+                      <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                      <h5 class="booker"><fa-icon style="font-size: 16px;" [icon]="faChartLine"></fa-icon>&nbsp;&nbsp;Booked {{rest.bookings}} times</h5>
+                    </div>
+                  </div>
+                  </a>
+                </div>
+              </div>
+    
+              <div class="carousel-item" *ngIf="showAll.length >= 9">
+                <div class="col-md-3" style="float:left" *ngFor="let rest of showAll.slice(8,12); let i = index">
+                  <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+                <div class="card cateCard mb-2">
+                    <img class="card-img-top" height="145" width="300" 
+                      src="{{rest.image}}" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 class="card-title">{{rest.name}}</h4>
+                      <div class="row">
+                        <div class="col-6" style="margin-top: -19px;">
+                          <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                        </div>
+                        <div class="col-6"  style="margin-top: -6px;">
+                          <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                        </div>
+                      </div>
+                      <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                      <h5 class="booker"><fa-icon style="font-size: 16px;" [icon]="faChartLine"></fa-icon>&nbsp;&nbsp;Booked {{rest.bookings}} times</h5>
+                    </div>
+                  </div>
+                  </a>
+                </div>
+              </div>
+    
+            </div>
+    
+            <!--/.Slides-->
+    
+          </div>
+    <!--/.Carousel Wrapper-->
+              </div>
+            </div>
+          </div>
+    </section>
+                 
+
+      <!-- All Restaurants (Mobile) -->
+
+      <section *ngIf="currentCountry == null && currentCity == null && showAll.length > 0" class="allRestList mobAllRest" >
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <h2 style="font-size: 18px;">Restaurants vorhanden</h2>
+                <hr style="margin-bottom: 30px;">
+
+                <div class="scrolling-wrapper">
+                  <div *ngFor="let rest of showAll.slice(0,12); let i = index">
+                    <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+                    <div class="cateCard mb-2">
+                      <img class="card-img-top" height="145" width="300" 
+                        src="{{rest.image}}" alt="Card image cap">
+                      <div class="card-body">
+                        <h4 style="font-size: 20px;" class="card-title">{{rest.name}}</h4>
+                        <div class="row">
+                          <div class="col-6" style="margin-top: -19px;">
+                            <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                          </div>
+                          <div class="col-6"  style="margin-top: -6px;">
+                            <h4 style="font-size: 14px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                          </div>
+                        </div>
+                        <h5 style="font-size: 13px;" class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                        <h5 class="booker"><fa-icon style="font-size: 13px;" [icon]="faChartLine"></fa-icon>&nbsp;&nbsp;Booked {{rest.bookings}} times</h5>
+                      </div>
+                    </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
+
+    <!-- Nearest Neighborhood -->
+
+    <section *ngIf="currentCountry != null && currentCity != null && showCurrent.length > 0" class="restList deskRestList1" >
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <h2>Restaurants in Ihrer Nähe</h2>
+            <hr style="margin-bottom: 30px;">
+            <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+            <!--Controls-->
+            <div class="controls-top">
+              <a *ngIf="showCurrent.length >= 5" class="btn-floating" href="#multi-item-example" data-slide="prev"><fa-icon class="arrows" [icon]="faArrowCircleLeft"></fa-icon></a>
+              <a *ngIf="showCurrent.length >= 5" class="btn-floating" href="#multi-item-example" data-slide="next"><fa-icon class="arrows2" [icon]="faArrowCircleRight"></fa-icon></a>
+            </div>
+            <!--/.Controls-->
+
+
+        <div class="carousel-inner" role="listbox">
+
+          <!--First slide-->
+          <div class="carousel-item active">
+            <div class="col-md-3" style="float:left" *ngFor="let rest of showCurrent.slice(0,4); let i = index">
+            <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+            <div class="card cateCard mb-2">
+                <img class="card-img-top" height="145" width="300" 
+                  src="{{rest.image}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">{{rest.name}}</h4>
+                  <div class="row">
+                    <div class="col-6" style="margin-top: -19px;">
+                      <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                    </div>
+                    <div class="col-6"  style="margin-top: -6px;">
+                      <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                    </div>
+                  </div>
+                  <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                </div>
+              </div>
+            </a>
+            </div>
+          </div>
+
+          <div class="carousel-item" *ngIf="showCurrent.length >= 5">
+            <div class="col-md-3" style="float:left" *ngFor="let rest of showCurrent.slice(4,8); let i = index">
+              <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+            <div class="card cateCard mb-2">
+                <img class="card-img-top" height="145" width="300" 
+                  src="{{rest.image}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">{{rest.name}}</h4>
+                  <div class="row">
+                    <div class="col-6" style="margin-top: -19px;">
+                      <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                    </div>
+                    <div class="col-6"  style="margin-top: -6px;">
+                      <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                    </div>
+                  </div>
+                  <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                </div>
+              </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="carousel-item" *ngIf="showCurrent.length >= 9">
+            <div class="col-md-3" style="float:left" *ngFor="let rest of showCurrent.slice(8,12); let i = index">
+              <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+            <div class="card cateCard mb-2">
+                <img class="card-img-top" height="145" width="300" 
+                  src="{{rest.image}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">{{rest.name}}</h4>
+                  <div class="row">
+                    <div class="col-6" style="margin-top: -19px;">
+                      <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                    </div>
+                    <div class="col-6"  style="margin-top: -6px;">
+                      <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                    </div>
+                  </div>
+                  <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                </div>
+              </div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!--/.Slides-->
+
+      </div>
+<!--/.Carousel Wrapper-->
+          </div>
+        </div>
+      </div>
+    </section>
+
+      <!-- Nearest Neighborhood (Mobile) -->
+
+      <section *ngIf="currentCountry != null && currentCity != null && showCurrent.length > 0" class="restList mobRestList1">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <h2 style="font-size: 18px;">Restaurants in Ihrer Nähe</h2>
+                <hr style="margin-bottom: 30px;">
+
+                <div class="scrolling-wrapper">
+                  <div *ngFor="let rest of showCurrent.slice(0,12); let i = index">
+                    <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+                    <div class="cateCard mb-2">
+                        <img class="card-img-top" height="145" width="300" 
+                          src="{{rest.image}}" alt="Card image cap">
+                        <div class="card-body">
+                          <h4 style="font-size: 20px;" class="card-title">{{rest.name}}</h4>
+                          <div class="row">
+                            <div class="col-6" style="margin-top: -19px;">
+                              <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                            </div>
+                            <div class="col-6"  style="margin-top: -6px;">
+                              <h4 style="font-size: 14px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                            </div>
+                          </div>
+                          <h5 style="font-size: 13px;" class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
+    <!-- Delivery Enabled -->
+
+    <section *ngIf="currentCountry != null && currentCity != null && showDelivery.length > 0" class="deliList deskRestList2" >
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <h2>Lass es dir liefern</h2>
+            <hr style="margin-bottom: 30px;">
+            <div id="multi-item-example2" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+            <!--Controls-->
+            <div class="controls-top">
+              <a *ngIf="showDelivery.length >= 5" class="btn-floating" href="#multi-item-example2" data-slide="prev"><fa-icon class="arrows" [icon]="faArrowCircleLeft"></fa-icon></a>
+              <a *ngIf="showDelivery.length >= 5" class="btn-floating" href="#multi-item-example2" data-slide="next"><fa-icon class="arrows2" [icon]="faArrowCircleRight"></fa-icon></a>
+            </div>
+            <!--/.Controls-->
+
+
+        <div class="carousel-inner" role="listbox">
+
+          <!--First slide-->
+          <div class="carousel-item active">
+            <div class="col-md-3" style="float:left" *ngFor="let rest of showDelivery.slice(0,4); let i = index">
+              <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+            <div class="card cateCard mb-2">
+                <img class="card-img-top" height="145" width="300" 
+                  src="{{rest.image}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">{{rest.name}}</h4>
+                  <div class="row">
+                    <div class="col-6" style="margin-top: -19px;">
+                      <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                    </div>
+                    <div class="col-6"  style="margin-top: -6px;">
+                      <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                    </div>
+                  </div>
+                  <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                </div>
+              </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="carousel-item" *ngIf="showDelivery.length >= 5">
+            <div class="col-md-3" style="float:left" *ngFor="let rest of showDelivery.slice(4,8); let i = index">
+              <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+            <div class="card cateCard mb-2">
+                <img class="card-img-top" height="145" width="300" 
+                  src="{{rest.image}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">{{rest.name}}</h4>
+                  <div class="row">
+                    <div class="col-6" style="margin-top: -19px;">
+                      <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                    </div>
+                    <div class="col-6"  style="margin-top: -6px;">
+                      <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                    </div>
+                  </div>
+                  <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                </div>
+              </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="carousel-item" *ngIf="showDelivery.length >= 9">
+            <div class="col-md-3" style="float:left" *ngFor="let rest of showDelivery.slice(8,12); let i = index">
+              <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+            <div class="card cateCard mb-2">
+                <img class="card-img-top" height="145" width="300" 
+                  src="{{rest.image}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">{{rest.name}}</h4>
+                  <div class="row">
+                    <div class="col-6" style="margin-top: -19px;">
+                      <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                    </div>
+                    <div class="col-6"  style="margin-top: -6px;">
+                      <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                    </div>
+                  </div>
+                  <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                </div>
+              </div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!--/.Slides-->
+
+      </div>
+<!--/.Carousel Wrapper-->
+          </div>
+        </div>
+      </div>
+    </section>
+
+      <!-- Delivery Enabled (Mobile) -->
+
+      <section *ngIf="currentCountry != null && currentCity != null && showDelivery.length > 0" class="deliList mobRestList2">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <h2 style="font-size: 18px;">Lass es dir liefern</h2>
+                <hr style="margin-bottom: 30px;">
+
+                <div class="scrolling-wrapper">
+                  <div *ngFor="let rest of showDelivery.slice(0,12); let i = index">
+                    <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+                    <div class="cateCard mb-2">
+                        <img class="card-img-top" height="145" width="300" 
+                          src="{{rest.image}}" alt="Card image cap">
+                        <div class="card-body">
+                          <h4 style="font-size: 20px;" class="card-title">{{rest.name}}</h4>
+                          <div class="row">
+                            <div class="col-6" style="margin-top: -19px;">
+                              <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                            </div>
+                            <div class="col-6"  style="margin-top: -6px;">
+                              <h4 style="font-size: 14px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                            </div>
+                          </div>
+                          <h5 style="font-size: 13px;" class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
+    <!-- Most Booked -->
+
+    <section *ngIf="currentCountry != null && currentCity != null && showBooked.length > 0" class="bookList deskRestList3">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <h2>Am meisten gebucht</h2>
+            <hr style="margin-bottom: 30px;">
+            <div id="multi-item-example3" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+            <!--Controls-->
+            <div class="controls-top">
+              <a *ngIf="showBooked.length >= 5" class="btn-floating" href="#multi-item-example3" data-slide="prev"><fa-icon class="arrows" [icon]="faArrowCircleLeft"></fa-icon></a>
+              <a *ngIf="showBooked.length >= 5" class="btn-floating" href="#multi-item-example3" data-slide="next"><fa-icon class="arrows2" [icon]="faArrowCircleRight"></fa-icon></a>
+            </div>
+            <!--/.Controls-->
+
+
+        <div class="carousel-inner" role="listbox">
+
+          <!--First slide-->
+          <div class="carousel-item active">
+            <div class="col-md-3" style="float:left" *ngFor="let rest of showBooked.slice(0,4); let i = index">
+              <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+            <div class="card cateCard mb-2">
+                <img class="card-img-top" height="145" width="300" 
+                  src="{{rest.image}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">{{rest.name}}</h4>
+                  <div class="row">
+                    <div class="col-6" style="margin-top: -19px;">
+                      <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                    </div>
+                    <div class="col-6"  style="margin-top: -6px;">
+                      <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                    </div>
+                  </div>
+                  <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                  <h5 class="booker"><fa-icon style="font-size: 16px;" [icon]="faChartLine"></fa-icon>&nbsp;&nbsp;Booked {{rest.bookings}} times</h5>
+                </div>
+              </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="carousel-item" *ngIf="showBooked.length >= 5">
+            <div class="col-md-3" style="float:left" *ngFor="let rest of showBooked.slice(4,8); let i = index">
+              <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+            <div class="card cateCard mb-2">
+                <img class="card-img-top" height="145" width="300" 
+                  src="{{rest.image}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">{{rest.name}}</h4>
+                  <div class="row">
+                    <div class="col-6" style="margin-top: -19px;">
+                      <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                    </div>
+                    <div class="col-6"  style="margin-top: -6px;">
+                      <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                    </div>
+                  </div>
+                  <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                  <h5 class="booker"><fa-icon style="font-size: 16px;" [icon]="faChartLine"></fa-icon>&nbsp;&nbsp;Booked {{rest.bookings}} times</h5>
+                </div>
+              </div>
+              </a>
+            </div>
+          </div>
+
+          <div class="carousel-item" *ngIf="showBooked.length >= 9">
+            <div class="col-md-3" style="float:left" *ngFor="let rest of showBooked.slice(8,12); let i = index">
+              <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+            <div class="card cateCard mb-2">
+                <img class="card-img-top" height="145" width="300" 
+                  src="{{rest.image}}" alt="Card image cap">
+                <div class="card-body">
+                  <h4 class="card-title">{{rest.name}}</h4>
+                  <div class="row">
+                    <div class="col-6" style="margin-top: -19px;">
+                      <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                    </div>
+                    <div class="col-6"  style="margin-top: -6px;">
+                      <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                    </div>
+                  </div>
+                  <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                  <h5 class="booker"><fa-icon style="font-size: 16px;" [icon]="faChartLine"></fa-icon>&nbsp;&nbsp;Booked {{rest.bookings}} times</h5>
+                </div>
+              </div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+
+        <!--/.Slides-->
+
+      </div>
+<!--/.Carousel Wrapper-->
+          </div>
+        </div>
+      </div>
+    </section>
+
+      <!-- Most Booked (Mobile) -->
+
+      <section *ngIf="currentCountry != null && currentCity != null && showBooked.length > 0" class="bookList mobRestList3">
+          <div class="container">
+            <div class="row">
+              <div class="col-12">
+                <h2 style="font-size: 18px;">Am meisten gebucht</h2>
+                <hr style="margin-bottom: 30px;">
+
+                <div class="scrolling-wrapper">
+                  <div *ngFor="let rest of showBooked.slice(0,12); let i = index">
+                    <a style="text-decoration: none; color: black;" href="/overviewRestaurant/{{rest._id}}">
+                    <div class="cateCard mb-2">
+                        <img class="card-img-top" height="145" width="300" 
+                          src="{{rest.image}}" alt="Card image cap">
+                        <div class="card-body">
+                          <h4 style="font-size: 20px;" class="card-title">{{rest.name}}</h4>
+                          <div class="row">
+                            <div class="col-6" style="margin-top: -19px;">
+                              <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                            </div>
+                            <div class="col-6"  style="margin-top: -6px;">
+                              <h4 style="font-size: 14px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                            </div>
+                          </div>
+                          <h5 style="font-size: 13px;" class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                          <h5 class="booker"><fa-icon style="font-size: 13px;" [icon]="faChartLine"></fa-icon>&nbsp;&nbsp;Booked {{rest.bookings}} times</h5>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+      </section>
+
+    <!-- Cuisine List (Desktop) -->
+
+    <section class="restList2 deskCuisineList">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <h2>Küchenkategorie</h2>
+            <hr>
+            <div id="multi-item-example1" class="carousel slide carousel-multi-item" data-ride="carousel">
+
+            <!--Controls-->
+              <a class="btn-floating" href="#multi-item-example1" data-slide="prev"><fa-icon class="arrows" [icon]="faArrowCircleLeft"></fa-icon></a>
+              <a class="btn-floating" href="#multi-item-example1" data-slide="next"><fa-icon class="arrows2" [icon]="faArrowCircleRight"></fa-icon></a>
+            <!--/.Controls-->
+
+
+        <div class="carousel-inner" role="listbox">
+
+          <!--First slide-->
+          <div class="carousel-item active">
+            <div class="col-md-3" style="float:left">
+            <div class="card cateCard mb-2" (click)="selectCuisine('Fastfood')">
+                <img class="card-img-top" height="145" width="300"
+                [defaultImage]="defaultImage" [lazyLoad]="foodImage12" alt="Card image cap">
+                <div class="card-body">
+                  <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Fastfood</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3" style="float:left">
+              <div class="card cateCard mb-2" (click)="selectCuisine('Türkisch')"> 
+                  <img class="card-img-top" height="145" width="300"
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage10" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Türkisch</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3" style="float:left">
+                <div class="card cateCard mb-2" (click)="selectCuisine('Orientalisch')">
+                    <img class="card-img-top" height="145" width="300"
+                    [defaultImage]="defaultImage" [lazyLoad]="foodImage9" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Orientalisch</h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3" style="float:left">
+                  <div class="card cateCard mb-2" (click)="selectCuisine('Bar')">
+                      <img class="card-img-top" height="145" width="300"
+                      [defaultImage]="defaultImage" [lazyLoad]="foodImage11" alt="Card image cap">
+                      <div class="card-body">
+                        <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Bar</h4>
+                      </div>
+                    </div>
+                  </div>
+          </div>
+
+        
+          <div class="carousel-item">
+            <div class="col-md-3" style="float:left">
+            <div class="card cateCard mb-2" (click)="selectCuisine('Arabisch')">
+                <img class="card-img-top" height="145" width="300"
+                [defaultImage]="defaultImage" [lazyLoad]="foodImage1" alt="Card image cap">
+                <div class="card-body">
+                  <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Arabisch</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3" style="float:left">
+              <div class="card cateCard mb-2" (click)="selectCuisine('Amerikanisch')"> 
+                  <img class="card-img-top" height="145" width="300"
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage2" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Amerikanisch</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3" style="float:left">
+                <div class="card cateCard mb-2" (click)="selectCuisine('Chinesisch')">
+                    <img class="card-img-top" height="145" width="300"
+                    [defaultImage]="defaultImage" [lazyLoad]="foodImage3" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Chinesisch</h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3" style="float:left">
+                  <div class="card cateCard mb-2" (click)="selectCuisine('Dessert')">
+                      <img class="card-img-top" height="145" width="300"
+                      [defaultImage]="defaultImage" [lazyLoad]="foodImage4" alt="Card image cap">
+                      <div class="card-body">
+                        <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Dessert</h4>
+                      </div>
+                    </div>
+                  </div>
+          </div>
+
+          <div class="carousel-item">
+            <div class="col-md-3" style="float:left">
+            <div class="card cateCard mb-2" (click)="selectCuisine('Französisch')">
+                <img class="card-img-top" height="145" width="300"
+                [defaultImage]="defaultImage" [lazyLoad]="foodImage5" alt="Card image cap">
+                <div class="card-body">
+                  <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Französisch</h4>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-md-3" style="float:left">
+              <div class="card cateCard mb-2" (click)="selectCuisine('Deutsch')">
+                  <img class="card-img-top" height="145" width="300"
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage6" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Deutsch</h4>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3" style="float:left">
+                <div class="card cateCard mb-2" (click)="selectCuisine('Italienisch')">
+                    <img class="card-img-top" height="145" width="300"
+                    [defaultImage]="defaultImage" [lazyLoad]="foodImage7" alt="Card image cap">
+                    <div class="card-body">
+                      <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Italienisch</h4>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3" style="float:left">
+                  <div class="card cateCard mb-2" (click)="selectCuisine('Spanisch')">
+                      <img class="card-img-top" height="145" width="300"
+                      [defaultImage]="defaultImage" [lazyLoad]="foodImage8" alt="Card image cap">
+                      <div class="card-body">
+                        <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Spanisch</h4>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+        </div>
+
+        <!--/.Slides-->
+
+      </div>
+<!--/.Carousel Wrapper-->
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Cuisine List (Mobile) -->
+
+    <section class="restList2 mobCuisineList">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <h2 style="font-size: 18px;">Küchenkategorien</h2>
+            <hr style="margin-bottom: 30px;">
+
+            <div class="scrolling-wrapper">
+                <div class="card cateCard mb-2" (click)="selectCuisine('Fastfood')">
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage12" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Fastfood</h4>
+                  </div>
+                </div>
+                <div class="card cateCard mb-2" (click)="selectCuisine('Türkisch')"> 
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage10" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Türkisch</h4>
+                  </div>
+                </div>
+                <div class="card cateCard mb-2" (click)="selectCuisine('Orientalisch')">
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage9" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Orientalisch</h4>
+                  </div>
+                </div>
+                <div class="card cateCard mb-2" (click)="selectCuisine('Bar')">
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage11" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Bar</h4>
+                  </div>
+                </div>
+                <div class="card cateCard mb-2" (click)="selectCuisine('Arabisch')">
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage1" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Arabisch</h4>
+                  </div>
+                </div>
+                <div class="card cateCard mb-2" (click)="selectCuisine('Amerikanisch')"> 
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage2" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Amerikanisch</h4>
+                  </div>
+                </div>
+                <div class="card cateCard mb-2" (click)="selectCuisine('Chinesisch')">
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage3" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Chinesisch</h4>
+                  </div>
+                </div>
+                <div class="card cateCard mb-2" (click)="selectCuisine('Dessert')">
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage4" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Dessert</h4>
+                  </div>
+                </div>
+                <div class="card cateCard mb-2" (click)="selectCuisine('Französisch')">
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage5" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Französisch</h4>
+                  </div>
+                </div>
+                <div class="card cateCard mb-2" (click)="selectCuisine('Deutsch')">
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage6" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Deutsch</h4>
+                  </div>
+                </div>
+                <div class="card cateCard mb-2" (click)="selectCuisine('Italienisch')">
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage7" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Italienisch</h4>
+                  </div>
+                </div>
+                <div class="card cateCard mb-2" (click)="selectCuisine('Spanisch')">
+                  <img class="card-img-top" height="145" width="300" 
+                  [defaultImage]="defaultImage" [lazyLoad]="foodImage8" alt="Card image cap">
+                  <div class="card-body">
+                    <h4 style="text-align: center; font-size: 20px; margin-bottom: 2px;" class="card-title">Spanisch</h4>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- Locations List (Desktop) -->
+
+    <section class="restList3 deskLocList">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12 col-md-12">
+            <h2 class="mobLocH">Standorte</h2>
+            <hr style="margin-bottom: 30px;">
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="locBox" (click)="selectLocation('Berlin')">
+              <img [defaultImage]="defaultImage" [lazyLoad]="locImage1" height="260" style="width: 100%;">
+              <div class="centered">Berlin</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mobLoc">
+            <div class="locBox" (click)="selectLocation('München')">
+              <img [defaultImage]="defaultImage" [lazyLoad]="locImage2" height="260" style="width: 100%;">
+              <div class="centered">München</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mobLoc">
+            <div class="locBox" (click)="selectLocation('Hamburg')">
+              <img [defaultImage]="defaultImage" [lazyLoad]="locImage3" height="260" style="width: 100%;">
+              <div class="centered">Hamburg</div>
+            </div>
+          </div>
+        </div>
+        <div class="row" style="margin-top: 20px;">
+          <div class="col-12 col-md-4">
+            <div class="locBox" (click)="selectLocation('Köln')">
+              <img [defaultImage]="defaultImage" [lazyLoad]="locImage4" height="260" style="width: 100%;">
+              <div class="centered">Köln</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mobLoc">
+            <div class="locBox" (click)="selectLocation('Frankfurt')">
+              <img [defaultImage]="defaultImage" [lazyLoad]="locImage5" height="260" style="width: 100%;">
+              <div class="centered">Frankfurt</div>
+            </div>
+          </div>
+          <div class="col-12 col-md-4 mobLoc">
+            <div class="locBox" (click)="selectLocation('Düsseldorf')">
+              <img [defaultImage]="defaultImage" [lazyLoad]="locImage6" height="260" style="width: 100%;">
+              <div class="centered">Düsseldorf</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="footer deskFooter" style="margin-top: 180px;">
+      <div class="container">
+          <div class="row">
+              <div class="col-sm-12 col-md-3" style="margin-top: 100px;">
+                  <h2>Dienstleistungen</h2>
+                  <p>Bestellen Sie Essen zum Mitnehmen</p>
+                  <p>Bestellen Sie Essen für im Haus</p>
+                  <p>Essen Lieferung</p>
+                  <p>Tisch reservieren</p>
+                  <div class="social-media" style="margin-top: 30px;">
+                    <fa-icon style="background-color: #ebfaff; border-radius: 50%; padding: 10px 15px 10px 15px;" [icon]="faFacebook"></fa-icon>
+                    <fa-icon style="background-color: #ebfaff; border-radius: 50%; padding: 10px 15px 10px 15px;" [icon]="faLinkedin"></fa-icon>
+                    <a style="color: black;" href="https://www.instagram.com/gastro2go/"><fa-icon style="background-color: #ebfaff; border-radius: 50%; padding: 10px 15px 10px 15px;" [icon]="faInstagram"></fa-icon></a>
+                  </div>
+                  <button class="btn android" style="padding-left: 30px; padding-right: 30px;">
+                    <fa-icon style="font-size: 45px;" [icon]="faAndroid"></fa-icon>
+                      <div class="android-text">
+                          <div class="aText1">Download</div>
+                          <div class="aText2">Android App</div>
+                      </div>
+                  </button>
+              </div>
+              <div class="col-sm-12 col-md-3" style="margin-top: 100px;">
+                  <h2>Über</h2>
+                      <a style="text-decoration: none; color: black;" href="/privacy"><p>Datenschutz-Bestimmungen</p></a>
+                      <a style="text-decoration: none; color: black;" href="/contact"><p>Kontaktiere uns</p></a>
+                      <h2 style="margin-top: 125px;">ENG (US)</h2>
+                      <button class="btn ios2">
+                        <fa-icon style="font-size: 45px; margin-right: 5px;" [icon]="faApple"></fa-icon>
+                          <div class="android-text">
+                              <div class="aText1">Download</div>
+                              <div class="aText2">iOS App</div>
+                          </div>
+                      </button>            </div>
+              <div class="col-sm-12 col-md-6">
+                  <div class="iphone3-block">
+                      <img src="../../../assets/img/Footer Img@2x.png">
+                  </div>
+              </div>
+          </div>
+      </div>
+  </section>
+  
+  <section class="supporter">
+    <button data-toggle="modal" data-target="#supportModal" type="button" class="btn support"><i class="fa fa-question-circle" style="font-size: 20px;"></i> Support</button>
+</section>
+
+<footer>
+    <div class="container">
+       <span style="margin-right: 10px;">&copy;</span> <img src="../../../assets/img/GostroMob.png">  <span style="margin-left: 10px;">All Rights Reserved.</span> 
+    </div>
+</footer>
+<hr style="margin-top: 50px;">
+</body>
+    

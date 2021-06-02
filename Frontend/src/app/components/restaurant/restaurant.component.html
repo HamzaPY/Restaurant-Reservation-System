@@ -1,0 +1,39 @@
+<body>
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav justify-content-end ml-auto">
+        <a class="loginBtn" href="/restaurant">Anmeldung</a>
+      </ul>
+    </div>
+    </div>
+    </nav>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="form-horizontal">
+              <h5 style="margin-bottom: 30px;" class="text-center">Restaurant Login</h5><hr>
+              <h4 *ngIf="error" style="color: #eb3c2e; font-size: 20px; text-align: center; ">{{error}}</h4>
+              <form (ngSubmit)="submit()">
+                  <div class="form-group">
+                      <label for="username">Nutzername</label>
+                      <input type="text" name="username" class="form-control" [(ngModel)]="username" />
+                  </div>
+                  <div class="form-group">
+                      <label for="password">Passwort</label>
+                      <input type="password" name="password" class="form-control" [(ngModel)]="password" />
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Anmeldung</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </body>

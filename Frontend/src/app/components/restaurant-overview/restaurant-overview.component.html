@@ -1,0 +1,1009 @@
+<ngx-ui-loader></ngx-ui-loader>
+<body ngxUiLoaderBlurred (scroll)="onWindowScroll($event)">
+    <nav class="navbar navbar-expand-md">
+        <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <p *ngIf="currentCountry != null && currentCity != null" class="webLoc"><span class="locn"><img src="../../../assets/img/loc.png">&nbsp;&nbsp;</span>{{currentCity}}, {{currentCountry}}</p>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav justify-content-end ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/app">App</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Kontakt</a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="currCustomer != null" class="nav-link" href="/custProfile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="currCustomer == null" class="nav-link" data-toggle="modal" data-target="#registerModal" style="cursor: pointer;">Registrieren</a>
+          </li>
+          <a *ngIf="currCustomer == null" class="loginBtn" data-toggle="modal" data-target="#loginModal" style="cursor: pointer;">Einloggen</a>
+          <a *ngIf="currCustomer != null" class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+        </ul>
+    </div>
+    </div>
+    </nav>
+    <header class="deskOverviewHeader">
+        <div class="jumbotron deskJumb mt-4" [ngStyle]="{'background-image': 'url(' + restTitleP + ')'}">
+            <div class="starBox">
+                <div class="row">
+                    <div class="col-5">
+                        <bar-rating [rate]="restTheRating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                    </div>
+                    <div class="userBox col-7">
+                        <h5 style="font-size: 15px; font-weight: 400;">({{restRating.length}}) users like it</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="overBox" id="overBox">
+                <a SimpleSmoothScroll [showHash]="true" href="#overview"><h5 id="activeOver" style="margin-left: 15px;">Überblick</h5></a>
+                <a SimpleSmoothScroll [showHash]="true" href="#gallery"><h5 id="activeGall">Fotos</h5></a>
+                <a SimpleSmoothScroll [showHash]="true" href="#menu"><h5 id="activeMenu">Speisekarte</h5></a>
+                <a SimpleSmoothScroll [showHash]="true" href="#rating"><h5 id="activeRat" style="margin-right: 15px;">Bewertungen</h5></a>
+            </div>
+        </div>
+    </header>
+
+    <header class="mobOverviewHeader">
+        <div class="jumbotron mobJumb mt-2" [ngStyle]="{'background-image': 'url(' + restTitleP + ')'}">
+            <div class="starBox">
+                <div class="row">
+                    <div class="col-5">
+                        <bar-rating [rate]="restTheRating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                    </div>
+                    <div class="userBox col-7">
+                        <h5 style="font-size: 14px; font-weight: 400; margin-top: 0px;">({{restRating.length}}) users like it</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="overBoxMob" id="overBoxMob">
+                <a SimpleSmoothScroll [showHash]="true" href="#overviewMob"><h5 id="activeOverMob" style="margin-left: 0px;">Überblick</h5></a>
+                <a SimpleSmoothScroll [showHash]="true" href="#galleryMob"><h5 id="activeGallMob">Fotos</h5></a>
+                <a SimpleSmoothScroll [showHash]="true" href="#menuMob"><h5 id="activeMenuMob">Speisekarte</h5></a>
+                <a SimpleSmoothScroll [showHash]="true" href="#ratingMob"><h5 id="activeRatMob" style="margin-right: 0px;">Bewertungen</h5></a>
+            </div>
+        </div>
+    </header>
+
+    
+    <section>
+            
+        <div class="modal fade" id="registerModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" class="registerTitle" id="myModalLabel">Kundenregistrierung</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; ">{{error}}</h4>
+                <form style="margin: 0px auto 0px; padding: 40px 40px 40px; border-radius: 5px; font-size: 1.1em; background-color: white;" [formGroup]="registerForm4" (ngSubmit)="onSubmit()">
+                  <div class="form-group">
+                      <label style="color: #eb3c2e;">Wählen Sie Profilbild</label>
+                      <input type="file" formControlName="imageFile" multiple (change)="selectImage($event)">
+                  </div>
+    
+                  <div class="form-group">
+                      <label style="color: #eb3c2e;" for="firstname">Vorname</label>
+                      <input class="form-control" type="text" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted4 && f2.firstname.errors }">
+                      <div *ngIf="submitted4 && f2.firstname.errors" class="invalid-feedback">
+                      <div *ngIf="f2.firstname.errors.required">Vorname ist erforderlich</div>
+                      </div>
+                  </div>
+        
+                  <div class="form-group">
+                      <label style="color: #eb3c2e;" for="lastname">Nachname</label>
+                      <input class="form-control" type="text" formControlName="lastname" [ngClass]="{ 'is-invalid': submitted4 && f2.lastname.errors }">
+                      <div *ngIf="submitted4 && f2.lastname.errors" class="invalid-feedback">
+                      <div *ngIf="f2.lastname.errors.required">Nachname ist erforderlich</div>
+                      </div>
+                  </div>
+    
+                  <div class="form-group">
+                      <label style="color: #eb3c2e;" for="username">Nutzername</label>
+                      <input class="form-control" type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted4 && f2.username.errors }">
+                      <div *ngIf="submitted4 && f2.username.errors" class="invalid-feedback">
+                      <div *ngIf="f2.username.errors.required">Nutzername ist erforderlich</div>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label style="color: #eb3c2e;" for="password">Passwort</label>
+                    <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted4 && f2.password.errors }">
+                    <div *ngIf="submitted4 && f2.password.errors" class="invalid-feedback">
+                    <div *ngIf="f2.password.errors.required">Passwort ist erforderlich</div>
+                    <div *ngIf="f2.password.errors.pattern">Das Passwort muss aus einem Großbuchstaben, einem Sonderzeichen und einer Mindestlänge von 8 bestehen</div>
+                    </div>
+                </div>
+  
+                <div class="form-group">
+                    <label style="color: #eb3c2e;" for="confPassword">Kennwort bestätigen</label>
+                  <input class="form-control" type="password" formControlName="confPassword" [ngClass]="{ 'is-invalid': submitted4 && f2.confPassword.errors }">
+                  <div *ngIf="submitted4 && f2.confPassword.errors" class="invalid-feedback">
+                  <div *ngIf="f2.confPassword.errors.required">Kennwort bestätigen ist erforderlich</div>
+                  </div>
+                </div>
+        
+                  <div class="form-group">
+                      <label style="color: #eb3c2e;" for="email">E-Mail-Addresse</label>
+                      <input class="form-control" type="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted4 && f2.email.errors }">
+                      <div *ngIf="submitted4 && f2.email.errors" class="invalid-feedback">
+                      <div *ngIf="f2.email.errors.required">Email ist erforderlich</div>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label for="termC" style="color: #eb3c2e;" class="termC">Ich habe die <a style="cursor: pointer; font-weight: 600; color: #FF4040;" href="/privacy">Datenschutzerklärung</a> gelesen und willige ein, dass meine Daten gespeichert werden.</label>
+                    <input class="form-control" type="checkbox" formControlName="termC" [ngClass]="{ 'is-invalid': submitted4 && f2.termC.errors }" required>
+                    <div *ngIf="submitted4 && f2.termC.errors" class="invalid-feedback">
+                    <div *ngIf="f2.termC.errors.required">Datenschutz ist erforderlich</div>
+                    </div>
+                  </div>
+    
+                  <div class="form-group">
+                      <button type="submit" id="signup-btn" style="margin-top: 30px;" class="btn btn-lg btn-danger btn-block">Registrieren</button>
+                  </div>
+              </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+        </section>
+    
+        <section>
+                
+          <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title" class="loginTitle" id="myModalLabel">Kundenlogin</h4>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; ">{{error}}</h4>
+                  <form style="margin: 0px auto 0px; padding: 40px 40px 40px; border-radius: 5px; font-size: 1.1em; background-color: white;" (ngSubmit)="submit()">
+                      <div class="form-group">
+                          <label style="color: #eb3c2e;" for="username">Nutzername</label>
+                          <input type="text" name="username" class="form-control" [(ngModel)]="username" />
+                      </div>
+                      <div class="form-group">
+                          <label style="color: #eb3c2e;" for="password">Passwort</label>
+                          <input type="password" name="password" class="form-control" [(ngModel)]="password" />
+                      </div>
+                      <div class="form-group">
+                        <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Anmeldung</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+      
+    </section>
+
+    <section>
+                
+        <div class="modal fade" id="reserveModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" class="reserveTitle" id="myModalLabel">Eine Reservierung machen</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body">
+                <form style="margin: -15px auto 0px; padding: 40px 40px 40px; border-radius: 5px; font-size: 1.1em; background-color: white;">
+                    <div class="form-group">
+                        <label style="font-size: 14px;">Personenanzahl</label>
+                        <select class="form-control"
+                        name="table"
+                        [(ngModel)]="searcher.searchTables"
+                        (ngModelChange)="triggerChange()">
+                          <option value="1">1 Person</option>
+                          <option *ngFor="let table of tables" value="{{table}}">{{table}} People
+                          </option>
+                        </select>
+                    </div>
+                            <div class="form-group">
+                                <label style="font-size: 14px;">Datum</label>
+                                <input
+                                type="text"
+                                class="form-control"
+                                style="cursor: pointer;"
+                                placeholder="Choose Date"
+                                bsDatepicker
+                                [(ngModel)]="currDate"
+                                (ngModelChange)="reservingTime()"
+                                name="date"
+                                [bsValue]="currDate"
+                                [minDate]="currentDate"
+                                [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                [bsConfig]="bsConfig">
+                            </div>
+                            <div class="form-group">
+                                <label style="font-size: 14px;">Zeit</label>
+                                <select class="form-control"
+                                name="time"
+                                [(ngModel)]="searcher.searchTime"
+                                (ngModelChange)="triggerChange()">
+                                <option *ngFor="let time of times" value="{{time}}">{{time}}
+                                </select>
+                            </div>
+                    <div class="spinner-border2" id="loading2" role="status"> 
+                    </div> 
+                    <div id="orderTimeMob">
+                        <div *ngIf="currRest.length > 0">
+                            <div *ngFor="let theTime of currRest[0].timer; let j = index" style="display: inline-block;">
+                                <button class="btn btnReserve" data-dismiss="modal" aria-label="Close" (click)="custReserve(currRest[0].name, theTime)">{{theTime}}</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="noOrderTimeMob">
+                        <button class="btn btnNext">Keine Reservierung möglich!</button>
+                    </div>
+                    <div id="orderBtn" class="form-group">
+                        <button (click)="searchReservation()" style="margin-top: 30px;" class="btn btn-lg btn-danger btn-block">Finde einen Tisch</button>
+                    </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+    
+  </section>
+
+    <div class="modal fade" id="hoursModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title hoursTitle" id="myModalLabel">Alle Öffnungszeiten</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-4">
+                            <h2 class="hoursModal">Day</h2>
+                            <div *ngFor="let showOp of showDays; let y = index">
+                                <h3 class="hoursModal2">{{showOp}}</h3>
+                            </div>  
+                        </div>
+                        <div class="col-4">
+                            <h2 class="hoursModal">Offene Zeit</h2>
+                            <div *ngFor="let showOp of showStartHours; let y = index">
+                                <h3 class="hoursModal2">{{showOp}}</h3>
+                            </div>  
+                        </div>
+                        <div class="col-4">
+                            <h2 class="hoursModal">Schließzeit</h2>
+                            <div *ngFor="let showOp of showEndHours; let y = index">
+                                <h3 class="hoursModal2">{{showOp}}</h3>
+                            </div>  
+                        </div>
+                    </div>
+                </div>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div id="contentOverview">
+    <section class="overOptions deskOverCategory">
+        <div class="container">
+            <div class="row">
+                <div class="col-3">
+                    <div class="overOpt">
+                        <img src="../../../assets/img/loc.png" style="float:left; margin-left: -10px; margin-top: -2px;">
+                        <h6 class="overHead" style="color: #A0A0A0;">Ort</h6>
+                        <h6 class="overDet">{{restCity}}, {{restCountry}}</h6>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="overOpt overStart">
+                        <img src="../../../assets/img/time.png" style="float:left; margin-left: -10px; margin-top: -2px; cursor: pointer;" placement="top" ngbTooltip="Tippen Sie hier, um alle Öffnungszeiten anzuzeigen!"  data-toggle="modal" data-target="#hoursModal">
+                        <h6 class="overHead" style="color: #A0A0A0;">Öffnungszeiten</h6>
+                        <h6 class="overDet" *ngIf="restOpenStart != 'Geschlossen'">{{restOpenDay}} {{restOpenStart}} - {{restOpenEnd}}</h6>
+                        <h6 class="overDet" *ngIf="restOpenStart == 'Geschlossen'">{{restOpenDay}} {{restOpenStart}}</h6>
+                    </div>
+                </div>
+                <div class="col-2">
+                    <div class="overOpt overBtw">
+                        <img src="../../../assets/img/foodIcon.png" style="float:left; margin-left: -10px; margin-top: -2px;">
+                        <h6 class="overHead" style="color: #A0A0A0;">Küche</h6>
+                        <h6 class="overDet">{{restCuisine}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="overOptions mobOverCategory">
+        <div class="container">
+            <div class="row">
+                <div class="col-6">
+                    <div class="overOpt">
+                        <img src="../../../assets/img/locGrey.png" style="float:left; margin-left: -5px; margin-top: -3px;">
+                        <h6 class="overDet" style="margin-left: 25px;">{{restCity}}, {{restCountry}}</h6>
+                    </div>
+                </div>
+                <div class="col-6">
+                    <div class="overOpt">
+                        <img src="../../../assets/img/timeGrey.png" style="float:left; margin-left: -10px; margin-top: -2px; cursor: pointer;" data-toggle="modal" data-target="#hoursModal">
+                        <h6 data-toggle="modal" data-target="#hoursModal" class="overDet" *ngIf="restOpenStart != 'Geschlossen'">{{restOpenDay}} {{restOpenStart}} - {{restOpenEnd}}</h6>
+                        <h6 data-toggle="modal" data-target="#hoursModal" class="overDet" *ngIf="restOpenStart == 'Geschlossen'">{{restOpenDay}} {{restOpenStart}}</h6>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    
+    <section class="overHeading deskOverReserve" id="overview">
+        <div class="container">
+            <div class="row">
+                <div class="col-5">
+                    <div class="overOpt">
+                        <h3 style="font-size: 32px; font-weight: 600;">{{restTheName}}</h3>
+                        <h5 style="font-size: 18px; font-weight: 600; margin-top: 45px;">Über</h5>
+                        <div class="row">
+                            <div class="col-6" *ngIf="restTheWeb != null">
+                                <a href="https://{{restTheWeb}}" style="color: black; text-decoration: none; font-size: 15px;"><fa-icon style="font-size: 20px;" [icon]="faLink"></fa-icon>&nbsp;&nbsp; {{restTheWeb}}</a>
+                            </div>
+                            <div class="col-2" *ngIf="restTheFace != null">
+                              <a href="https://{{restTheFace}}" style="color: black; text-decoration: none;"><fa-icon style="font-size: 20px;" [icon]="faFacebook"></fa-icon></a>
+                            </div>
+                            <div class="col-2" *ngIf="restTheInst != null">
+                                <a href="https://{{restTheInst}}" style="color: black; text-decoration: none;"><fa-icon style="font-size: 20px;" [icon]="faInstagram"></fa-icon></a>
+                            </div>
+                            <div class="col-2" *ngIf="restTheYt != null">
+                                <a href="https://{{restTheYt}}" style="color: black; text-decoration: none;"><fa-icon style="font-size: 20px;" [icon]="faYoutube"></fa-icon></a>
+                            </div>
+                        </div>
+                        <p style="font-size: 14px; margin-top: 30px;">
+                            <app-read-more [text]="restDetails" maxLength="35"></app-read-more>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-4 offset-3" id="theResBox">
+                    <div class="card" style="width: 380px;">
+                        <div class="card-body">
+                          <h4 class="card-title">Reservieren</h4>
+                          <form>
+                            <div class="form-group">
+                                <label style="font-size: 14px;">Personenanzahl</label>
+                                <select class="form-control"
+                                name="table"
+                                [(ngModel)]="searcher.searchTables"
+                                (ngModelChange)="triggerChange()">
+                                  <option value="1">1 Person</option>
+                                  <option *ngFor="let table of tables" value="{{table}}">{{table}} People
+                                  </option>
+                                </select>
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label style="font-size: 14px;">Datum</label>
+                                        <input
+                                        type="text"
+                                        class="form-control"
+                                        style="cursor: pointer;"
+                                        placeholder="Choose Date"
+                                        bsDatepicker
+                                        [(ngModel)]="currDate"
+                                        (ngModelChange)="reservingTime()"
+                                        name="date"
+                                        [bsValue]="currDate"
+                                        [minDate]="currentDate"
+                                        [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+                                        [bsConfig]="bsConfig">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label style="font-size: 14px;">Zeit</label>
+                                        <select class="form-control"
+                                        name="time"
+                                        [(ngModel)]="searcher.searchTime"
+                                        (ngModelChange)="triggerChange()">
+                                        <option *ngFor="let time of times" value="{{time}}">{{time}}
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="spinner-border" id="loading" role="status"> 
+                            </div> 
+                            <div id="orderTime">
+                                <div *ngIf="currRest.length > 0">
+                                    <div *ngFor="let theTime of currRest[0].timer; let j = index" style="display: inline-block;">
+                                        <button class="btn btnReserve" (click)="custReserve(currRest[0].name, theTime)">{{theTime}}</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="noOrderTime">
+                                <button class="btn btnNext">Keine Reservierung möglich!</button>
+                            </div>
+                            <div id="orderBtn" class="form-group">
+                                <button (click)="searchReservation()" style="margin-top: 30px;" class="btn btn-lg btn-danger btn-block">Finde einen Tisch</button>
+                            </div>
+                        </form>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 380px; margin-top: 10px; margin-bottom: 10px;">
+                        <div class="card-body">
+                          <h4 class="card-title">Lieferung bestellen</h4>
+                          <h6 style="font-size: 14px; font-weight: 500;">Mitnahme</h6>
+                          <h6 style="font-size: 14px; color: #FF4040;"><fa-icon style="margin-right: 13px; margin-left: 3px; color: black;" [icon]="faPhoneAlt"></fa-icon><a style="text-decoration: none; color:#FF4040;" href="tel:{{restContact}}">{{restContact}}</a></h6>
+                        </div>
+                    </div>
+                    <div class="card" style="width: 380px; margin-top: 10px;">
+                        <div class="card-body">
+                            <agm-map style="height: 120px;"  [(latitude)]="location.lat" [(longitude)]="location.lng" [(zoom)]="location.zoom" [disableDefaultUI]="true" [(fitBounds)]='location.viewport'>
+                                <agm-marker (markerClick)="goToMaps()" [(latitude)]="location.marker.lat" [(longitude)]="location.marker.lng"></agm-marker>
+                            </agm-map>
+                          <h6 style="font-size: 12px; margin-top: 15px; font-weight: 400;">{{restTheStreet}}, {{restTheCity}}, {{restTheState}}, {{restTheCountry}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="overHeading mobOverReserve" id="overviewMob">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="overOpt">
+                        <h3 style="font-size: 24px; font-weight: 600;">{{restTheName}}</h3>
+                        <h5 style="font-size: 15px; font-weight: 600; margin-top: 20px;">Über</h5>
+                        <div class="row">
+                            <div class="col-6" *ngIf="restTheWeb != null">
+                                <a href="https://{{restTheWeb}}" style="color: black; text-decoration: none; font-size: 14px;"><fa-icon style="font-size: 16px;" [icon]="faLink"></fa-icon>&nbsp;&nbsp; {{restTheWeb}}</a>
+                            </div>
+                            <div class="col-2" *ngIf="restTheFace != null">
+                              <a href="https://{{restTheFace}}" style="color: black; text-decoration: none;"><fa-icon style="font-size: 16px;" [icon]="faFacebook"></fa-icon></a>
+                            </div>
+                            <div class="col-2" *ngIf="restTheInst != null">
+                                <a href="https://{{restTheInst}}" style="color: black; text-decoration: none;"><fa-icon style="font-size: 16px;" [icon]="faInstagram"></fa-icon></a>
+                            </div>
+                            <div class="col-2" *ngIf="restTheYt != null">
+                                <a href="https://{{restTheYt}}" style="color: black; text-decoration: none;"><fa-icon style="font-size: 16px;" [icon]="faYoutube"></fa-icon></a>
+                            </div>
+                        </div>
+                        <p style="font-size: 14px; margin-top: 15px;">
+                            <app-read-more [text]="restDetails" maxLength="35"></app-read-more>
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <button class="loginBtn btn" data-toggle="modal" data-target="#reserveModal">Finde einen Tisch</button>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card" style="width: 100%; margin-top: 20px; margin-bottom: 10px;">
+                        <div class="card-body">
+                        <h4 style="margin-bottom: 20px;" class="card-title">Lieferung bestellen</h4>
+                        <div class="row">
+                            <div class="col-4">
+                                <h6 style="font-size: 14px; font-weight: 500;">Mitnahme</h6>
+                            </div>
+                            <div class="col-7 offset-1">
+                                <h6 style="font-size: 14px; color: #FF4040;"><fa-icon style="margin-right: 13px; margin-left: 3px; color: black;" [icon]="faPhoneAlt"></fa-icon><a style="text-decoration: none; color:#FF4040;" href="tel:{{restContact}}">{{restContact}}</a></h6>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="card" style="width: 100%; margin-top: 10px;">
+                        <div class="card-body">
+                            <agm-map style="height: 120px;"  [(latitude)]="location.lat" [(longitude)]="location.lng" [(zoom)]="location.zoom" [disableDefaultUI]="true" [(fitBounds)]='location.viewport'>
+                                <agm-marker (markerClick)="goToMaps()" [(latitude)]="location.marker.lat" [(longitude)]="location.marker.lng"></agm-marker>
+                            </agm-map>
+                        <h6 style="font-size: 12px; margin-top: 15px; font-weight: 400;">{{restTheStreet}}, {{restTheCity}}, {{restTheState}}, {{restTheCountry}}</h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="overGal deskOverGall" id="gallery">
+        <div class="container">
+            <div class="row">
+                <div class="col-10">
+                    <h5 style="font-size: 18px; font-weight: 600;">{{restGallery.length}} Fotos</h5>
+                    <h2 *ngIf="restGallery.length <= 0" style="font-size: 20px; margin-top: 25px;">Es wurden noch keine Fotos hinzugefügt!</h2>
+                    <div class="photoGallery">
+                        <div *ngIf="restGallery.length == 1">
+                            <div class="pic1S">
+                                <img src="{{restGallery[0]}}" height="140" width="180" (click)="open(0)" style="cursor: pointer;">
+                            </div>
+                        </div>
+                        <div *ngIf="restGallery.length == 2">
+                            <div class="pic1S">
+                                <img src="{{restGallery[0]}}" height="140" width="180" (click)="open(0)" style="cursor: pointer;">
+                            </div>
+                            <div class="pic2S">
+                                <img src="{{restGallery[1]}}" height="140" width="180" style="float: left; cursor: pointer;" (click)="open(1)">
+                            </div>
+                        </div>
+                        <div *ngIf="restGallery.length == 3">
+                            <div class="pic1S">
+                                <img src="{{restGallery[0]}}" height="140" width="180" (click)="open(0)" style="cursor: pointer;">
+                            </div>
+                            <div class="pic2S">
+                                <img src="{{restGallery[1]}}" height="140" width="180" style="float: left; cursor: pointer;" (click)="open(1)">
+                            </div>
+                            <div class="picBTW">
+                                <img src="{{restGallery[2]}}" height="290" width="300" style="margin-left: 8px; margin-right: 8px; cursor: pointer;" (click)="open(2)">
+                            </div>
+                        </div>
+                        <div *ngIf="restGallery.length == 4">
+                            <div class="pic1S">
+                                <img src="{{restGallery[0]}}" height="140" width="180" (click)="open(0)" style="cursor: pointer;">
+                            </div>
+                            <div class="pic2S">
+                                <img src="{{restGallery[1]}}" height="140" width="180" style="float: left; cursor: pointer;" (click)="open(1)">
+                            </div>
+                            <div class="picBTW">
+                                <img src="{{restGallery[2]}}" height="290" width="300" style="margin-left: 8px; margin-right: 8px; cursor: pointer;" (click)="open(2)">
+                                <img src="{{restGallery[3]}}" height="140" width="180" style="margin-top: -150px; cursor: pointer;" (click)="open(3)">
+                            </div>
+                        </div>
+                        <div *ngIf="restGallery.length == 5">
+                            <div class="pic1S">
+                                <img src="{{restGallery[0]}}" height="140" width="180" (click)="open(0)" style="cursor: pointer;">
+                            </div>
+                            <div class="pic2S">
+                                <img src="{{restGallery[1]}}" height="140" width="180" style="float: left; cursor: pointer;" (click)="open(1)">
+                            </div>
+                            <div class="picBTW">
+                                <img src="{{restGallery[2]}}" height="290" width="300" style="margin-left: 8px; margin-right: 8px; cursor: pointer;" (click)="open(2)">
+                                <img src="{{restGallery[3]}}" height="140" width="180" style="margin-top: -150px; cursor: pointer;" (click)="open(3)">
+                                <img src="{{restGallery[4]}}" height="140" width="180" style="margin-top: 150px; margin-left: -180px; cursor: pointer;" (click)="open(4)">
+                            </div>
+                        </div>
+                        <div *ngIf="restGallery.length >= 6">
+                            <div class="pic1S">
+                                <img src="{{restGallery[0]}}" height="140" width="180" (click)="open(0)" style="cursor: pointer;">
+                            </div>
+                            <div class="pic2S">
+                                <img src="{{restGallery[1]}}" height="140" width="180" style="float: left; cursor: pointer;" (click)="open(1)">
+                            </div>
+                            <div class="picBTW">
+                                <img src="{{restGallery[2]}}" height="290" width="300" style="margin-left: 8px; margin-right: 8px; cursor: pointer;" (click)="open(2)">
+                                <img src="{{restGallery[3]}}" height="140" width="180" style="margin-top: -150px; cursor: pointer;" (click)="open(3)">
+                                <img src="{{restGallery[4]}}" height="140" width="180" style="margin-top: 150px; margin-left: -180px; cursor: pointer; filter: brightness(65%);" (click)="open(4)">
+                                <div class="centered" (click)="open(4)">+{{restGallery.length-4}} Fotos</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="overGal mobOverGall" id="galleryMob"> 
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h5 style="font-size: 16px; font-weight: 600;">{{restGallery.length}} Fotos</h5>
+                    <h2 *ngIf="restGallery.length <= 0" style="font-size: 18px; margin-top: 25px;">Es wurden noch keine Fotos hinzugefügt!</h2>
+                    <div class="scrolling-wrapper">
+                        <div *ngFor="let image of restGallery; let i = index">
+                            <img src="{{image}}" height="180" width="200" (click)="open(i)" style="cursor: pointer; margin-right: 10px;">
+                        </div>
+                      </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="overMenu deskOverMenu" id="menu">
+        <div class="container">
+            <div class="row">
+                <div class="col-7">
+                    <h5 style="font-size: 18px; font-weight: 600; margin-bottom: 30px;">Speisekarte</h5>
+                    <h2 *ngIf="Category.length <= 0" style="font-size: 20px; margin-top: 25px;">Es wurden noch keine Artikel hinzugefügt!</h2>
+                    <div *ngIf="Category.length > 0">
+                        <div class="row">
+                            <div class="col-3">
+                                <div (click)="readCurrItem(this.firstCate)" [id]="this.firstCate" class="firstCategoryBox">{{this.firstCate}}</div>
+                            </div>
+                            <div class="col-3" *ngFor="let cate of Category; let p = index;">
+                                <div (click)="readCurrItem(cate.name)" [id]="cate.name" class="categoryBox">{{cate.name}}</div>
+                            </div>
+                        </div>
+                        <hr style="margin-top: 30px;">
+                        <div class="row" *ngIf="moreItems == false">
+                            <div class="col-4 offset-1" style="margin-top: 20px;" *ngFor="let item of Items.slice(0,4); let q = index;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="{{item.itemImage}}" height="50" width="50">
+                                    </div>
+                                    <div class="col-8">
+                                        <h3 style="margin-left: 30px; margin-top: 12px; font-size: 14px; font-weight: 400;">{{item.itemName}}</h3>
+                                    </div>
+                                    <div class="col-2">
+                                        <h3 style="margin-left: 30px; margin-top: 12px; font-size: 14px; font-weight: 400;">{{item.itemPrice}}€</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="moreItems == true">
+                            <div class="col-4 offset-1" style="margin-top: 20px;" *ngFor="let item of Items; let q = index;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="{{item.itemImage}}" height="50" width="50">
+                                    </div>
+                                    <div class="col-8">
+                                        <h3 style="margin-left: 30px; margin-top: 12px; font-size: 14px; font-weight: 400;">{{item.itemName}}</h3>
+                                    </div>
+                                    <div class="col-2">
+                                        <h3 style="margin-left: 30px; margin-top: 12px; font-size: 14px; font-weight: 400;">{{item.itemPrice}}€</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="Items.length > 4 && moreItems == false">
+                            <div class="col-6 offset-3">
+                                <div (click)="readMoreItems()" class="fullMenuBox">Vollständiges Menü anzeigen</div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="Items.length > 4  && moreItems == true">
+                            <div class="col-6 offset-3">
+                                <div (click)="readLessItems()" class="fullMenuBox">Menü reduzieren</div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top: 40px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="overMenu mobOverMenu" id="menuMob">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h5 style="font-size: 16px; font-weight: 600; margin-bottom: 20px;">Speisekarte</h5>
+                    <h2 *ngIf="Category.length <= 0" style="font-size: 18px; margin-top: 25px;">Es wurden noch keine Artikel hinzugefügt!</h2>
+                    <div *ngIf="Category.length > 0">
+                        <div class="row">
+                            <div class="col-4">
+                                <div (click)="readCurrItemMob(this.firstCateMob, this.firstCate)" [id]="this.firstCateMob" class="firstCategoryBoxMob">{{this.firstCate}}</div>
+                            </div>
+                            <div class="col-4" *ngFor="let cateMob of Category; let p = index;">
+                                <div (click)="readCurrItemMob(CategoryMob[p], cateMob.name)" [id]="CategoryMob[p]" class="categoryBoxMob">{{cateMob.name}}</div>
+                            </div>
+                        </div>
+                        <hr style="margin-top: 30px;">
+                        <div class="row" *ngIf="moreItems == false">
+                            <div class="col-6" style="margin-top: 20px;" *ngFor="let item of Items.slice(0,4); let q = index;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="{{item.itemImage}}" height="50" width="50">
+                                    </div>
+                                    <div class="col-10">
+                                        <h3 style="margin-left: 30px; margin-top: 0px; font-size: 12px; font-weight: 400;">{{item.itemName}}</h3><br>
+                                        <h3 style="margin-left: 30px; margin-top: -45px; font-size: 12px; font-weight: 400;">{{item.itemPrice}}€</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="moreItems == true">
+                            <div class="col-6" style="margin-top: 20px;" *ngFor="let item of Items; let q = index;">
+                                <div class="row">
+                                    <div class="col-2">
+                                        <img src="{{item.itemImage}}" height="50" width="50">
+                                    </div>
+                                    <div class="col-10">
+                                        <h3 style="margin-left: 30px; margin-top: 0px; font-size: 12px; font-weight: 400;">{{item.itemName}}</h3><br>
+                                        <h3 style="margin-left: 30px; margin-top: -45px; font-size: 12px; font-weight: 400;">{{item.itemPrice}}€</h3>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="Items.length > 4 && moreItems == false">
+                            <div class="col-6 offset-3">
+                                <div (click)="readMoreItems()" class="fullMenuBox">Vollständiges Menü anzeigen</div>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="Items.length > 4  && moreItems == true">
+                            <div class="col-6 offset-3">
+                                <div (click)="readLessItems()" class="fullMenuBox">Menü reduzieren</div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top: 20px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="overRating deskOverRating" id="rating">
+        <div class="container">
+            <div class="row">
+                <div class="col-5">
+                    <h5 style="font-size: 18px; font-weight: 600;">Bewertungen</h5>
+                    <div class="spinner-border3" id="loading3" role="status"> 
+                    </div> 
+                    <div *ngIf="restRating.length <= 0 && shower == 1">
+                        <h2 style="font-size: 20px; margin-top: 25px;">Es wurden noch keine Bewertungen hinzugefügt!</h2>
+                        <hr>
+                    </div>
+                    <div *ngIf="currCustomer != null">
+                        <h5 style="font-size: 16px; font-weight: 600; margin-top: 30px; margin-bottom: 20px;">Bewertung hinzufügen</h5>
+                        <form [formGroup]="registerForm2" (ngSubmit)="onSubmit2()">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Gesamtwertung</label>
+                                        <div style="margin-top: -8px;">
+                                            <bar-rating [(rate)]="currRate" theme="fontawesome-o" [max]="5"></bar-rating>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Lebensmittelbewertung</label>
+                                        <div style="margin-top: -8px;">
+                                            <bar-rating [(rate)]="foodRate" theme="fontawesome-o" [max]="5"></bar-rating>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Service-Bewertung</label>
+                                        <div style="margin-top: -8px;">
+                                            <bar-rating [(rate)]="serviceRate" theme="fontawesome-o" [max]="5"></bar-rating>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Ambience Rating</label>
+                                        <div style="margin-top: -8px;">
+                                            <bar-rating [(rate)]="ambienceRate" theme="fontawesome-o" [max]="5"></bar-rating>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Wertbewertung</label>
+                                        <div style="margin-top: -8px;">
+                                            <bar-rating [(rate)]="valueRate" theme="fontawesome-o" [max]="5"></bar-rating>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="margin-top: 10px;">Kommentar</label>
+                                <textarea rows="5" cols="25" formControlName="rComment" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f.rComment.errors }"></textarea>
+                                <div *ngIf="submitted2 && f.rComment.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rComment.errors.required">Kommentar ist erforderlich</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" id="signup-btn" style="margin-top: 20px;" class="btn btn-lg btn-danger btn-block">Einen Kommentar hinzufügen</button>
+                            </div>
+                            <hr style="margin-top: 50px;">
+                        </form>
+                    </div>
+                    <div *ngIf="restRating.length > 0">
+                        <h3 style="font-size: 32px; font-weight: 600; margin-top: 40px;">Was {{restRating.length}} Leute sagen</h3>
+                        <h5 style="font-size: 18px; font-weight: 600; margin-top: 35px;">Gesamtbewertungen und Bewertungen</h5>
+                        <div class="row">
+                            <div class="col-3" style="margin-top: -12px;">
+                                <bar-rating [rate]="restTheRating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                            </div>
+                            <div class="col-6" style="margin-top: 4px;">
+                                <h5 style="font-size: 15px; font-weight: 400;">{{restTheRating | number: '1.1-1'}} basierend auf der aktuellen Bewertung</h5>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-3">
+                                <h4 style="text-align: center;">{{restTheFood | number: '1.1-1'}}</h4>
+                                <h5 style="font-size: 15px; font-weight: 400; text-align: center; margin-top: -7px;">Essen</h5>
+                            </div>
+                            <div class="col-3">
+                                <h4 style="text-align: center;">{{restTheService | number: '1.1-1'}}</h4>
+                                <h5 style="font-size: 15px; font-weight: 400; text-align: center; margin-top: -7px;">Bedienung</h5>
+                            </div>
+                            <div class="col-3">
+                                <h4 style="text-align: center;">{{restTheAmbience | number: '1.1-1'}}</h4>
+                                <h5 style="font-size: 15px; font-weight: 400; text-align: center; margin-top: -7px;">Ambiente</h5>
+                            </div>
+                            <div class="col-3">
+                                <h4 style="text-align: center;">{{restTheValue | number: '1.1-1'}}</h4>
+                                <h5 style="font-size: 15px; font-weight: 400; text-align: center; margin-top: -7px;">Wert</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div *ngFor="let rate of restRating; let k = index;">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="{{rate.rateUser.profilePic}}" height="80" width="80" style="border-radius: 6px;">
+                                </div>
+                                <div class="col-9" style="margin-top: -10px;">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 style="font-size: 14px; font-weight: 600; margin-top: 20px;">{{rate.rateUser.username}}</h5>
+                                        </div>
+                                        <div class="col-5 offset-1">
+                                            <h5 style="font-size: 15px; font-weight: 400; margin-top: 20px;">{{rate.userTheDate}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4" style="margin-top: -12px;">
+                                            <bar-rating [(rate)]="rate.rating" theme="fontawesome-o" [max]="5" [readOnly]="true"></bar-rating>
+                                        </div>
+                                        <div class="col-1" style="margin-top: 4px;">
+                                            <h5 style="font-size: 15px; font-weight: 400;">({{rate.rating}})</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 style="font-size: 14px; font-weight: 400; margin-top: 25px;">{{rate.comment}}</h5>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="overRating mobOverRating" id="ratingMob">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h5 style="font-size: 16px; font-weight: 600;">Bewertungen</h5>
+                    <div *ngIf="restRating.length <= 0 && shower == 1">
+                        <h2 style="font-size: 18px; margin-top: 25px;">Es wurden noch keine Bewertungen hinzugefügt!</h2>
+                        <hr>
+                    </div>
+                    <div *ngIf="currCustomer != null">
+                        <h5 style="font-size: 16px; font-weight: 600; margin-top: 30px; margin-bottom: 20px;">Bewertung hinzufügen</h5>
+                        <form [formGroup]="registerForm2" (ngSubmit)="onSubmit2()">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Gesamtwertung</label>
+                                        <div style="margin-top: -8px;">
+                                            <bar-rating [(rate)]="currRate" theme="fontawesome-o" [max]="5"></bar-rating>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Lebensmittelbewertung</label>
+                                        <div style="margin-top: -8px;">
+                                            <bar-rating [(rate)]="foodRate" theme="fontawesome-o" [max]="5"></bar-rating>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Service-Bewertung</label>
+                                        <div style="margin-top: -8px;">
+                                            <bar-rating [(rate)]="serviceRate" theme="fontawesome-o" [max]="5"></bar-rating>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Ambience Rating</label>
+                                        <div style="margin-top: -8px;">
+                                            <bar-rating [(rate)]="ambienceRate" theme="fontawesome-o" [max]="5"></bar-rating>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Wertbewertung</label>
+                                        <div style="margin-top: -8px;">
+                                            <bar-rating [(rate)]="valueRate" theme="fontawesome-o" [max]="5"></bar-rating>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label style="margin-top: 10px;">Kommentar</label>
+                                <textarea rows="5" cols="25" formControlName="rComment" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && f.rComment.errors }"></textarea>
+                                <div *ngIf="submitted2 && f.rComment.errors" class="invalid-feedback">
+                                    <div *ngIf="f.rComment.errors.required">Kommentar ist erforderlich</div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" id="signup-btn" style="margin-top: 20px;" class="btn btn-lg btn-danger btn-block">Einen Kommentar hinzufügen</button>
+                            </div>
+                            <hr style="margin-top: 50px;">
+                        </form>
+                    </div>
+                    <div *ngIf="restRating.length > 0">
+                        <h3 style="font-size: 24px; font-weight: 600; margin-top: 20px;">Was {{restRating.length}} Leute sagen</h3>
+                        <h5 style="font-size: 16px; font-weight: 600; margin-top: 25px;">Gesamtbewertungen und Bewertungen</h5>
+                        <div class="row">
+                            <div class="col-4" style="margin-top: -12px;">
+                                <bar-rating [rate]="restTheRating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                            </div>
+                            <div class="col-8" style="margin-top: 4px;">
+                                <h5 style="font-size: 14px; font-weight: 400;">{{restTheRating | number: '1.1-1'}} basierend auf der aktuellen Bewertung</h5>
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top: 10px;">
+                            <div class="col-3">
+                                <h4 style="text-align: center;">{{restTheFood | number: '1.1-1'}}</h4>
+                                <h5 style="font-size: 14px; font-weight: 400; text-align: center; margin-top: -7px;">Essen</h5>
+                            </div>
+                            <div class="col-3">
+                                <h4 style="text-align: center;">{{restTheService | number: '1.1-1'}}</h4>
+                                <h5 style="font-size: 14px; font-weight: 400; text-align: center; margin-top: -7px;">Bedienung</h5>
+                            </div>
+                            <div class="col-3">
+                                <h4 style="text-align: center;">{{restTheAmbience | number: '1.1-1'}}</h4>
+                                <h5 style="font-size: 14px; font-weight: 400; text-align: center; margin-top: -7px;">Ambiente</h5>
+                            </div>
+                            <div class="col-3">
+                                <h4 style="text-align: center;">{{restTheValue | number: '1.1-1'}}</h4>
+                                <h5 style="font-size: 14px; font-weight: 400; text-align: center; margin-top: -7px;">Wert</h5>
+                            </div>
+                        </div>
+                        <hr>
+                        <div *ngFor="let rate of restRating; let k = index;">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="{{rate.rateUser.profilePic}}" height="80" width="80" style="border-radius: 6px;">
+                                </div>
+                                <div class="col-9" style="margin-top: -10px;">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h5 style="font-size: 12px; font-weight: 600; margin-top: 20px;">{{rate.rateUser.username}}</h5>
+                                        </div>
+                                        <div class="col-5 offset-1">
+                                            <h5 style="font-size: 12px; font-weight: 400; margin-top: 20px;">{{rate.userTheDate}}</h5>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-5" style="margin-top: -12px;">
+                                            <bar-rating [(rate)]="rate.rating" theme="fontawesome-o" [max]="5" [readOnly]="true"></bar-rating>
+                                        </div>
+                                        <div class="col-7" style="margin-top: 4px;">
+                                            <h5 style="font-size: 14px; font-weight: 400;">({{rate.rating}})</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <h5 style="font-size: 12px; font-weight: 400; margin-top: 20px;">{{rate.comment}}</h5>
+                            <hr>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr *ngIf="restRating.length > 0" style="margin-top: 50px;">
+    </section>
+    </div>
+</body>
+    

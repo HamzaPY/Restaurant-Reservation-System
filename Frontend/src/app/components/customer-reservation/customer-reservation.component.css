@@ -1,0 +1,330 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.spinner-border{ 
+    z-index: 1; 
+    width: 90px; 
+    height: 90px; 
+    margin-top: 40px;
+    margin-left: 280px;
+    border: 13px solid #f3f3f3; 
+    border-radius: 50%; 
+    border-top: 13px solid #eb3c2e; 
+    animation: spin 2s linear infinite; 
+    } 
+      
+    @keyframes spin { 
+      0% { transform: rotate(0deg); } 
+      100% { transform: rotate(360deg); } 
+    }
+
+    .spinner-border4{ 
+        z-index: 1; 
+        margin-top: 30px;
+        margin-left: 145px;
+        margin-bottom: 20px;
+        border: 16px solid #f3f3f3; 
+        border-radius: 50%; 
+        border-top: 16px solid #eb3c2e; 
+        width: 100px; 
+        height: 100px; 
+        animation: spin 2s linear infinite; 
+        } 
+          
+        @keyframes spin { 
+          0% { transform: rotate(0deg); } 
+          100% { transform: rotate(360deg); } 
+        }
+
+
+.navbar-brand {
+    padding-top: 30px;
+}
+
+.nav-link {
+    color: black;
+    padding-top: 45px;
+    margin-right: 40px;
+    font-weight: bold;
+    margin-bottom: 11px;
+}
+
+.loginBtn { 
+    margin-top: 33px;
+    margin-bottom: 10px;
+    padding: 12px 15px 12px 15px; 
+    border-radius: 5px;
+    background: #FF4040;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: red;
+}
+
+.loginBtn:hover {
+    color: white;
+    background-color: #d43737;
+}
+
+form {
+    margin: 0px auto 0px;
+    padding: 40px 40px 40px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    background-color: white;
+  }
+  
+  label {
+    color: #eb3c2e;
+  }
+
+  .termC {
+    font-size: 15px;
+    }   
+
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+    color: #eb3c2e;
+}
+
+h3 {
+    font-family: 'Inter', sans-serif;
+	font-weight: bold;
+    color: #eb3c2e;
+}
+
+
+h2 {
+    margin-top: 60px;
+    color: #eb3c2e;
+    text-align: center;
+    font-size: 25px;
+    font-weight: bold;
+    font-family: 'Inter', sans-serif;
+    margin-bottom: 30px;
+}
+
+h5 {
+    margin-top: 30px;
+    color: black;
+	text-align: center;
+    font-size: 16px;
+    font-family: 'Inter', sans-serif;
+}
+
+h4 {
+	font-weight: bold;
+  color: #eb3c2e;
+  font-family: 'Inter', sans-serif;
+  font-size: 28px;
+}
+
+.detailo {
+    margin-top: 100px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    padding: 30px;
+}
+
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.card {
+    margin-bottom: 5px;
+    border: none;
+}
+
+.card-title {
+    font-family: 'Inter', sans-serif;
+    color: #eb3c2e;
+    font-size: 35px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.registerTitle {
+    margin-left: 105px; 
+    margin-top: 30px; 
+    color: #FF4040; 
+    font-size: 26px; 
+    font-weight: 600;
+}
+
+.loginTitle {
+    margin-left: 150px; 
+    margin-top: 30px; 
+    color: #FF4040; 
+    font-size: 26px; 
+    font-weight: 600;
+}
+
+.mobLogo {
+  display: none;
+}
+
+.mobBooker {
+    display: none;
+}
+
+@media only screen and (max-width: 400px) {
+  .navbar-brand {
+    padding-top: 10px;
+  }
+
+  .deskBooker {
+    display: none;
+  }
+
+  .mobBooker {
+      display: block;
+  }
+
+  .deskLogo {
+    display: none;
+  }
+
+  .mobLogo {
+      display: block;
+  }
+
+  .navbar-toggler-icon {
+      margin-top: 5px;
+      font-size: 14px;
+  }
+
+  .detailo {
+    margin-top: 50px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    padding: 10px;
+    }
+
+.card-title {
+    font-family: 'Inter', sans-serif;
+    color: #eb3c2e;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+h5 {
+    margin-top: 20px;
+    color: black;
+	text-align: center;
+    font-size: 13px;
+    font-family: 'Inter', sans-serif;
+}
+
+  label {
+    font-size: 15px;
+    }
+
+    .termC {
+        font-size: 13px;
+    }
+
+    .registerTitle {
+        color: #FF4040; 
+        font-size: 24px;
+        text-align: center;
+        line-height: 30px;
+        margin-left: 50px; 
+        margin-top: 20px;
+    }
+
+    .loginTitle {
+        color: #FF4040; 
+        font-size: 24px;
+        text-align: center;
+        line-height: 30px;
+        margin-left: 90px; 
+        margin-top: 20px;
+    }
+  
+}
+
+@media only screen and (max-width: 600px) and (min-width: 400px) {
+  .navbar-brand {
+    padding-top: 10px;
+  }
+
+  .deskBooker {
+    display: none;
+  }
+
+  .mobBooker {
+      display: block;
+  }
+
+  .deskLogo {
+    display: none;
+  }
+
+  .mobLogo {
+      display: block;
+  }
+
+  .navbar-toggler-icon {
+      margin-top: 5px;
+      font-size: 14px;
+  }
+
+  .detailo {
+    margin-top: 50px;
+    border: 1px solid #d1d1d1;
+    border-radius: 5px;
+    padding: 10px;
+    }
+
+.card-title {
+    font-family: 'Inter', sans-serif;
+    color: #eb3c2e;
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+}
+
+h5 {
+    margin-top: 20px;
+    color: black;
+	text-align: center;
+    font-size: 15px;
+    font-family: 'Inter', sans-serif;
+}
+
+  label {
+    font-size: 15px;
+    }
+
+    .termC {
+        font-size: 13px;
+    }
+
+    .registerTitle {
+        color: #FF4040; 
+        font-size: 24px;
+        text-align: center;
+        line-height: 30px;
+        margin-left: 70px; 
+        margin-top: 20px;
+    }
+
+    .loginTitle {
+        color: #FF4040; 
+        font-size: 24px;
+        text-align: center;
+        line-height: 30px;
+        margin-left: 110px; 
+        margin-top: 20px;
+    }
+}

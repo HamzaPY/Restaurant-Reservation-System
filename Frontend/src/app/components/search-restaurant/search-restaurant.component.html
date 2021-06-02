@@ -1,0 +1,489 @@
+<ngx-ui-loader></ngx-ui-loader>
+<body ngxUiLoaderBlurred>
+    <nav class="navbar navbar-expand-md">
+        <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <p *ngIf="currentCountry != null && currentCity != null" class="webLoc"><span class="locn"><img src="../../../assets/img/loc.png">&nbsp;&nbsp;</span>{{currentCity}}, {{currentCountry}}</p>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>        
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav justify-content-end ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/app">App</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/contact">Kontakt</a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="currCustomer != null" class="nav-link" href="/custProfile">Profile</a>
+          </li>
+          <li class="nav-item">
+            <a *ngIf="currCustomer == null" class="nav-link" data-toggle="modal" data-target="#registerModal" style="cursor: pointer;">Registrieren</a>
+          </li>
+          <a *ngIf="currCustomer == null" class="loginBtn" data-toggle="modal" data-target="#loginModal" style="cursor: pointer;">Einloggen</a>
+          <a *ngIf="currCustomer != null" class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+        </ul>
+    </div>
+    </div>
+    </nav>
+    <header class="deskSearchHeader">
+      <div class="jumbotron deskJumb mt-4">
+        <div class="flex-container">
+          <span class="caln"><img src="../../../assets/img/calender.png">&nbsp;&nbsp;</span>
+          <input
+          type="text"
+          class="reserve"
+          placeholder="Choose date"
+          bsDatepicker
+          [(ngModel)]="curriDate"
+          [bsValue]="curriDate"
+          [minDate]="currentDate"
+          (ngModelChange)="reservingTime()"
+          [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+          [bsConfig]="bsConfig">
+          <span class="timen"><img src="../../../assets/img/time.png">&nbsp;&nbsp;</span>
+          <select class="reserve2" name="time" [(ngModel)]="searcher.searchTime">
+            <option *ngFor="let time of times" value="{{time}}">{{time}}
+          </select>
+          <span class="peoplen"><img src="../../../assets/img/people.png">&nbsp;&nbsp;</span>
+          <select class="reserve3" name="table" [(ngModel)]="searcher.searchTables">
+            <option value="1">1 Person</option>
+              <option *ngFor="let table of tables" value="{{table}}">{{table}} Personen
+            </option>
+          </select>
+          <input type="text" class="searcher" id="searcherTextBox" name="location" [(ngModel)]="searcher.searchLoc" placeholder="&#xf002;&nbsp;&nbsp; Location" (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off" #search>
+          <div>
+          <button class="btn dashbutton" id="buttonEdgeSearch" (click)="searchRest()">Go!</button>
+          <button class="btn dashbuttonBoxSearch" id="buttonFoxSearch" (click)="searchRest()">Go!</button>
+        </div>
+        </div>
+      </div>
+  </header>
+
+  <header class="mobSearchHeader">
+    <div class="jumbotron mobJumb mt-2">
+      <div class="flex-container">
+        <span class="calnMob"><img src="../../../assets/img/calender.png"></span>
+        <input
+        type="text"
+        class="reserveMob"
+        placeholder="Choose date"
+        bsDatepicker
+        [(ngModel)]="curriDate"
+        [bsValue]="curriDate"
+        [minDate]="currentDate"
+        (ngModelChange)="reservingTime()"
+        [bsConfig]="{ dateInputFormat: 'DD-MMM-YYYY' }"
+        [bsConfig]="bsConfig">
+        <span class="lineMob"><img src="../../../assets/img/line.png"></span>
+        <span class="timenMob"><img src="../../../assets/img/time.png"></span>
+        <select class="reserve2Mob" name="time" [(ngModel)]="searcher.searchTime">
+          <option *ngFor="let time of times" value="{{time}}">{{time}}
+        </select>
+      </div>
+        <span class="peoplenMob"><img src="../../../assets/img/people.png"></span>
+        <select class="reserve3Mob" name="table" [(ngModel)]="searcher.searchTables">
+          <option value="1">1 Person</option>
+            <option *ngFor="let table of tables" value="{{table}}">{{table}} Personen
+          </option>
+        </select>
+        <br>
+        <span class="locnMob"><img src="../../../assets/img/mobLoc.png"></span>
+        <input type="text" class="searcherMob" name="location" [(ngModel)]="searcher.searchLoc" placeholder="Location" (keydown.enter)="$event.preventDefault()" autocorrect="off" autocapitalize="off" spellcheck="off" #search2>
+        <div>
+        <button class="btn dashbuttonMob" (click)="searchRest()">Go!</button>
+      </div>
+    </div>
+</header>
+
+  
+  <section>
+            
+    <div class="modal fade" id="registerModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" class="registerTitle" id="myModalLabel">Kundenregistrierung</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; ">{{error}}</h4>
+            <form  [formGroup]="registerForm2" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                  <label style="color: #eb3c2e;">Wählen Sie Profilbild</label>
+                  <input type="file" formControlName="imageFile" multiple (change)="selectImage($event)">
+              </div>
+
+              <div class="form-group">
+                  <label style="color: #eb3c2e;" for="firstname">Vorname</label>
+                  <input class="form-control" type="text" formControlName="firstname" [ngClass]="{ 'is-invalid': submitted2 && f.firstname.errors }">
+                  <div *ngIf="submitted2 && f.firstname.errors" class="invalid-feedback">
+                  <div *ngIf="f.firstname.errors.required">Vorname ist erforderlich</div>
+                  </div>
+              </div>
+    
+              <div class="form-group">
+                  <label style="color: #eb3c2e;" for="lastname">Nachname</label>
+                  <input class="form-control" type="text" formControlName="lastname" [ngClass]="{ 'is-invalid': submitted2 && f.lastname.errors }">
+                  <div *ngIf="submitted2 && f.lastname.errors" class="invalid-feedback">
+                  <div *ngIf="f.lastname.errors.required">Nachname ist erforderlich</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label style="color: #eb3c2e;" for="username">Nutzername</label>
+                  <input class="form-control" type="text" formControlName="username" [ngClass]="{ 'is-invalid': submitted2 && f.username.errors }">
+                  <div *ngIf="submitted2 && f.username.errors" class="invalid-feedback">
+                  <div *ngIf="f.username.errors.required">Nutzername ist erforderlich</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                  <label style="color: #eb3c2e;" for="password">Passwort</label>
+                  <input class="form-control" type="password" formControlName="password" [ngClass]="{ 'is-invalid': submitted2 && f.password.errors }">
+                  <div *ngIf="submitted2 && f.password.errors" class="invalid-feedback">
+                  <div *ngIf="f.password.errors.required">Passwort ist erforderlich</div>
+                  <div *ngIf="f.password.errors.pattern">Das Passwort muss aus einem Großbuchstaben, einem Sonderzeichen und einer Mindestlänge von 8 bestehen</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label style="color: #eb3c2e;" for="confPassword">Kennwort bestätigen</label>
+                <input class="form-control" type="password" formControlName="confPassword" [ngClass]="{ 'is-invalid': submitted2 && f.confPassword.errors }">
+                <div *ngIf="submitted2 && f.confPassword.errors" class="invalid-feedback">
+                <div *ngIf="f.confPassword.errors.required">Kennwort bestätigen ist erforderlich</div>
+                </div>
+              </div>
+    
+              <div class="form-group">
+                  <label style="color: #eb3c2e;" for="email">E-Mail-Addresse</label>
+                  <input class="form-control" type="email" formControlName="email" [ngClass]="{ 'is-invalid': submitted2 && f.email.errors }">
+                  <div *ngIf="submitted2 && f.email.errors" class="invalid-feedback">
+                  <div *ngIf="f.email.errors.required">Email ist erforderlich</div>
+                  </div>
+              </div>
+
+              <div class="form-group">
+                <label for="termC" style="color: #eb3c2e;" class="termC">Ich habe die <a style="cursor: pointer; font-weight: 600; color: #FF4040;" href="/privacy">Datenschutzerklärung</a> gelesen und willige ein, dass meine Daten gespeichert werden.</label>
+                <input class="form-control" type="checkbox" formControlName="termC" [ngClass]="{ 'is-invalid': submitted2 && f.termC.errors }" required>
+                <div *ngIf="submitted2 && f.termC.errors" class="invalid-feedback">
+                <div *ngIf="f.termC.errors.required">Datenschutz ist erforderlich</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                  <button type="submit" id="signup-btn" style="margin-top: 30px;" class="btn btn-lg btn-danger btn-block">Registrieren</button>
+              </div>
+          </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    </section>
+
+    <section>
+            
+      <div class="modal fade" id="loginModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" class="loginTitle" id="myModalLabel">Kundenlogin</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="errorNull()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h4 *ngIf="error" style="color: #FF4040; font-size: 20px; text-align: center; ">{{error}}</h4>
+              <form (ngSubmit)="submit()">
+                  <div class="form-group">
+                      <label style="color: #eb3c2e;" for="username">Nutzername</label>
+                      <input type="text" name="username" class="form-control" [(ngModel)]="username" />
+                  </div>
+                  <div class="form-group">
+                      <label style="color: #eb3c2e;" for="password">Passwort</label>
+                      <input type="password" name="password" class="form-control" [(ngModel)]="password" />
+                  </div>
+                  <div class="form-group">
+                    <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Anmeldung</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  
+    </section>
+
+    <section class="searchResults deskSearcher">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-3" style="margin-bottom: 70px;">
+              <div *ngIf="showRest.length <= 0 && showCusine.length <= 0 && shower == 1">
+                <h3>Keine Restaurants vorhanden</h3>
+              </div>
+              <div *ngIf="shower == 0">
+                <h3>Restaurants laden ...</h3>
+              </div>
+              <div *ngIf="showRest.length > 0">
+                <h3>{{showRest.length}} Restaurants zur Verfügung</h3>
+              </div>
+              <div *ngIf="showCusine.length > 0">
+                <h3>{{showCusine.length}} Restaurants zur Verfügung</h3>
+              </div>
+              <h3 style="font-size: 15px; margin-top: 60px;"><img src="../../../assets/img/filter.jpg">&nbsp;&nbsp;&nbsp;Filters</h3>
+              <h2 style="color: black; font-size: 17px;">Küche</h2>
+              <div *ngFor="let cusine of Cuisine">
+                  <input
+                     type="checkbox"
+                     [name]="cusine.name"
+                     [id]="cusine.name"
+                     [value]="cusine.name"
+                     (change)="onCheck(cusine.name)">
+                  <label style="margin-left: 10px; font-size: 15px; font-weight: 400;" for="{{ cusine.name }}">{{ cusine.name }}</label>
+               </div>
+               <hr>
+               <h2 style="color: black; font-size: 16px;">Preis</h2>
+               <button type="button" class="btn priceBtn" (click)="readPrices('€')" placement="top" ngbTooltip="20€ and under">
+                €
+              </button>
+              <button type="button" class="btn priceBtnExt" (click)="readPrices('€€')" placement="top" ngbTooltip="21€ to 40€">
+                €€
+              </button>
+              <button type="button" class="btn priceBtnExt" (click)="readPrices('€€€')" placement="top" ngbTooltip="41€ to 60€">
+                €€€
+              </button>
+              <button type="button" class="btn priceBtnEnd" (click)="readPrices('€€€€')" placement="top" ngbTooltip="61€ and over">
+                €€€€
+              </button>
+                <hr style="margin-top: 30px;">
+            </div>
+
+              <div class="col-sm-12 col-md-9" style="margin-top: 70px;">
+                <div class="spinner-border" id="loading" role="status"> 
+                </div> 
+                <div *ngIf="showRest.length <= 0 && showCusine.length <=0 && shower == 1">
+                  <h2 style="color:  #FF4040; font-size: 30px; margin-top: 100px; text-align: center;">Sorry, keine Restaurants gefunden!</h2>
+                </div>
+                  <div class="card" style="margin-top: 20px;" *ngFor="let rest of showRest | paginate: config2; let i = index ">
+                    <div class="card-horizontal">
+                        <div class="img-square-wrapper">
+                          <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><img src="{{rest.image}}" height="184" width="320"></a>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-6">
+                              <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><h4 class="card-title">{{rest.name}}</h4></a>
+                            </div>
+                            <div class="col-3" style="margin-top: -30px;">
+                              <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                            </div>
+                            <div class="col-2" style="margin-top: -17px;">
+                              <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                            </div>
+                          </div>
+                          <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                            <div *ngIf="rest.timer.length <= 0">
+                                <button class="btn btnNext">Finden Sie als nächstes verfügbar</button>
+                            </div>
+                            <div *ngIf="rest.timer.length > 0">
+                              <div *ngFor="let theTime of rest.timer; let j = index" style="display: inline-block;">
+                                <button class="btn btnReserve" (click)="custReserve(rest.name, theTime)">{{theTime}}</button>
+                              </div>
+                            </div>
+                            <h6>Mitnahme</h6>
+                            <a style="text-decoration: none; color:#FF4040;" href="tel:{{rest.contact}}"><button class="btn btnCall"><fa-icon style="margin-right: 6px; margin-left: -20px;" [icon]="faPhoneAlt"></fa-icon>{{rest.contact}}</button></a>
+                        </div>
+                    </div>
+                  </div>
+                  <div class="card" style="margin-top: 20px;" *ngFor="let rest of showCusine | paginate: config; let i = index">
+                    <div class="card-horizontal">
+                      <div class="img-square-wrapper">
+                        <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><img src="{{rest.image}}" height="184" width="320"></a>
+                      </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-6">
+                            <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><h4 class="card-title">{{rest.name}}</h4></a>
+                          </div>
+                          <div class="col-3" style="margin-top: -30px;">
+                            <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                          </div>
+                          <div class="col-2" style="margin-top: -17px;">
+                            <h4 style="font-size: 15px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                          </div>
+                        </div>
+                        <h5 class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                        <div *ngIf="rest.timer.length <= 0">
+                        <button class="btn btnNext">Finden Sie als nächstes verfügbar</button>
+                        </div>
+                        <div *ngIf="rest.timer.length > 0">
+                          <div *ngFor="let theTime of rest.timer; let j = index" style="display: inline-block;">
+                            <button class="btn btnReserve" (click)="custReserve(rest.name, theTime)">{{theTime}}</button>
+                          </div>
+                        </div>
+                        <h6>Mitnahme</h6>
+                        <a style="text-decoration: none; color:#FF4040;" href="tel:{{rest.contact}}"><button class="btn btnCall"><fa-icon style="margin-right: 6px; margin-left: -20px;" [icon]="faPhoneAlt"></fa-icon>{{rest.contact}}</button></a>
+                      </div>
+                    </div>
+                </div>
+                <div style="margin-top: 50px; margin-left: 300px; margin-bottom: 80px;">
+                  <pagination-controls 
+                  [responsive]="responsive"
+                  [directionLinks]="true"
+                  [autoHide]="true"
+                  [previousLabel]="labels.previousLabel"
+                  [nextLabel]="labels.nextLabel"
+                  (pageChange)="pageChangedRest($event)" class="my-pagination"></pagination-controls>
+                </div>
+              </div>
+          </div>
+      </div>
+
+    </section>
+
+    <section class="searchResults mobSearcher">
+        <div class="container">
+          <div class="row">
+            <div class="col-12" style="margin-bottom: 70px;">
+              <div *ngIf="showRest.length <= 0 && showCusine.length <= 0 && shower == 1">
+                <h3 style="font-size: 15px;">Keine Restaurants vorhanden</h3>
+              </div>
+              <div *ngIf="shower == 0">
+                <h3 style="font-size: 15px;">Restaurants laden ...</h3>
+              </div>
+              <div *ngIf="showRest.length > 0">
+                <h3 style="font-size: 15px;">{{showRest.length}} Restaurants zur Verfügung</h3>
+              </div>
+              <div *ngIf="showCusine.length > 0">
+                <h3 style="font-size: 15px;">{{showCusine.length}} Restaurants zur Verfügung</h3>
+              </div>
+              <a style="text-decoration: none;" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <h3 style="font-size: 15px; margin-top: 30px;"><img src="../../../assets/img/filter.jpg">&nbsp;&nbsp;&nbsp;Filters</h3>
+              </a>
+              <div class="collapse" id="collapseExample">
+                <h2 style="color: black; font-size: 17px;">Küche</h2>
+                <div *ngFor="let cusine of Cuisine">
+                    <input
+                       type="checkbox"
+                       [name]="cusine.name"
+                       [id]="cusine.name"
+                       [value]="cusine.name"
+                       (change)="onCheck(cusine.name)">
+                    <label style="margin-left: 10px; font-size: 15px; font-weight: 400;" for="{{ cusine.name }}">{{ cusine.name }}</label>
+                 </div>
+                 <hr>
+                 <h2 style="color: black; font-size: 16px;">Preis</h2>
+                 <button type="button" class="btn priceBtn" (click)="readPrices('€')" placement="top" ngbTooltip="20€ and under">
+                  €
+                </button>
+                <button type="button" class="btn priceBtnExt" (click)="readPrices('€€')" placement="top" ngbTooltip="21€ to 40€">
+                  €€
+                </button>
+                <button type="button" class="btn priceBtnExt" (click)="readPrices('€€€')" placement="top" ngbTooltip="41€ to 60€">
+                  €€€
+                </button>
+                <button type="button" class="btn priceBtnEnd" (click)="readPrices('€€€€')" placement="top" ngbTooltip="61€ and over">
+                  €€€€
+                </button>
+                <hr style="margin-top: 30px;">
+              </div>
+
+              <div style="margin-top: 30px;">
+                <div class="spinner-border2" id="loading2" role="status"> 
+                </div> 
+                <div *ngIf="showRest.length <= 0 && showCusine.length <=0 && shower == 1">
+                  <h2 style="color:  #FF4040; font-size: 20px; margin-top: 50px; text-align: center;">Sorry, keine Restaurants gefunden!</h2>
+                </div>
+                  <div class="card" style="margin-top: 30px;" *ngFor="let rest of showRest | paginate: config2; let i = index ">
+                        <div class="img-square-wrapper">
+                          <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><img src="{{rest.image}}" class="mobImageSearch"></a>
+                        </div>
+                        <div class="card-body">
+                          <div class="row">
+                            <div class="col-12" style="margin-top: 10px; margin-left: -10px;">
+                              <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><h4 class="card-title">{{rest.name}}</h4></a>
+                            </div>
+                            <div class="col-12" style="margin-top: -3px; margin-left: -8px;">
+                              <h5 style="font-size: 13px;" class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                            </div>
+                            <div class="col-4" style="margin-top: -10px; margin-left: -8px;">
+                              <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                            </div>
+                            <div class="col-8" style="margin-top: 3px;">
+                              <h4 style="font-size: 14px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                            </div>
+                            <div class="col-12" style="margin-top: -3px; margin-left: -8px;">
+                              <div *ngIf="rest.timer.length <= 0">
+                                <button class="btn btnNext">Finden Sie als nächstes verfügbar</button>
+                              </div>                            
+                              <div *ngIf="rest.timer.length > 0">
+                                <div *ngFor="let theTime of rest.timer; let j = index" style="display: inline-block;">
+                                  <button class="btn btnReserve" (click)="custReserve(rest.name, theTime)">{{theTime}}</button>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12" style="margin-top: -3px; margin-left: -8px;">
+                              <h6>Mitnahme</h6>
+                              <a style="text-decoration: none; color:#FF4040;" href="tel:{{rest.contact}}"><button class="btn btnCall"><fa-icon style="margin-right: 6px; margin-left: -20px;" [icon]="faPhoneAlt"></fa-icon>{{rest.contact}}</button></a>
+                            </div>
+                          </div>  
+                        </div>
+                  </div>
+
+                  <div class="card" style="margin-top: 30px;" *ngFor="let rest of showCusine | paginate: config; let i = index">
+                      <div class="img-square-wrapper">
+                        <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><img src="{{rest.image}}" class="mobImageSearch"></a>
+                    </div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-12" style="margin-top: 10px; margin-left: -10px;">
+                          <a style="text-decoration: none;" href="/overviewRestaurant/{{rest._id}}"><h4 class="card-title">{{rest.name}}</h4></a>
+                        </div>
+                        <div class="col-12" style="margin-top: -3px; margin-left: -8px;">
+                          <h5 style="font-size: 13px;" class="locAcusin">{{rest.city}} <span class="slash"> · </span> {{rest.category}} <span class="slash"> · </span> {{rest.price}}</h5>
+                        </div>
+                        <div class="col-4" style="margin-top: -10px; margin-left: -8px;">
+                          <bar-rating [rate]="rest.rating" [max]="5" theme="fontawesome-o" [readOnly]="true"></bar-rating>
+                        </div>
+                        <div class="col-8" style="margin-top: 3px;">
+                          <h4 style="font-size: 14px; ">({{rest.rating | number: '1.1-1'}})</h4>
+                        </div>
+                        <div class="col-12" style="margin-top: -3px; margin-left: -8px;">
+                          <div *ngIf="rest.timer.length <= 0">
+                            <button class="btn btnNext">Finden Sie als nächstes verfügbar</button>
+                          </div>                            
+                          <div *ngIf="rest.timer.length > 0">
+                            <div *ngFor="let theTime of rest.timer; let j = index" style="display: inline-block;">
+                              <button class="btn btnReserve" (click)="custReserve(rest.name, theTime)">{{theTime}}</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-12" style="margin-top: -3px; margin-left: -8px;">
+                          <h6>Mitnahme</h6>
+                          <a style="text-decoration: none; color:#FF4040;" href="tel:{{rest.contact}}"><button class="btn btnCall"><fa-icon style="margin-right: 6px; margin-left: -20px;" [icon]="faPhoneAlt"></fa-icon>{{rest.contact}}</button></a>
+                        </div>
+                      </div>  
+                    </div>
+                </div>
+                <div style="margin-top: 50px; margin-left: 80px; margin-bottom: 50px;">
+                  <pagination-controls 
+                  [responsive]="responsive"
+                  [directionLinks]="true"
+                  [autoHide]="true"
+                  [previousLabel]="labels.previousLabel"
+                  [nextLabel]="labels.nextLabel"
+                  (pageChange)="pageChangedRest($event)" class="my-pagination"></pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+
+    </section>
+</body>
+    

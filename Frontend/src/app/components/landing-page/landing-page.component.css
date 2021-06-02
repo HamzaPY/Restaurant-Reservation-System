@@ -1,0 +1,1864 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar-brand {
+    padding-top: 50px;
+}
+
+.nav-link {
+    color: black;
+    padding-top: 50px;
+    margin-right: 80px;
+}
+
+.nav-link:hover {
+    color: red;
+}
+
+.header {
+    margin-top: 180px;
+}
+
+
+h1 {
+    font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+      color: black;
+      font-size: 60px;
+}
+
+.h1D {
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 2px; 
+    font-size: 70px;
+}
+
+.h2D {
+    font-family: 'Poppins', sans-serif;
+    font-size: 35px; 
+    margin-top: 40px;
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.h1EM {
+    line-height: 80px;
+}
+
+.b1D {
+    margin-top: 70px;
+}
+
+.b2D {
+    margin-top: 70px;
+}
+
+.f1D {
+    font-size: 45px;
+}
+
+.f2D {
+    font-size: 45px;
+}
+
+h6 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: bold;
+    font-size: 22px;
+}
+
+h3 {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 20px;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+h4 {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 40px;
+    font-size: 22px;
+    font-weight: bold;
+    color: red;
+}
+
+h5 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 45px;
+    font-weight: bold;
+    color: black;
+    line-height: 30px;
+}
+
+p {
+    margin-top: 30px;
+    line-height: 40px;
+    color:#696969;
+}
+
+.h2FMEx {
+    font-family: 'Poppins', sans-serif;
+    margin-top: 30px;
+}
+
+#first {
+    color: red;
+}
+  
+#anim1 {
+    animation: anim1;
+}
+#anim2 {
+    animation: anim2;
+}
+#anim3 {
+    animation: anim3;
+}
+#anim4 {
+    animation: anim4;
+}
+
+#anim1, #anim2, #anim3, #anim4 {
+    margin-bottom: -4px;
+    color: red;
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    position: relative;
+    animation-duration: 6s;
+    animation-timing-function: steps(25, end);
+    animation-iteration-count: infinite;
+}
+  
+@keyframes anim1 {
+    0%, 25%, 50%, 75%, 100% {
+      width: 0;
+    }
+    10%, 20% {
+        width: 10.2em;
+    }
+}
+
+@keyframes anim2 {
+    0%, 25%, 50%, 75%, 100% {
+      width: 0;
+    }
+    
+    35%, 45% {
+        width: 10.2em;
+    }
+}
+
+@keyframes anim3 {
+    0%, 25%, 50%, 75%, 100% {
+      width: 0;
+    }
+    
+    60%, 70% {
+        width: 10.2em;
+    }
+}
+
+@keyframes anim4 {
+    0%, 25%, 50%, 75%, 100% {
+      width: 0;
+    }
+    
+    85%, 95% {
+        width: 10.2em;
+    }
+}
+
+.mobiVers {
+    display: none;
+}
+
+.img-blockDesk {
+    position: absolute;
+    top: 40px;
+    left: 100px;
+    z-index: 0;
+}
+
+.bodyimg-block {
+    position: absolute;
+    top: 150px;
+    left: 250px;
+    z-index: -1;
+
+}
+
+.bodyimg2-block {
+    position: absolute;
+    top: 35px;
+    left: 240px;
+    z-index: -1;
+
+}
+
+.iphone1-block {
+    margin-top: 130px;
+    margin-left: 90px;
+}
+
+.iphone2-block {
+    margin-top: 30px;
+}
+
+.iphone3-block {
+    margin-top: -5px;
+    margin-left: 70px;
+}
+
+.iphone4-block {
+    margin-left: -20px;
+}
+
+.points {
+    margin-top: 70px;
+    padding: 30px;
+}
+
+.points:hover {
+    border: 1px solid #eb3c2e;
+    cursor: pointer;
+    padding: 29px;
+}
+
+.android {
+    margin-top: 50px;
+    height: 80px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+    background-color: #eb3c2e;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+}
+
+.android-text {
+    margin-top: 3px;
+    float: right; 
+    margin-left: 10px;
+    line-height: 20px;
+}
+
+.aText1 {
+    text-align: left;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.aText2 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.android:hover, .start:hover, .alle:hover, .getStart:hover {
+    background-color: #8b0000;
+    color: white;
+}
+
+.ios:hover, .ios2:hover {
+    background-color:#4B4B4B;
+    color: white;
+}
+
+.ios {
+    margin-left: 10px;
+    margin-top: 50px;
+    height: 80px;
+    padding-left: 70px;
+    padding-right: 70px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+}
+
+.ios2 {
+    margin-left: -10px;
+    margin-top: 50px;
+    height: 80px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+}
+
+.aTextO, .iTextO {
+    font-size: 45px;
+}
+
+.and2M {
+    margin-left: 20px;
+}
+
+.ios2M {
+    padding-left: 50px; 
+    padding-right: 50px;
+}
+
+.and2FM {
+    padding-left: 30px; 
+    padding-right: 30px;
+}
+
+.start {
+    background-color: #eb3c2e;
+    height: 50px;
+    padding-left: 22px;
+    padding-right: 22px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+}
+
+.getStart {
+    background-color: #eb3c2e;
+    height: 50px;
+    padding-left: 22px;
+    padding-right: 22px;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+}
+
+
+.alle {
+    margin-top: 60px;
+    background-color: #eb3c2e;
+    height: 50px;
+    padding-left: 22px;
+    padding-right: 22px;
+    color: white;
+    font-size: 13px;
+    font-weight: bold;
+    box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+}
+
+.h5DM {
+    font-family: 'Poppins', sans-serif;
+    font-size: 25px; 
+    color: red;
+    margin-left: 20px;
+}
+
+.h3DM {
+    font-family: 'Poppins', sans-serif;
+    font-size: 40px;
+    margin-top: 20px;
+    margin-left: 20px;
+}
+
+.pDM {
+    margin-left: 20px;
+}
+
+.body-one {
+    margin-top: 260px;
+}
+
+.body-two {
+    margin-top: 0px;
+}
+
+.body-three {
+    margin-top: 0px;
+}
+
+.features-one {
+    margin-top: 90px;
+}
+
+.features-two {
+    margin-top: 120px;
+}
+
+.experience{
+    margin-top: 160px;
+}
+
+.download{
+    margin-top: 160px;
+}
+
+.social-media {
+    margin-top: 40px;
+}
+
+.iconM {
+    background-color: #ebfaff; 
+    border-radius: 50%; 
+    padding: 10px 15px 10px 15px;
+}
+
+.carousel-nav-icon {
+    height: 48px;
+    width: 48px;
+ }
+ .carousel-item .col, .col-sm, .col-md {
+       margin: 8px;
+       height: 300px;
+       background-size: cover;
+       background-position: center center;
+    }
+
+.whatApp {
+    font-size: 60px;
+    color: #25D366;
+ }
+
+ .emailo {
+    font-size: 60px;
+    color: #EA4335;
+ }
+
+ .whatApp:hover {
+    color: #29af5a;
+ }
+
+ .emailo:hover {
+    color: #bb372b;
+ }
+
+ .supportOr {
+    margin-top: 30px;
+    font-size: 45px;
+ }
+
+ .support {
+    background-color: #EA4335;
+    color: white;
+    margin-left: 700px;
+    margin-top: -20px;
+ }
+
+ .support:hover {
+    background-color: #bb372b;
+    color: white;
+ }
+
+ .supportTitle {
+    margin-left: 170px; 
+    margin-top: 20px; 
+    text-align: center;
+    color: #FF4040; 
+    font-size: 32px; 
+    font-weight: 600;
+}
+
+.supporter {
+    margin-top: 100px;
+    margin-left: 450px;
+}
+
+ .imgCard {
+    border-radius: 50%; 
+    margin-left: 85px;
+ }
+
+ .userCard {
+    width: 360px;
+    padding: 30px 30px 30px 40px;
+    border-radius: 24px;
+    background-color: #FAFBFF;
+}
+
+.userCardFinal {
+    margin-left: 30px;
+}
+
+.userBlock {
+    margin-top: 160px;
+}
+
+ .mobHeader {
+    display: none;
+}
+
+.downMob {
+    display: none;
+}
+
+.mobPhone1 {
+    display: none;
+}
+
+.mobPhone2 {
+    display: none;
+}
+
+.mobPhone3 {
+    display: none;
+}
+
+.mobFlipper1 {
+    display: none;
+}
+
+.mobFlipper2 {
+    display: none;
+}
+
+.mobExp {
+    display: none;
+}
+
+.mobLogo {
+    display: none;
+}
+
+.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@media only screen and (max-width: 400px)
+{
+    .card {
+        flex: 0 0 auto;
+        width: 310px;
+        margin-right: 15px;
+    }
+            
+    .scrolling-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .deskLogo {
+        display: none;
+    }
+
+    .mobLogo {
+        display: block;
+    }
+
+    .mobHeader {
+        display: block;
+    }
+
+    .deskHeader {
+        display: none;
+    }
+
+    .img-blockDesk {
+        display: none;
+    }
+
+    .downMob {
+        display: block;
+    }
+
+    .downDesk {
+        display: none;
+    }
+
+    .mobPhone1 {
+        display: block;
+    }
+
+    .deskPhone1 {
+        display: none;
+    }
+
+    .mobPhone2 {
+        display: block;
+    }
+
+    .deskPhone2 {
+        display: none;
+    }
+
+    .mobPhone3 {
+        display: block;
+    }
+
+    .deskPhone3 {
+        display: none;
+    }
+    
+    .mobFlipper1 {
+        display: block;
+    }
+
+    .deskFlipper1 {
+        display: none;
+    }
+
+    .mobFlipper2 {
+        display: block;
+    }
+
+    .deskFlipper2 {
+        display: none;
+    }
+
+    .mobExp {
+        display: block;
+    }
+
+    .deskExp {
+        display: none;
+    }
+
+    .navbar-brand {
+        padding-top: 15px;
+    }
+
+    .img-block {
+        position: relative;
+        top: -20px;
+        right: 200px;
+        z-index: 1;
+        margin-bottom: 120px;
+    }
+
+    .bodyimg-block {
+        left: 230px;
+    }
+
+    .bodyimg2-block {
+        left: 230px;
+    }
+    
+    .iphone1-block {
+        margin-left: 55px;
+    }
+
+    .iphone2-block {
+        margin-left: 0px;
+    }
+
+    .iphone3-block {
+        margin-left: -125px;
+        margin-bottom: 60px;
+    }    
+
+    .footer{
+        display: none;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+     .mainMobile {
+         height: 330px;
+         width: 550px;
+     }
+
+     .deskArrow {
+        display: none;
+    }
+
+     .b1D {
+        margin-right: -4px;
+     }
+
+     .b2D {
+        margin-right: -4px;
+     }
+
+     .header {
+        margin-top: 50px;
+    }
+
+     .h1M {
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 0.5px; 
+        font-size: 40px;
+        margin-left: 10px;
+        font-weight: bold;
+        color: black;
+     }
+
+     .h2M {
+        font-family: 'Poppins', sans-serif;
+         margin-left: 12px;
+        font-size: 25px;
+        margin-top: 20px;
+     }
+
+     #anim1 {
+        animation: anim1;
+    }
+    #anim2 {
+        animation: anim2;
+    }
+    #anim3 {
+        animation: anim3;
+    }
+    #anim4 {
+        animation: anim4;
+    }
+    
+    #anim1, #anim2, #anim3, #anim4 {
+        margin-bottom: -4px;
+        color: red;
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+        position: relative;
+        animation-duration: 6s;
+        animation-timing-function: steps(25, end);
+        animation-iteration-count: infinite;
+    }
+      
+    @keyframes anim1 {
+        0%, 25%, 50%, 75%, 100% {
+          width: 0;
+        }
+        10%, 20% {
+            width: 10.2em;
+        }
+    }
+    
+    @keyframes anim2 {
+        0%, 25%, 50%, 75%, 100% {
+          width: 0;
+        }
+        
+        35%, 45% {
+            width: 10.2em;
+        }
+    }
+    
+    @keyframes anim3 {
+        0%, 25%, 50%, 75%, 100% {
+          width: 0;
+        }
+        
+        60%, 70% {
+            width: 10.2em;
+        }
+    }
+    
+    @keyframes anim4 {
+        0%, 25%, 50%, 75%, 100% {
+          width: 0;
+        }
+        
+        85%, 95% {
+            width: 10.2em;
+        }
+    }
+
+      .android {
+        margin-left: 55px;
+        margin-top: 100px;
+        height: 80px;
+        padding-left: 50px;
+        padding-right: 50px;
+        text-align: center;
+        background-color: #eb3c2e;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+    }
+    
+    .android-text {
+        margin-top: 3px;
+        float: right; 
+        margin-left: 10px;
+        line-height: 20px;
+    }
+    
+    .aText1 {
+        text-align: left;
+        font-weight: normal;
+        font-size: 15px;
+    }
+    
+    .aText2 {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    
+    .android:hover, .start:hover, .alle:hover, .getStart:hover {
+        background-color: #8b0000;
+        color: white;
+    }
+    
+    .ios:hover, .ios2:hover {
+        background-color:#4B4B4B;
+        color: white;
+    }
+    
+    .ios {
+        margin-left: 55px;
+        margin-top: 30px;
+        height: 80px;
+        padding-left: 70px;
+        padding-right: 80px;
+        text-align: center;
+        background-color: black;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+    }
+
+    .ios2 {
+        margin-left: -10px;
+        margin-top: 50px;
+        height: 80px;
+        padding-left: 50px;
+        padding-right: 50px;
+        text-align: center;
+        background-color: black;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+    }
+    
+    .body-one {
+        margin-top: 130px;
+    }
+
+    .body-two {
+        margin-top: 130px;
+    }
+
+    .body-three {
+        margin-top: 160px;
+    }
+
+    .h5M {
+        font-family: 'Poppins', sans-serif;
+        font-size: 35px;
+    }
+
+    .h3M {
+        font-family: 'Poppins', sans-serif;
+        font-size: 35px;
+    }
+
+    .h4M {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+    }
+
+    .h4MEx {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        margin-top: 18px;
+    }
+
+    .h4MEx1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        margin-top: -60px;
+    }
+
+    .h4MExP {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        margin-top: -160px;
+    }
+
+    .pM {
+        font-size: 12px;
+        line-height: 28px;
+    }
+
+    .body1Mobile1 {
+        width: 230px;
+        height: 350px;
+        margin-left: -100px;
+        margin-top: -21px;
+    }
+
+    .body2Mobile1 {
+        width: 230px;
+        height: 350px;
+        margin-left: -100px;
+        margin-top: -100px;
+    }
+
+    .body3Mobile1 {
+        width: 230px;
+        height: 350px;
+        margin-left: -100px;
+        margin-top: -25px;
+    }
+
+    .body3Mobile2 {
+        width: 230px;
+        height: 350px;
+        margin-left: -100px;
+        margin-top: -21px;
+    }
+
+    .body1Mobile2 {
+        width: 170px;
+        height: 350px;
+        margin-left: -40px;
+        margin-top: 50px;
+    }
+
+    .body2Mobile2 {
+        width: 170px;
+        height: 350px;
+        margin-bottom: 80px;
+        margin-top: 180px;
+        margin-left: 20px;
+    }
+
+    .getStartEx {
+        margin-bottom: 130px;
+        background-color: #eb3c2e;
+        height: 40px;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+    }
+
+    .getStart {
+        background-color: #eb3c2e;
+        height: 40px;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+    }
+
+    .alleM {
+        margin-top: 40px;
+        background-color: #eb3c2e;
+        height: 50px;
+        padding-left: 22px;
+        padding-right: 22px;
+        color: white;
+        font-size: 13px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+        margin-bottom: 100px;
+        margin-left: 60px;
+    }
+
+    .h1EM {
+        font-family: 'Poppins', sans-serif;
+        margin-left: 25px;
+    }
+
+    .and2M {
+        margin-top: -200px;
+        margin-left: 55px;
+    }
+
+    .ios2M {
+        margin-top: -50px;
+        margin-left: 55px;
+        padding-right: 60px;
+        padding-left: 50px;
+    }
+
+    .and2MD {
+        margin-top: -200px;
+        margin-left: 70px;
+    }
+
+    .ios2MD {
+        margin-top: -50px;
+        margin-left: 70px;
+        padding-right: 60px;
+        padding-left: 50px;
+    }
+
+    .imgDM {
+        width: 100%;
+        height: 400px;
+    }
+
+    .h5DM {
+        font-family: 'Poppins', sans-serif;
+        margin-top: 235px;
+        font-size: 18px; 
+        color: red;
+        margin-left: 20px;
+    }
+    
+    .h3DM {
+        font-family: 'Poppins', sans-serif;
+        font-size: 32px;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    
+    .pDM {
+        margin-top: 0px;
+        margin-left: 20px;
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .imgDM2 {
+        width: 170px;
+        height: 350px;
+        margin-top: 100px;
+        margin-left: 140px;
+    }
+    
+    .download {
+        margin-top: 100px;
+    }
+
+    .imgFM {
+        width: 200px;
+        height: 220px;
+        margin-left: -11px;
+        margin-top: -20px;
+    }
+
+    .h2FM {
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+    }
+
+    .pFM {
+        font-size: 4px;
+        line-height: 1px;
+    }
+
+    .social-media {
+        margin-top: 10px;
+    }
+
+    .iconM {
+        background-color: #ebfaff; 
+        border-radius: 50%; 
+        padding: 2px;
+        font-size: 3px;
+    }
+
+    .h2FMEx {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        margin-top: 24px;
+    }
+
+    .and2FM {
+        height: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        background-color: white;
+        color: white;
+        font-size: 0px;
+    }
+    
+    .ios2FM {
+        height: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        background-color: white;
+        color: white;
+        font-size: 0px;
+    }
+
+    .andText{
+        margin-top: 0px;
+        margin-left: 0px;
+        line-height: 0px;
+    }
+
+    .aExt1 {
+        font-size: 0px;
+    }
+
+    .aExt2 {
+        font-size: 0px;
+    }
+
+    .aTextO, .iTextO {
+        font-size: 0px;
+    }
+
+    .whatApp {
+        font-size: 30px;
+        color: #25D366;
+     }
+    
+     .emailo {
+        font-size: 30px;
+        color: #EA4335;
+     }
+    
+     .whatApp:hover {
+        color: #29af5a;
+     }
+    
+     .emailo:hover {
+        color: #bb372b;
+     }
+    
+     .supportOr {
+        margin-top: 10px;
+        font-size: 25px;
+     }
+    
+     .support {
+        background-color: #EA4335;
+        color: white;
+        margin-left: 0px;
+        margin-top: -200px;
+     }
+    
+     .support:hover {
+        background-color: #bb372b;
+        color: white;
+     }
+    
+     .supportTitle {
+        margin-left: 110px; 
+        margin-top: 20px; 
+        text-align: center;
+        color: #FF4040; 
+        font-size: 24px; 
+        font-weight: 600;
+    }
+
+    .supporter {
+        margin-top: 160px;
+        margin-left: 0px;
+        text-align: center;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+     .imgCard {
+        border-radius: 50%; 
+        margin-left: 100px;
+     }
+
+     .SndCard {
+        display: none;
+     }
+
+     .mobiVers {
+         display: block;
+     }
+
+     .deskVers {
+         display: none;
+     }
+
+     .features-one {
+         margin-top: 100px;
+     }
+
+     .features-two {
+         margin-top: 50px;
+     }
+
+     .experience {
+         margin-top: 50px;
+     }
+
+     .userCard {
+        width: 350px;
+        padding: 30px 30px 30px 40px;
+        border-radius: 24px;
+        background-color: #FAFBFF;
+    }
+
+    .mobileUser {
+        margin-left: 12px;
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (max-width: 600px) and (min-width: 400px)
+ {
+    .card {
+        flex: 0 0 auto;
+        width: 330px;
+        margin-right: 15px;
+    }
+            
+    .scrolling-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .deskLogo {
+        display: none;
+    }
+
+    .mobLogo {
+        display: block;
+    }
+
+    .mobHeader {
+        display: block;
+    }
+
+    .deskHeader {
+        display: none;
+    }
+
+    .img-blockDesk {
+        display: none;
+    }
+
+    .downMob {
+        display: block;
+    }
+
+    .downDesk {
+        display: none;
+    }
+
+    .mobPhone1 {
+        display: block;
+    }
+
+    .deskPhone1 {
+        display: none;
+    }
+
+    .mobPhone2 {
+        display: block;
+    }
+
+    .deskPhone2 {
+        display: none;
+    }
+
+    .mobPhone3 {
+        display: block;
+    }
+
+    .deskPhone3 {
+        display: none;
+    }
+
+    .mobFlipper1 {
+        display: block;
+    }
+
+    .deskFlipper1 {
+        display: none;
+    }
+
+    .mobFlipper2 {
+        display: block;
+    }
+
+    .deskFlipper2 {
+        display: none;
+    }
+
+    .mobExp {
+        display: block;
+    }
+
+    .deskExp {
+        display: none;
+    }
+
+    .navbar-brand {
+        padding-top: 15px;
+    }
+
+    .img-block {
+        position: relative;
+        top: -20px;
+        right: 200px;
+        z-index: 1;
+        margin-bottom: 120px;
+    }
+
+    .bodyimg-block {
+        left: 265px;
+    }
+
+    .bodyimg2-block {
+        left: 265px;
+    }
+    
+    .iphone1-block {
+        margin-left: 75px;
+    }
+
+    .iphone2-block {
+        margin-left: 15px;
+    }
+
+    .iphone3-block {
+        margin-left: -105px;
+        margin-bottom: 60px;
+    }    
+
+    .footer{
+        display: none;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+     .mainMobile {
+        height: 330px;
+        width: 580px;
+     }
+
+     .deskArrow {
+         display: none;
+     }
+
+     .b1D {
+        margin-right: -4px;
+     }
+
+     .b2D {
+        margin-right: -4px;
+     }
+
+     .header {
+        margin-top: 50px;
+    }
+
+     .h1M {
+        font-family: 'Poppins', sans-serif;
+        letter-spacing: 0.5px; 
+        font-size: 40px;
+        margin-left: 10px;
+        font-weight: bold;
+        color: black;
+     }
+
+     .h2M {
+        font-family: 'Poppins', sans-serif;
+         margin-left: 12px;
+        font-size: 25px;
+        margin-top: 20px;
+     }
+
+     #anim1 {
+        animation: anim1;
+    }
+    #anim2 {
+        animation: anim2;
+    }
+    #anim3 {
+        animation: anim3;
+    }
+    #anim4 {
+        animation: anim4;
+    }
+    
+    #anim1, #anim2, #anim3, #anim4 {
+        margin-bottom: -4px;
+        color: red;
+        overflow: hidden;
+        white-space: nowrap;
+        display: inline-block;
+        position: relative;
+        animation-duration: 6s;
+        animation-timing-function: steps(25, end);
+        animation-iteration-count: infinite;
+    }
+      
+    @keyframes anim1 {
+        0%, 25%, 50%, 75%, 100% {
+          width: 0;
+        }
+        10%, 20% {
+            width: 10.2em;
+        }
+    }
+    
+    @keyframes anim2 {
+        0%, 25%, 50%, 75%, 100% {
+          width: 0;
+        }
+        
+        35%, 45% {
+            width: 10.2em;
+        }
+    }
+    
+    @keyframes anim3 {
+        0%, 25%, 50%, 75%, 100% {
+          width: 0;
+        }
+        
+        60%, 70% {
+            width: 10.2em;
+        }
+    }
+    
+    @keyframes anim4 {
+        0%, 25%, 50%, 75%, 100% {
+          width: 0;
+        }
+        
+        85%, 95% {
+            width: 10.2em;
+        }
+    }
+
+      .android {
+        margin-left: 55px;
+        margin-top: 100px;
+        height: 80px;
+        padding-left: 50px;
+        padding-right: 50px;
+        text-align: center;
+        background-color: #eb3c2e;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+    }
+    
+    .android-text {
+        margin-top: 3px;
+        float: right; 
+        margin-left: 10px;
+        line-height: 20px;
+    }
+    
+    .aText1 {
+        text-align: left;
+        font-weight: normal;
+        font-size: 15px;
+    }
+    
+    .aText2 {
+        font-weight: bold;
+        font-size: 20px;
+    }
+    
+    .android:hover, .start:hover, .alle:hover, .getStart:hover {
+        background-color: #8b0000;
+        color: white;
+    }
+    
+    .ios:hover, .ios2:hover {
+        background-color:#4B4B4B;
+        color: white;
+    }
+    
+    .ios {
+        margin-left: 55px;
+        margin-top: 30px;
+        height: 80px;
+        padding-left: 70px;
+        padding-right: 80px;
+        text-align: center;
+        background-color: black;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+    }
+
+    .ios2 {
+        margin-left: -10px;
+        margin-top: 50px;
+        height: 80px;
+        padding-left: 50px;
+        padding-right: 50px;
+        text-align: center;
+        background-color: black;
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+    }
+    
+    .body-one {
+        margin-top: 130px;
+    }
+
+    .body-two {
+        margin-top: 130px;
+    }
+
+    .body-three {
+        margin-top: 160px;
+    }
+
+    .h5M {
+        font-family: 'Poppins', sans-serif;
+        font-size: 35px;
+    }
+
+    .h3M {
+        font-family: 'Poppins', sans-serif;
+        font-size: 35px;
+    }
+
+    .h4M {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+    }
+
+    .h4MEx {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        margin-top: 18px;
+    }
+
+    .h4MEx1 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        margin-top: -60px;
+    }
+
+    .h4MExP {
+        font-family: 'Poppins', sans-serif;
+        font-size: 18px;
+        margin-top: -160px;
+    }
+
+    .pM {
+        font-size: 13px;
+        line-height: 28px;
+    }
+
+    .body1Mobile1 {
+        width: 230px;
+        height: 350px;
+        margin-left: -100px;
+        margin-top: -21px;
+    }
+
+    .body2Mobile1 {
+        width: 230px;
+        height: 350px;
+        margin-left: -100px;
+        margin-top: -100px;
+    }
+
+    .body3Mobile1 {
+        width: 230px;
+        height: 350px;
+        margin-left: -100px;
+        margin-top: -25px;
+    }
+
+    .body3Mobile2 {
+        width: 230px;
+        height: 350px;
+        margin-left: -100px;
+        margin-top: -21px;
+    }
+
+    .body1Mobile2 {
+        width: 170px;
+        height: 350px;
+        margin-left: -40px;
+        margin-top: 50px;
+    }
+
+    .body2Mobile2 {
+        width: 170px;
+        height: 350px;
+        margin-bottom: 80px;
+        margin-top: 180px;
+        margin-left: 20px;
+    }
+
+    .getStartEx {
+        margin-bottom: 130px;
+        background-color: #eb3c2e;
+        height: 40px;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+    }
+
+    .getStart {
+        background-color: #eb3c2e;
+        height: 40px;
+        padding-left: 15px;
+        padding-right: 15px;
+        color: white;
+        font-size: 12px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+    }
+
+    .alleM {
+        margin-top: 40px;
+        background-color: #eb3c2e;
+        height: 50px;
+        padding-left: 22px;
+        padding-right: 22px;
+        color: white;
+        font-size: 13px;
+        font-weight: bold;
+        box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+        margin-bottom: 100px;
+        margin-left: 60px;
+    }
+
+    .h1EM {
+        font-family: 'Poppins', sans-serif;
+        margin-left: 25px;
+    }
+
+    .and2M {
+        margin-top: -200px;
+        margin-left: 70px;
+    }
+
+    .ios2M {
+        margin-top: -50px;
+        margin-left: 70px;
+        padding-right: 60px;
+        padding-left: 50px;
+    }
+
+    .and2MD {
+        margin-top: -200px;
+        margin-left: 90px;
+    }
+
+    .ios2MD {
+        margin-top: -50px;
+        margin-left: 90px;
+        padding-right: 60px;
+        padding-left: 50px;
+    }
+
+    .imgDM {
+        width: 100%;
+        height: 400px;
+    }
+
+    .h5DM {
+        font-family: 'Poppins', sans-serif;
+        margin-top: 235px;
+        font-size: 18px; 
+        color: red;
+        margin-left: 20px;
+    }
+    
+    .h3DM {
+        font-family: 'Poppins', sans-serif;
+        font-size: 32px;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+    
+    .pDM {
+        margin-top: 0px;
+        margin-left: 20px;
+        font-size: 14px;
+        line-height: 22px;
+    }
+
+    .imgDM2 {
+        width: 170px;
+        height: 350px;
+        margin-top: 100px;
+        margin-left: 145px;
+    }
+
+    .download {
+        margin-top: 100px;
+    }
+
+    .imgFM {
+        width: 200px;
+        height: 220px;
+        margin-left: -11px;
+        margin-top: -20px;
+    }
+
+    .h2FM {
+        font-family: 'Poppins', sans-serif;
+        font-size: 13px;
+    }
+
+    .pFM {
+        font-size: 4px;
+        line-height: 1px;
+    }
+
+    .social-media {
+        margin-top: 10px;
+    }
+
+    .iconM {
+        background-color: #ebfaff; 
+        border-radius: 50%; 
+        padding: 2px;
+        font-size: 3px;
+    }
+
+    .h2FMEx {
+        font-family: 'Poppins', sans-serif;
+        font-size: 12px;
+        margin-top: 24px;
+    }
+
+    .and2FM {
+        height: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        background-color: white;
+        color: white;
+        font-size: 0px;
+    }
+    
+    .ios2FM {
+        height: 0px;
+        padding-left: 0px;
+        padding-right: 0px;
+        background-color: white;
+        color: white;
+        font-size: 0px;
+    }
+
+    .andText{
+        margin-top: 0px;
+        margin-left: 0px;
+        line-height: 0px;
+    }
+
+    .aExt1 {
+        font-size: 0px;
+    }
+
+    .aExt2 {
+        font-size: 0px;
+    }
+
+    .aTextO, .iTextO {
+        font-size: 0px;
+    }
+
+    .whatApp {
+        font-size: 35px;
+        color: #25D366;
+     }
+    
+     .emailo {
+        font-size: 35px;
+        color: #EA4335;
+     }
+    
+     .whatApp:hover {
+        color: #29af5a;
+     }
+    
+     .emailo:hover {
+        color: #bb372b;
+     }
+    
+     .supportOr {
+        margin-top: 14px;
+        font-size: 30px;
+     }
+    
+     .support {
+        background-color: #EA4335;
+        color: white;
+        margin-left: 0px;
+        margin-top: -200px;
+     }
+    
+     .support:hover {
+        background-color: #bb372b;
+        color: white;
+     }
+    
+     .supportTitle {
+        margin-left: 130px; 
+        margin-top: 20px; 
+        text-align: center;
+        color: #FF4040; 
+        font-size: 27px; 
+        font-weight: 600;
+    }
+
+    .supporter {
+        margin-top: 160px;
+        margin-left: 0px;
+        text-align: center;
+    }
+
+    footer {
+        text-align: center;
+    }
+
+     .imgCard {
+        border-radius: 50%; 
+        margin-left: 105px;
+     }
+
+     .SndCard {
+        display: none;
+     }
+
+     .mobiVers {
+         display: block;
+     }
+
+     .deskVers {
+         display: none;
+     }
+
+     .features-one {
+        margin-top: 100px;
+    }
+
+     .features-two {
+         margin-top: 50px;
+     }
+
+     .experience {
+         margin-top: 50px;
+     }
+
+     .userCard {
+        width: 350px;
+        padding: 30px 30px 30px 40px;
+        border-radius: 24px;
+        background-color: #FAFBFF;
+    }
+
+    .mobileUser {
+        margin-left: 32px;
+        margin-top: 30px;
+    }
+ }

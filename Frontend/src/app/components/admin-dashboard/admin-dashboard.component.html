@@ -1,0 +1,31 @@
+<body>
+<nav class="navbar navbar-expand-md">
+    <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav justify-content-end ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" href="/adminDashboard">Instrumententafel</a>
+      </li>
+      <a class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+    </ul>
+</div>
+</div>
+</nav>
+      <div class="jumbotron mt-5" style="margin-bottom: 70px;">
+        <h1 class="text-center">Willkommen <span style="font-weight: bold;"> Admin </span></h1><br>
+      </div>
+      <div class="container">
+          <div class="flex-container">
+            <div class="flex-item-left"><a class="dashbutton" routerLink="/createRestaurant">Restaurant hinzufügen</a></div>
+            <div class="flex-item-right"><a class="dashbutton" routerLink="/signup">Admins hinzufügen</a></div>
+          </div>
+          <div class="flex-container">
+            <div class="flex-item-botleft"><a class="dashbutton" routerLink="/manageRestaurant">Restaurants verwalten</a></div>
+          </div>
+        </div>
+    </body>

@@ -1,0 +1,114 @@
+<body>
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav justify-content-end ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="/adminDashboard">Instrumententafel</a>
+            </li>
+            <a class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+        </ul>
+    </div>
+    </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="form-horizontal">
+              <h5 class="text-center" style="margin-bottom: 30px;">Restaurant aktualisieren</h5><hr>
+              <h4 style="margin-top: 50px; margin-bottom: 5px;">Restaurantstandort aktualisieren</h4><hr style="margin-bottom: 40px;">
+              <label>Karte Lage</label>
+              <agm-map [(latitude)]="location.lat" [(longitude)]="location.lng" [(zoom)]="location.zoom" [disableDefaultUI]="true" [(fitBounds)]='location.viewport'>
+                <agm-marker [(latitude)]="location.marker.lat" [(longitude)]="location.marker.lng" [markerDraggable]="location.marker.draggable" (dragEnd)='markerDragEnd($event)'></agm-marker>
+              </agm-map>
+                    <div class="form-group" style="margin-top: 45px;">
+                        <label>Büro, Wohnung, Zuhause, Straße</label>
+                        <input type='text' [(ngModel)]='location.address_level_1' class="form-control">
+                        </div>
+                    <div class="form-group">
+                        <label>Stadt</label>
+                        <input type="text" [(ngModel)]='location.address_level_2' class="form-control">
+                    </div>
+                      
+                    <div class="form-group">
+                        <label>Staat / Land / Gemeinde</label>
+                        <input type="text" [(ngModel)]='location.address_state' class="form-control">
+                    </div>
+                      
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" [(ngModel)]='location.address_country' class="form-control">
+                    </div>
+                      
+                    <div class="form-group">
+                        <label>Postleitzahl</label>
+                        <input type="text" [(ngModel)]='location.address_zip' class="form-control">
+                    </div>
+                    <button (click)='updateOnMap()' class="btn btn-lg btn-danger btn-block" style="margin-top: 30px; margin-bottom: 20px;">Ort suchen</button>
+                <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Restaurantname aktualisieren</label>
+                        <input type="text" formControlName="rName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rName.errors }" />
+                        <div *ngIf="submitted && f.rName.errors" class="invalid-feedback">
+                            <div *ngIf="f.rName.errors.required">Restaurant Überblick ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Restaurantübersicht aktualisieren</label>
+                        <textarea rows="10" cols="30" formControlName="rOver" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rOver.errors }"></textarea>
+                        <div *ngIf="submitted && f.rOver.errors" class="invalid-feedback">
+                            <div *ngIf="f.rOver.errors.required">Restaurant Overview ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Restaurantkontakt aktualisieren</label>
+                        <input type="text" formControlName="rCont" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rCont.errors }" />
+                        <div *ngIf="submitted && f.rCont.errors" class="invalid-feedback">
+                            <div *ngIf="f.rCont.errors.required">Restaurant Kontakt ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Restaurantkategorie aktualisieren</label>
+                        <select class="form-control"
+                          formControlName="rCate" [ngClass]="{ 'is-invalid': submitted && f.rCate.errors }">
+                          <option value="">Wählen Kategorie</option>
+                          <option *ngFor="let cate of category" value="{{cate}}">{{cate}}
+                          </option>
+                        </select>
+                        <div *ngIf="submitted && f.rCate.errors" class="invalid-feedback">
+                            <div *ngIf="f.rCate.errors.required">Restaurant Kategorie ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Restaurantpreisklasse aktualisieren</label>
+                        <select class="form-control"
+                          formControlName="rPrice" [ngClass]="{ 'is-invalid': submitted && f.rPrice.errors }">
+                          <option value="">Choose Price Range</option>
+                          <option *ngFor="let pri of price" value="{{pri.val}}">{{pri.id}}
+                          </option>
+                        </select>
+                        <div *ngIf="submitted && f.rPrice.errors" class="invalid-feedback">
+                            <div *ngIf="f.rPrice.errors.required">Restaurant Preisklasse ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Restaurant-E-Mail aktualisieren</label>
+                      <input type="email" formControlName="rEmail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rEmail.errors }" />
+                      <div *ngIf="submitted && f.rEmail.errors" class="invalid-feedback">
+                          <div *ngIf="f.rEmail.errors.required">Restaurant Email ist erforderlich</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Aktualisieren</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

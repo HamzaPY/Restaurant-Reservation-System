@@ -1,0 +1,697 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.spinner-border{ 
+    z-index: 1; 
+    width: 150px; 
+    height: 150px; 
+    margin-top: 80px;
+    margin-left: 500px;
+    border: 16px solid #f3f3f3; 
+    border-radius: 50%; 
+    border-top: 16px solid #eb3c2e; 
+    width: 120px; 
+    height: 120px; 
+    animation: spin 2s linear infinite; 
+    } 
+      
+    @keyframes spin { 
+      0% { transform: rotate(0deg); } 
+      100% { transform: rotate(360deg); } 
+    }
+
+    .spinner-border2{ 
+        z-index: 1; 
+        margin-top: 30px;
+        margin-left: 120px;
+        margin-bottom: 20px;
+        border: 16px solid #f3f3f3; 
+        border-radius: 50%; 
+        border-top: 16px solid #eb3c2e; 
+        width: 100px; 
+        height: 100px; 
+        animation: spin 2s linear infinite; 
+        } 
+          
+        @keyframes spin { 
+          0% { transform: rotate(0deg); } 
+          100% { transform: rotate(360deg); } 
+        }
+
+    form {
+        margin: 0px auto 0px;
+        padding: 40px 40px 40px;
+        border-radius: 5px;
+        font-size: 1.1em;
+        background-color: white;
+      }
+      
+      label {
+        color: #eb3c2e;
+      }
+
+      .termC {
+        font-size: 15px;
+    }
+
+.navbar-brand {
+    padding-top: 30px;
+}
+
+.nav-link {
+    color: black;
+    padding-top: 45px;
+    margin-right: 40px;
+    font-weight: bold;
+    margin-bottom: 11px;
+}
+
+.loginBtn { 
+    margin-top: 33px;
+    margin-bottom: 10px;
+    padding: 12px 15px 12px 15px; 
+    border-radius: 5px;
+    background: #FF4040;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.nav-link:hover {
+    color: red;
+}
+
+.loginBtn:hover {
+    color: white;
+    background-color: #d43737;
+}
+
+.webLoc {
+    margin-top: 37px;
+    margin-left: 45px;
+}
+
+h4 {
+    font-family: 'Inter', sans-serif;
+}
+
+.dashbutton {
+    position: absolute;
+    top: 147px;
+    left: 1158px;
+    text-decoration: none;
+    color: white;
+    background-color: #FF4040;
+    border-radius: 30px;
+    margin-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 17px;
+    padding-top: 17px;
+    margin-bottom: 20px;
+    margin-left: -80px;
+    font-size: 15px;
+}
+
+.dashbutton:hover {
+    background-color: #d43737;
+}
+
+select  {
+    font-family: 'FontAwesome', 'Inter';
+}
+
+.reserve {
+    padding-left: 65px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top-left-radius: 35px;
+    border-bottom-left-radius: 35px;
+    cursor: pointer;
+    border: 1px solid white;
+}
+
+agm-map {
+    height: 400px;
+  }
+  
+  .autocomplete-container {
+    padding: 1rem 0 1rem 0;
+    width: 50%;
+  }
+
+
+.reserve2 {
+    margin-left: -52px;
+    padding-left: 45px;
+    padding-right: 40px;
+    border-left: 2px solid #dbdbdb;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    cursor: pointer;
+}
+
+.reserve3 {
+    margin-left: -29px;
+    padding-left: 45px;
+    padding-right: 40px;
+    border-left: 2px solid #dbdbdb;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    cursor: pointer;
+}
+
+.caln {
+    font-family: 'FontAwesome', 'Inter';
+    position: relative;
+    left: 90px;
+    top: 19px;
+}
+
+.timen {
+    font-family: 'FontAwesome', 'Inter';
+    position: relative;
+    right: 5px;
+    top: 19px;
+}
+
+.peoplen {
+    font-family: 'FontAwesome', 'Inter';
+    position: relative;
+    left: 18px;
+    top: 19px;
+}
+
+.locn {
+    font-family: 'FontAwesome', 'Inter';
+    position: relative;
+    left: 0px;
+    bottom: 1px;
+}
+
+.calarrow {
+    font-family: 'FontAwesome', 'Inter';
+    position: relative;
+    right: 35px;
+    top: 17px;
+    font-size: 20px;
+}
+
+.flex-container {
+    box-sizing: border-box;
+    display: flex;
+    margin-left: 150px;
+}
+
+.searcher {
+    margin-left: -1px;
+    padding-left: 20px;
+    padding-right: 110px;
+    border-left: 2px solid #dbdbdb;
+    border-top: 1px solid white;
+    border-bottom: 1px solid white;
+    border-right: 1px solid white;
+    font-family: 'FontAwesome', 'Inter';
+    border-top-right-radius: 35px;
+    border-bottom-right-radius: 35px;
+}
+
+.my-pagination /deep/ .ngx-pagination .current {
+    background: #FF4040;
+    border-radius: 50%;
+    padding: 5px 13px 5px 13px;
+
+  }
+  .my-pagination /deep/ .ngx-pagination .pagination-previous a::before,
+  .my-pagination /deep/ .ngx-pagination .pagination-previous.disabled::before,
+  .my-pagination /deep/ .ngx-pagination .pagination-next a::after,
+  .my-pagination /deep/ .ngx-pagination .pagination-next.disabled::after { 
+    display: none;
+  }
+
+h1 {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+    font-size: 50px;
+    color: white;
+    margin-top: 30px;
+}
+
+h3 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    color: black;
+    font-size: 17px;
+}
+
+
+h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: bold;
+}
+
+h6 {
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    margin-top: 20px;
+    font-weight: 600;
+}
+
+.deskJumb {
+    background-image: url("../../../assets/img/searchBack.jpg");
+    background-size: cover;
+    background-position: center;
+    padding: 35px;
+}
+
+.searchResults {
+    margin-top: 50px;
+}
+
+.priceBtn {
+    border: 1px solid #cfcfcf;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+    padding-left: 15px;
+    padding-right: 15px;
+    border-right: none;
+    font-size: 15px;
+}
+
+.priceBtnExt {
+    border: 1px solid #cfcfcf;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    border-right: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 15px;
+}
+
+.priceBtnEnd {
+    border: 1px solid #cfcfcf;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 15px;
+}
+
+.priceBtn:hover, .priceBtnExt:hover, .priceBtnEnd:hover {
+    background-color: #ececec;
+}
+
+.card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+}
+
+.card {
+    margin-bottom: 5px;
+    border: none;
+}
+
+.lines {
+    margin-bottom: 30px;
+}
+
+.card-title {
+    margin-top: -15px;
+    font-size: 24px;
+    font-weight: 500;
+    color:black;
+    font-family: 'Inter', sans-serif;
+}
+
+.locAcusin {
+    margin-top: -5px;
+    font-size: 14px;
+    font-family: 'Inter', sans-serif;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  font-size: 40px;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: red;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  
+  /* Position the tooltip */
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -60px;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+
+.euroP {
+    font-size: 16px;
+}
+
+.slash {
+    font-size: 18px;
+    font-weight: bold;
+    color: black;
+}
+
+.checkC {
+    margin-left: 10px;
+    color: black;
+    font-size: 16px;
+}
+
+.btnReserve {
+    background-color: #FF4040;
+    color: white;
+    padding: 12px 20px 12px 20px;
+    font-size: 14px;   
+    margin-right: 10px;
+    margin-top: 8px;
+    border-radius: 8px;
+}
+
+.btnReserve:hover {
+    background-color: white;
+    color: #FF4040;
+    border: 1px solid #FF4040;
+}
+
+.btnNext {
+    background-color: white;
+    color: #FF4040;
+    border: 1px solid #FF4040;
+    border-radius: 8px;
+    padding: 12px 20px 12px 20px;
+    font-size: 14px;   
+    cursor: default;
+    margin-right: 10px;
+    margin-top: 8px;
+}
+
+.btnCall {
+    background-color: white;
+    color: black;
+    padding-left: 35px;
+    padding-right: 20px;
+    font-size: 15px;   
+    margin-top: -5px;
+    border: 1px solid #d3d3d3;
+}
+
+.btnCall:hover {
+    border: 1px solid #FF4040;
+}
+
+.registerTitle {
+    margin-left: 105px; 
+    margin-top: 30px; 
+    color: #FF4040; 
+    font-size: 26px; 
+    font-weight: 600;
+}
+
+.loginTitle {
+    margin-left: 150px; 
+    margin-top: 30px; 
+    color: #FF4040; 
+    font-size: 26px; 
+    font-weight: 600;
+}
+
+.mobSearchHeader {
+    display: none;
+}
+
+.mobSearcher {
+    display: none;
+}
+
+.mobLogo {
+    display: none;
+}
+
+
+
+@media (max-width: 1700px) {
+    .reserve {
+        margin-left: 30px;
+    }
+}
+
+@media (min-width: 1700px) {
+    .caln {
+        left: 340px;
+        top: 19px;
+    }
+    .dashbutton {
+        position: absolute;
+        top: 147px;
+        left: 1408px;
+    }
+    .reserve {
+        margin-left: 280px;
+    }
+}
+
+@media only screen and (max-width: 400px) {
+    .navbar-brand {
+      padding-top: 10px;
+    }
+
+    h3 {
+        font-family: 'Inter', sans-serif;
+        font-weight: 600;
+        color: black;
+        font-size: 15px;
+    }
+
+    .mobJumbH {
+        font-size: 32px; 
+        margin-top: 40px; 
+        line-height: 38px; 
+        margin-left: -40px;
+        text-align: center;
+    }
+
+    .mobJumb {
+        background-image: url("../../../assets/img/searchBack.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+        padding-left: 50px;
+    }
+
+    .deskSearchHeader {
+        display: none;
+    }
+
+    .mobSearchHeader {
+        display: block;
+    }
+
+    .deskSearcher {
+        display: none;
+    }
+
+    .mobSearcher {
+        display: block;
+    }
+
+    .card-title {
+        font-size: 21px;
+        font-weight: 500;
+        color:black;
+        font-family: 'Inter', sans-serif;
+    }
+            
+    .scrolling-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .deskLogo {
+        display: none;
+    }
+
+    .mobLogo {
+        display: block;
+    }
+
+    .navbar-toggler-icon {
+        margin-top: 5px;
+        font-size: 14px;
+    }
+
+    .webLoc {
+        font-size: 11px;
+        margin-top: 20px;
+        margin-left: -30px;
+    }
+
+    label {
+        font-size: 15px;
+    }
+
+    .termC {
+        font-size: 13px;
+    }
+
+    .registerTitle {
+        color: #FF4040; 
+        font-size: 24px;
+        text-align: center;
+        line-height: 30px;
+        margin-left: 50px; 
+        margin-top: 20px;
+    }
+
+    .loginTitle {
+        color: #FF4040; 
+        font-size: 24px;
+        text-align: center;
+        line-height: 30px;
+        margin-left: 90px; 
+        margin-top: 20px;
+    }
+
+    .mobImageSearch {
+        height: 165px; 
+        width: 345px;
+    }
+}
+
+@media only screen and (max-width: 600px) and (min-width: 400px) {
+    .navbar-brand {
+        padding-top: 10px;
+      }
+
+      .mobJumbH {
+          font-size: 32px; 
+          margin-top: 40px; 
+          line-height: 38px; 
+          margin-left: -40px;
+          text-align: center;
+      }
+
+      .mobJumb {
+            background-image: url("../../../assets/img/searchBack.jpg");
+          background-repeat: no-repeat;
+          background-size: cover;
+          padding-left: 50px;
+      }
+
+    .deskSearchHeader {
+        display: none;
+    }
+
+    .mobSearchHeader {
+        display: block;
+    }
+
+    .deskSearcher {
+        display: none;
+    }
+
+    .mobSearcher {
+        display: block;
+    }
+
+    .card-title {
+        font-size: 21px;
+        font-weight: 500;
+        color:black;
+        font-family: 'Inter', sans-serif;
+    }
+            
+    .scrolling-wrapper {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+    }
+
+    .deskLogo {
+        display: none;
+    }
+
+    .mobLogo {
+        display: block;
+    }
+
+    .navbar-toggler-icon {
+        margin-top: 5px;
+        font-size: 14px;
+    }
+
+    .webLoc {
+        font-size: 12px;
+        margin-top: 20px;
+        margin-left: -70px;
+    }
+
+    label {
+        font-size: 15px;
+    }
+
+    .termC {
+        font-size: 13px;
+    }
+
+    .registerTitle {
+        color: #FF4040; 
+        font-size: 24px;
+        text-align: center;
+        line-height: 30px;
+        margin-left: 70px; 
+        margin-top: 20px;
+    }
+
+    .loginTitle {
+        color: #FF4040; 
+        font-size: 24px;
+        text-align: center;
+        line-height: 30px;
+        margin-left: 110px; 
+        margin-top: 20px;
+    }
+
+    .spinner-border2{ 
+        z-index: 1; 
+        margin-top: 30px;
+        margin-left: 140px;
+        margin-bottom: 20px;
+        border: 16px solid #f3f3f3; 
+        border-radius: 50%; 
+        border-top: 16px solid #eb3c2e; 
+        width: 100px; 
+        height: 100px; 
+        animation: spin 2s linear infinite; 
+    } 
+    
+    .mobImageSearch {
+        height: 165px; 
+        width: 385px;
+    }
+}

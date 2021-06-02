@@ -1,0 +1,79 @@
+<ngx-ui-loader></ngx-ui-loader>
+<body ngxUiLoaderBlurred>
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav justify-content-end ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/restDashboard">Instrumententafel</a>
+        </li>
+        <a class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+      </ul>
+    </div>
+    </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="form-horizontal">
+              <h5 class="text-center" style="margin-bottom: 30px;">Restaurantfotos hinzufügen</h5><hr>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <div class="form-group">
+                        <label>Fotos hinzufügen</label>
+                        <input id="rPhotos" name="rPhotos" type="file" (change)="fileChangeEvent($event)" formControlName="rPhotos" class="form-control" placeholder="Upload your photos" [ngClass]="{ 'is-invalid': submitted && f.rPhotos.errors }" multiple/>
+                        <div *ngIf="submitted && f.rPhotos.errors" class="invalid-feedback">
+                            <div *ngIf="f.rPhotos.errors.required">Fotos sind erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Hinzufügen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="container deskGall">
+    <div class="row">
+      <div class="col-md-8 offset-md-2">
+        <div class="form-horizontal">
+          <h5 class="text-center" style="margin-bottom: 30px; margin-top: 0px;">Fotogalerie</h5><hr>
+            <div class="spinner-border" id="loading" role="status"> 
+            </div> 
+            <div *ngIf="restImages.length <= 0 && shower == 1">
+                <h2 style="font-weight: 600; font-size: 23px;">Es wurden noch keine Fotos hinzugefügt!</h2>
+            </div>
+            <div *ngFor="let image of restImages; let i = index" style="margin-left: 35px;">
+                <img src="{{image}}" style="float: left; margin-right: 20px; margin-bottom: 20px;" height="150" width="150">
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="container mobGall">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-horizontal">
+        <h5 class="text-center" style="margin-bottom: 30px; margin-top: 0px;">Fotogalerie</h5><hr>
+          <div class="spinner-border2" id="loading2" role="status"> 
+          </div> 
+          <div *ngIf="restImages.length <= 0 && shower == 1">
+              <h2 style="font-weight: 600; font-size: 19px;">Es wurden noch keine Fotos hinzugefügt!</h2>
+          </div>
+          <div *ngFor="let image of restImages; let i = index" style="margin-left: 35px;">
+              <img class="mobGallery" src="{{image}}" style="float: left; margin-right: 20px; margin-bottom: 20px;" height="150" width="150">
+          </div>
+      </div>
+    </div>
+  </div>
+  <hr style="margin-top: 50px;" *ngIf="restImages.length > 0">
+</div>
+
+</body>

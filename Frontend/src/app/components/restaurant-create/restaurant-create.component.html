@@ -1,0 +1,311 @@
+<ngx-ui-loader></ngx-ui-loader>
+<body ngxUiLoaderBlurred>
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+        <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+        <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav justify-content-end ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/adminDashboard">Instrumententafel</a>
+        </li>
+        <a class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+      </ul>
+    </div>
+    </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <div class="form-horizontal">
+              <h5 class="text-center" style="margin-bottom: 30px;">Restaurant hinzufügen</h5><hr>
+              <h4 style="margin-top: 50px; margin-bottom: 5px;">Restaurant Ort</h4><hr style="margin-bottom: 40px;">
+              <label>Karte Lage</label>
+              <agm-map [(latitude)]="location.lat" [(longitude)]="location.lng" [(zoom)]="location.zoom" [disableDefaultUI]="true" [(fitBounds)]='location.viewport'>
+                <agm-marker [(latitude)]="location.marker.lat" [(longitude)]="location.marker.lng" [markerDraggable]="location.marker.draggable" (dragEnd)='markerDragEnd($event)'></agm-marker>
+              </agm-map>
+                    <div class="form-group" style="margin-top: 45px;">
+                        <label>Büro, Wohnung, Zuhause, Straße</label>
+                        <input type='text' [(ngModel)]='location.address_level_1' class="form-control">
+                        </div>
+                    <div class="form-group">
+                        <label>Stadt</label>
+                        <input type="text" [(ngModel)]='location.address_level_2' class="form-control">
+                    </div>
+                      
+                    <div class="form-group">
+                        <label>Staat / Land / Gemeinde</label>
+                        <input type="text" [(ngModel)]='location.address_state' class="form-control">
+                    </div>
+                      
+                    <div class="form-group">
+                        <label>Country</label>
+                        <input type="text" [(ngModel)]='location.address_country' class="form-control">
+                    </div>
+                      
+                    <div class="form-group">
+                        <label>Postleitzahl</label>
+                        <input type="text" [(ngModel)]='location.address_zip' class="form-control">
+                    </div>
+                    <button (click)='updateOnMap()' class="btn btn-lg btn-danger btn-block" style="margin-top: 30px; margin-bottom: 20px;">Ort suchen</button>
+                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                    <h4 style="margin-bottom: 5px;">Restaurant Einzelheiten</h4><hr style="margin-bottom: 40px;">
+                    <div class="form-group">
+                        <label>Wählen Sie Restaurant Image</label>
+                        <input type="file" formControlName="imageFile" multiple (change)="selectImage($event)" [ngClass]="{ 'is-invalid': submitted && f.imageFile.errors }">
+                        <div *ngIf="submitted && f.imageFile.errors" class="invalid-feedback">
+                            <div *ngIf="f.imageFile.errors.required">Restaurant Image ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Wählen Sie Übersichtsbild</label>
+                      <input type="file" formControlName="imageFileTitle" multiple (change)="selectImage2($event)" [ngClass]="{ 'is-invalid': submitted && f.imageFileTitle.errors }">
+                      <div *ngIf="submitted && f.imageFileTitle.errors" class="invalid-feedback">
+                          <div *ngIf="f.imageFileTitle.errors.required">Übersicht Bild ist erforderlich</div>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Restaurant Name</label>
+                        <input type="text" formControlName="rName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rName.errors }" />
+                        <div *ngIf="submitted && f.rName.errors" class="invalid-feedback">
+                            <div *ngIf="f.rName.errors.required">Restaurant Name ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Restaurant Überblick</label>
+                        <textarea rows="10" cols="30" formControlName="rOver" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rOver.errors }"></textarea>
+                        <div *ngIf="submitted && f.rOver.errors" class="invalid-feedback">
+                            <div *ngIf="f.rOver.errors.required">Restaurant Überblick ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Restaurant Kontakt</label>
+                        <input type="text" formControlName="rCont" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rCont.errors }" />
+                        <div *ngIf="submitted && f.rCont.errors" class="invalid-feedback">
+                            <div *ngIf="f.rCont.errors.required">Restaurant Kontakt ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                      <label>Restaurant Website Link</label>
+                      <input type="text" formControlName="rWeb" placeholder="optional" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Restaurant Facebook Link</label>
+                      <input type="text" formControlName="rFace" placeholder="optional" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Restaurant Instagram Link</label>
+                      <input type="text" formControlName="rInst" placeholder="optional" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Restaurant Youtube Link</label>
+                      <input type="text" formControlName="rYt" placeholder="optional" class="form-control">
+                    </div>
+                    <div class="form-group">
+                      <label>Restaurant Lieferung (Zum Aktivieren ankreuzen)</label>
+                      <input type="checkbox" class="form-control" formControlName="rDel" value="Delivery">
+                    </div>
+                    <div class="form-group">
+                        <label>Restaurant Kategorie</label>
+                        <select class="form-control"
+                          formControlName="rCate" [ngClass]="{ 'is-invalid': submitted && f.rCate.errors }">
+                          <option value="">Wählen Kategorie</option>
+                          <option *ngFor="let cate of category" value="{{cate}}">{{cate}}
+                          </option>
+                        </select>
+                        <div *ngIf="submitted && f.rCate.errors" class="invalid-feedback">
+                            <div *ngIf="f.rCate.errors.required">Restaurant Kategorie ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Restaurant Preisklasse</label>
+                        <select class="form-control"
+                          formControlName="rPrice" [ngClass]="{ 'is-invalid': submitted && f.rPrice.errors }">
+                          <option value="">Wählen Preisklasse</option>
+                          <option *ngFor="let pri of price" value="{{pri.val}}">{{pri.id}}
+                          </option>
+                        </select>
+                        <div *ngIf="submitted && f.rPrice.errors" class="invalid-feedback">
+                            <div *ngIf="f.rPrice.errors.required">Restaurant Preisklasse ist erforderlich</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <h4 style="margin-top: 50px; margin-bottom: 5px;">Öffnungszeiten</h4><hr style="margin-bottom: 40px;">
+                        <div class="row">
+                          
+                          <div class="col-md-4">
+                            <label>Montag</label>
+                            <input type="checkbox" class="form-control" formControlName="rMon" value="Mon">
+                          </div>
+                          <div class="col-md-4">
+                            <label>Startzeit</label>
+                            <select class="form-control"
+                              formControlName="rMonS" (change)="onSelectMon($event.target.value)">
+                              <option *ngFor="let time of startTimeMon" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <label>Endzeit</label>
+                            <select class="form-control"
+                              formControlName="rMonE">
+                              <option *ngFor="let time of endTimeMon" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label>Dienstag</label>
+                            <input type="checkbox" class="form-control" formControlName="rTue" value="Tue">
+                          </div>
+                          <div class="col-md-4">
+                            <label>Startzeit</label>
+                            <select class="form-control"
+                              formControlName="rTueS" (change)="onSelectTues($event.target.value)">
+                              <option *ngFor="let time of startTimeTues" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <label>Endzeit</label>
+                            <select class="form-control"
+                              formControlName="rTueE">
+                              <option *ngFor="let time of endTimeTues" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label>Mittoch</label>
+                            <input type="checkbox" class="form-control" formControlName="rWed" value="Wed">
+                          </div>
+                          <div class="col-md-4">
+                            <label>Startzeit</label>
+                            <select class="form-control"
+                              formControlName="rWedS" (change)="onSelectWed($event.target.value)">
+                              <option *ngFor="let time of startTimeWed" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <label>Endzeit</label>
+                            <select class="form-control"
+                              formControlName="rWedE">
+                              <option *ngFor="let time of endTimeWed" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label>Donnerstag</label>
+                            <input type="checkbox" class="form-control" formControlName="rThur" value="Thur">
+                          </div>
+                          <div class="col-md-4">
+                            <label>Startzeit</label>
+                            <select class="form-control"
+                              formControlName="rThurS" (change)="onSelectThurs($event.target.value)">
+                              <option *ngFor="let time of startTimeThurs" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <label>Endzeit</label>
+                            <select class="form-control"
+                              formControlName="rThurE">
+                              <option *ngFor="let time of endTimeThurs" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label>Freitag</label>
+                            <input type="checkbox" class="form-control" formControlName="rFri" value="Fri">
+                          </div>
+                          <div class="col-md-4">
+                            <label>Startzeit</label>
+                            <select class="form-control"
+                              formControlName="rFriS" (change)="onSelectFri($event.target.value)">
+                              <option *ngFor="let time of startTimeFri" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <label>Endzeit</label>
+                            <select class="form-control"
+                              formControlName="rFriE">
+                              <option *ngFor="let time of endTimeFri" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label>Samstag</label>
+                            <input type="checkbox" class="form-control" formControlName="rSat" value="Sat">
+                          </div>
+                          <div class="col-md-4">
+                            <label>Startzeit</label>
+                            <select class="form-control"
+                              formControlName="rSatS" (change)="onSelectSat($event.target.value)">
+                              <option *ngFor="let time of startTimeSat" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <label>Endzeit</label>
+                            <select class="form-control"
+                              formControlName="rSatE">
+                              <option *ngFor="let time of endTimeSat" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+
+                          <div class="col-md-4">
+                            <label>Sonntag</label>
+                            <input type="checkbox" class="form-control" formControlName="rSun" value="Sun">
+                          </div>
+                          <div class="col-md-4">
+                            <label>Startzeit</label>
+                            <select class="form-control"
+                              formControlName="rSunS" (change)="onSelectSun($event.target.value)">
+                              <option *ngFor="let time of startTimeSun" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+                          <div class="col-md-4">
+                            <label>Endzeit</label>
+                            <select class="form-control"
+                              formControlName="rSunE">
+                              <option *ngFor="let time of endTimeSun" value="{{time}}">{{time}}
+                              </option>
+                            </select>
+                          </div>
+
+                        </div>
+                      </div>
+                    <h4 style="margin-top: 50px; margin-bottom: 5px;">Konto Einzelheiten</h4><hr style="margin-bottom: 40px;">
+                  <div class="form-group">
+                      <label>Restaurant Email</label>
+                      <input type="email" formControlName="rEmail" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rEmail.errors }" />
+                      <div *ngIf="submitted && f.rEmail.errors" class="invalid-feedback">
+                          <div *ngIf="f.rEmail.errors.required">Restaurant Email ist erforderlich</div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                    <label>Restaurant Passwort</label>
+                    <input type="password" formControlName="rPass" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.rPass.errors }" />
+                    <div *ngIf="submitted && f.rPass.errors" class="invalid-feedback">
+                        <div *ngIf="f.rPass.errors.required">Restaurant Passwort ist erforderlich</div>
+                    </div>
+                  </div>
+                    <div class="form-group">
+                        <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Hinzufügen</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>

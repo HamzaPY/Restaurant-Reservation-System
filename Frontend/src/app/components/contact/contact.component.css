@@ -1,0 +1,617 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+.navbar-brand {
+    padding-top: 50px;
+}
+
+.nav-link {
+    color: black;
+    padding-top: 50px;
+    margin-right: 40px;
+}
+
+.nav-link:hover {
+    color: red;
+}
+
+h1 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 40px;
+    text-align: center;
+    line-height: 60px;
+}
+
+h2 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 24px;
+    text-align: center;
+}
+
+h3 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+    line-height: 32px;
+}
+
+h4 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+}
+
+h5 {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+    color: #8A8A8A;
+}
+
+.centered {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.centeredIcon {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -90px;
+}
+
+.workIcon {
+    margin-left: 32px;
+    margin-top: -120px;
+}
+
+.workIcon2 {
+    margin-left: 48px;
+    margin-top: -125px;
+}
+
+.workIcon3 {
+    margin-left: 38px;
+    margin-top: -120px;
+}
+
+.workIcon4 {
+    margin-left: 35px;
+    margin-top: -125px;
+}
+
+.contactButton {
+    background-color: #ED3C2E;
+    padding: 10px 40px 10px 40px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+}
+
+.contactButton:hover {
+    background-color: #bb2b20;
+}
+
+.planCard1 {
+    width: 350px;
+    padding: 30px 30px 30px 40px;
+    border-radius: 24px;
+    border: 1px solid #E2E6EC;
+    background-color: white;
+    float: left;
+}
+
+.planCard2 {
+    width: 370px;
+    padding: 30px 30px 30px 40px;
+    border-radius: 24px;
+    border: 1px solid #E2E6EC;
+    background-color: white;
+    float: left;
+    margin-left: 15px;
+}
+
+.planCard3 {
+    width: 370px;
+    padding: 30px 30px 30px 40px;
+    border-radius: 24px;
+    border: 1px solid #E2E6EC;
+    background-color: white;
+    margin-left: 15px;
+}
+
+.userCard {
+    width: 360px;
+    padding: 30px 30px 30px 40px;
+    border-radius: 24px;
+    background-color: #FAFBFF;
+}
+
+.userCardFinal {
+    margin-left: 30px;
+}
+
+.formStyle {
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #B7B7B7;
+    color: #6e6e6e;
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: #FAFBFF;
+    width: 100%;
+    padding-bottom: 15px;
+}
+
+.titleBlock {
+    margin-top: 90px;
+}
+
+.workBlock {
+    margin-top: 150px;
+}
+
+.planBlock {
+    margin-top: 100px;
+    height: 550px;
+}
+
+.titleBlock2 {
+    margin-top: 370px;
+}
+
+.userBlock {
+    margin-top: 160px;
+}
+
+.emailBlock {
+    margin-top: 200px;
+    height: 950px;
+}
+
+.mobLogo {
+    display: none;
+}
+
+.start {
+    background-color: #eb3c2e;
+    height: 50px;
+    padding-left: 22px;
+    padding-right: 22px;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+}
+
+.start:hover{
+    background-color: #8b0000;
+    color: white;
+}
+
+.android {
+    margin-top: 88px;
+    height: 80px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+    background-color: #eb3c2e;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+}
+
+.android-text {
+    margin-top: 10px;
+    float: right; 
+    margin-left: 10px;
+    line-height: 20px;
+}
+
+.aText1 {
+    text-align: left;
+    font-weight: normal;
+    font-size: 15px;
+}
+
+.aText2 {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.android:hover {
+    background-color: #8b0000;
+    color: white;
+}
+
+.ios2:hover {
+    background-color:#4B4B4B;
+    color: white;
+}
+
+.ios2 {
+    margin-left: -10px;
+    margin-top: 64px;
+    height: 80px;
+    padding-left: 50px;
+    padding-right: 50px;
+    text-align: center;
+    background-color: black;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    box-shadow: 0px 5px 6px rgba(0,0,0,0.16);
+}
+
+.whatApp {
+    font-size: 60px;
+    color: #25D366;
+ }
+
+ .emailo {
+    font-size: 60px;
+    color: #EA4335;
+ }
+
+ .whatApp:hover {
+    color: #29af5a;
+ }
+
+ .emailo:hover {
+    color: #bb372b;
+ }
+
+ .supportOr {
+    margin-top: 30px;
+    font-size: 45px;
+ }
+
+ .support {
+    background-color: #EA4335;
+    color: white;
+    margin-left: 700px;
+    margin-top: -20px;
+ }
+
+ .support:hover {
+    background-color: #bb372b;
+    color: white;
+ }
+
+ .supportTitle {
+    margin-left: 170px; 
+    margin-top: 20px; 
+    text-align: center;
+    color: #FF4040; 
+    font-size: 32px; 
+    font-weight: 600;
+}
+
+.supporter {
+    margin-top: 100px;
+    margin-left: 450px;
+}
+
+@media only screen and (max-width: 400px)
+{
+    .deskLogo {
+        display: none;
+    }
+
+    .mobLogo {
+        display: block;
+    }
+    
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 15px;
+    }
+
+    h4 {
+        font-size: 18px;
+    }
+    
+    h5 {
+        font-size: 14px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .planCard1 {
+        margin-left: 12px;
+    }
+
+    .planCard2 {
+        width: 350px;
+        margin-left: 12px;
+        margin-top: 30px;
+    }
+
+    .planCard3 {
+        width: 350px;
+        margin-left: 12px;
+        margin-top: 30px;
+    }
+
+    .userCard {
+        width: 350px;
+        padding: 30px 30px 30px 40px;
+        border-radius: 24px;
+        background-color: #FAFBFF;
+    }
+
+    .mobileUser {
+        margin-left: 12px;
+        margin-top: 30px;
+    }
+
+    .planBlock {
+        height: 2050px;
+    }
+
+    .emailBlock {
+        height: 1160px;
+    }
+
+    .mobileButton {
+        margin-left: 105px;
+    }
+
+    .titleBlock2 {
+        margin-top: 150px;
+    }
+
+    .mobileCircle {
+        margin-top: 30px;
+    }
+
+    .deskVer {
+        display: none;
+    }
+
+    .navbar-brand {
+        padding-top: 15px;
+    }
+
+    .deskFooter {
+        display: none;
+    }
+
+    .mobFoot {
+        text-align: center;
+    }
+
+    .whatApp {
+        font-size: 30px;
+        color: #25D366;
+     }
+    
+     .emailo {
+        font-size: 30px;
+        color: #EA4335;
+     }
+    
+     .whatApp:hover {
+        color: #29af5a;
+     }
+    
+     .emailo:hover {
+        color: #bb372b;
+     }
+    
+     .supportOr {
+        margin-top: 10px;
+        font-size: 25px;
+     }
+    
+     .support {
+        background-color: #EA4335;
+        color: white;
+        margin-left: 0px;
+        margin-top: -200px;
+     }
+    
+     .support:hover {
+        background-color: #bb372b;
+        color: white;
+     }
+    
+     .supportTitle {
+        margin-left: 110px; 
+        margin-top: 20px; 
+        text-align: center;
+        color: #FF4040; 
+        font-size: 24px; 
+        font-weight: 600;
+    }
+
+    .supporter {
+        margin-top: 160px;
+        margin-left: 0px;
+        text-align: center;
+    }
+
+    footer {
+        text-align: center;
+    }
+}
+
+
+@media only screen and (min-width: 400px) and (max-width: 600px)
+{
+    .deskLogo {
+        display: none;
+    }
+
+    .mobLogo {
+        display: block;
+    }
+
+    h1 {
+        font-size: 25px;
+    }
+
+    h2 {
+        font-size: 18px;
+    }
+
+    h3 {
+        font-size: 15px;
+    }
+
+    h4 {
+        font-size: 18px;
+    }
+    
+    h5 {
+        font-size: 14px;
+    }
+
+    p {
+        font-size: 12px;
+    }
+
+    .planCard1 {
+        margin-left: 32px;
+    }
+
+    .planCard2 {
+        width: 350px;
+        margin-left: 32px;
+        margin-top: 30px;
+    }
+
+    .planCard3 {
+        width: 350px;
+        margin-left: 32px;
+        margin-top: 30px;
+    }
+
+    .userCard {
+        width: 350px;
+        padding: 30px 30px 30px 40px;
+        border-radius: 24px;
+        background-color: #FAFBFF;
+    }
+
+    .mobileUser {
+        margin-left: 32px;
+        margin-top: 30px;
+    }
+
+    .planBlock {
+        height: 2050px;
+    }
+
+    .emailBlock {
+        height: 1160px;
+    }
+
+    .mobileButton {
+        margin-left: 125px;
+    }
+
+    .titleBlock2 {
+        margin-top: 150px;
+    }
+
+    .mobileCircle {
+        margin-top: 30px;
+    }
+
+    .deskVer {
+        display: none;
+    }
+
+    .navbar-brand {
+        padding-top: 15px;
+    }
+
+    .deskFooter {
+        display: none;
+    }
+
+    .mobFoot {
+        text-align: center;
+    }
+
+    .whatApp {
+        font-size: 35px;
+        color: #25D366;
+     }
+    
+     .emailo {
+        font-size: 35px;
+        color: #EA4335;
+     }
+    
+     .whatApp:hover {
+        color: #29af5a;
+     }
+    
+     .emailo:hover {
+        color: #bb372b;
+     }
+    
+     .supportOr {
+        margin-top: 14px;
+        font-size: 30px;
+     }
+    
+     .support {
+        background-color: #EA4335;
+        color: white;
+        margin-left: 0px;
+        margin-top: -200px;
+     }
+    
+     .support:hover {
+        background-color: #bb372b;
+        color: white;
+     }
+    
+     .supportTitle {
+        margin-left: 130px; 
+        margin-top: 20px; 
+        text-align: center;
+        color: #FF4040; 
+        font-size: 27px; 
+        font-weight: 600;
+    }
+
+    .supporter {
+        margin-top: 160px;
+        margin-left: 0px;
+        text-align: center;
+    }
+
+    footer {
+        text-align: center;
+    }
+}

@@ -1,0 +1,71 @@
+<ngx-ui-loader></ngx-ui-loader>
+<body ngxUiLoaderBlurred>
+    <nav class="navbar navbar-expand-md">
+        <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav justify-content-end ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/restDashboard">Instrumententafel</a>
+          </li>
+          <a class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+        </ul>
+    </div>
+    </div>
+    </nav>
+    <div class="container">
+        <div class="col-sm-8 mx-auto">
+          <h5 class="text-center">Reservierungen anzeigen</h5><br>
+          <hr style="margin-bottom: 50px;">
+        </div>
+    </div>
+    <div class="container">
+        <div class="row deskReserve">
+            <div class="col-md-8 offset-2">
+              <div class="spinner-border" id="loading" role="status"> 
+              </div> 
+              <p *ngIf="showCust.length <= 0 && shower == 1" class="no-data text-center" style="color: #eb3c2e; font-size: 28px; font-weight: bold;">Keine Reservierungen gefunden!</p>
+                <div class="card" *ngFor="let cust of showCust; let i = index" style="margin-bottom: 70px; border: 3px solid #eb3c2e;">
+                    <div class="card-body">
+                        <h4>Reservierung Einzelheiten</h4>
+                        <h1 style="font-size: 24px; font-weight: bold;"><fa-icon style="font-size: 22px;" [icon]="faCarrot"></fa-icon>&nbsp;&nbsp;{{cust.restName}}&nbsp;&nbsp;<fa-icon style="font-size: 22px;" [icon]="faCarrot"></fa-icon></h1>
+                        <h1><fa-icon style="font-size: 22px;" [icon]="faCalendar"></fa-icon>&nbsp; {{cust.dateReserve}} &nbsp;&nbsp;&nbsp;&nbsp;<fa-icon style="font-size: 22px;" [icon]="faClock"></fa-icon>&nbsp; {{cust.timeReserve}} &nbsp;&nbsp;&nbsp;&nbsp;<fa-icon style="font-size: 22px;" [icon]="faUser"></fa-icon>&nbsp; {{cust.tableReserve}}</h1>
+                        <h4>Kunden Einzelheiten</h4>
+                        <h1>Name: {{cust.firstname}} {{cust.lastname}}</h1>
+                        <h1>Kontakt Nr: {{cust.contactNo}}</h1>
+                        <h1>E-Mail-Addresse: {{cust.emailAddr}}</h1>
+                        <button class="btn btn-success accept" (click)="accepted(cust._id)">Akzeptieren</button>
+                        <button class="btn btn-danger reject" (click)="rejected(cust._id)">Ablehnen</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mobReserve">
+          <div class="col-10 offset-1">
+            <div class="spinner-border2" id="loading2" role="status"> 
+            </div> 
+            <p *ngIf="showCust.length <= 0 && shower == 1" class="no-data text-center" style="color: #eb3c2e; font-size: 23px; font-weight: bold;">No Reservations Found!</p>
+              <div class="card" *ngFor="let cust of showCust; let i = index" style="margin-bottom: 50px; border: 3px solid #eb3c2e;">
+                  <div class="card-body">
+                      <h4 style="font-size: 15px; padding: 8px;">Reservierung Einzelheiten</h4>
+                      <h1 style="font-size: 12px; font-weight: bold; margin-top: -12px;"><fa-icon style="font-size: 12px;" [icon]="faCarrot"></fa-icon>&nbsp;&nbsp;{{cust.restName}}&nbsp;&nbsp;<fa-icon style="font-size: 12px;" [icon]="faCarrot"></fa-icon></h1>
+                      <h1 style="font-size: 10px; margin-top: -20px;"><fa-icon style="font-size: 13px;" [icon]="faCalendar"></fa-icon>&nbsp; {{cust.dateReserve}} &nbsp;&nbsp;&nbsp;&nbsp;<fa-icon style="font-size: 10px;" [icon]="faClock"></fa-icon>&nbsp; {{cust.timeReserve}} &nbsp;&nbsp;&nbsp;&nbsp;<fa-icon style="font-size: 10px;" [icon]="faUser"></fa-icon>&nbsp; {{cust.tableReserve}}</h1>
+                      <h4 style="font-size: 15px; padding: 8px; margin-top: -10px;">Kunden Einzelheiten</h4>
+                      <h1 style="font-size: 10px; margin-top: -15px;">Name: {{cust.firstname}} {{cust.lastname}}</h1>
+                      <h1 style="font-size: 10px; margin-top: -23px;">Kontakt Nr: {{cust.contactNo}}</h1>
+                      <h1 style="font-size: 10px; margin-top: -23px;">E-Mail-Addresse: {{cust.emailAddr}}</h1>
+                      <button class="btn btn-success accept" (click)="accepted(cust._id)">Akzeptieren</button>
+                      <button class="btn btn-danger reject" (click)="rejected(cust._id)">Ablehnen</button>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <hr style="margin-top: 70px;" *ngIf="showCust.length > 0">
+    </div>
+</body>
+    

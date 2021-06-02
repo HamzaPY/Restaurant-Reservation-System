@@ -1,0 +1,197 @@
+<ngx-ui-loader></ngx-ui-loader>
+<body ngxUiLoaderBlurred>
+    <nav class="navbar navbar-expand-md">
+      <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+      <ul class="navbar-nav justify-content-end ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/restDashboard">Instrumententafel</a>
+        </li>
+        <a class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+      </ul>
+    </div>
+    </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+          <div class="col-md-6 offset-md-3">
+            <h5 class="text-center" style="margin-bottom: 40px;">Menü verwalten</h5><hr>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 offset-md-4">
+            <button type="button" id="signup-btn" class="btn btn-danger btn-block" style="padding: 15px 10px 15px 10px; font-size: 20px; margin-top: 25px;" data-toggle="modal" data-target="#categoryModal">Kategorie hinzufügen</button>
+            
+            <div class="modal fade" id="categoryModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title catTitle" id="myModalLabel">Kategorie hinzufügen</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                        <form [formGroup]="registerForm2" (ngSubmit)="onSubmit2()">
+                          <div class="form-group">
+                              <label>Kategorie Bild</label>
+                              <input type="file" formControlName="cImage" (change)="selectImage2($event)" [ngClass]="{ 'is-invalid': submitted2 && fCat.cImage.errors }">
+                              <div *ngIf="submitted2 && fCat.cImage.errors" class="invalid-feedback">
+                                  <div *ngIf="fCat.cImage.errors.required">Kategorie Bild ist erforderlich</div>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label>Kategoriename</label>
+                              <input type="text" formControlName="cName" class="form-control" [ngClass]="{ 'is-invalid': submitted2 && fCat.cName.errors }" />
+                              <div *ngIf="submitted2 && fCat.cName.errors" class="invalid-feedback">
+                                  <div *ngIf="fCat.cName.errors.required">Kategoriename ist erforderlich</div>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Hinzufügen</button>
+                          </div>
+                      </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal fade" id="itemModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h4 class="modal-title itemTitle" id="myModalLabel">Füge Artikel hinzu</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                      <div class="form-group">
+                          <label>Artikelbild</label>
+                          <input type="file" formControlName="itemFile" (change)="selectImage($event)" [ngClass]="{ 'is-invalid': submitted && f.itemFile.errors }">
+                          <div *ngIf="submitted && f.itemFile.errors" class="invalid-feedback">
+                              <div *ngIf="f.itemFile.errors.required">Artikelbild ist erforderlich</div>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label>Artikelname</label>
+                          <input type="text" formControlName="iName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.iName.errors }" />
+                          <div *ngIf="submitted && f.iName.errors" class="invalid-feedback">
+                              <div *ngIf="f.iName.errors.required">Artikelname ist erforderlich</div>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                          <label>Artikelpreis in € (Euro)</label>
+                          <input type="number" formControlName="iPrice" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.iPrice.errors }" />
+                          <div *ngIf="submitted && f.iPrice.errors" class="invalid-feedback">
+                              <div *ngIf="f.iPrice.errors.required">Artikelpreis ist erforderlich</div>
+                          </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Artikelbeschreibung</label>
+                        <input type="text" formControlName="iDesc" class="form-control" placeholder="(Optional)">
+                      </div>
+                      <div class="form-group">
+                          <button type="submit" id="signup-btn" style="margin-top: 50px;" class="btn btn-lg btn-danger btn-block">Hinzufügen</button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="col-md-4 offset-md-4">
+      <h4 class="text-center manItems" style="margin-bottom: 30px;">Elemente verwalten</h4>
+      <hr style="margin-bottom: 40px;">
+    </div>
+  <div align="centered" class="spinner-border" id="loading" role="status"> 
+  </div> 
+  <p *ngIf="showMenu.length <= 0 && shower == 1" class="no-data text-center noData">Es wurden noch keine Kategorien hinzugefügt!</p>
+
+  <div *ngIf="showMenu.length > 0">
+    <div *ngFor="let cate of showMenu; let i = index" style="margin-bottom: 40px;">
+      <div class="row deskMenu">
+        <div class="col-md-4 offset-md-4 categories">
+          <div class="row">
+            <div class="col-6">
+              <h6>{{cate.name}}</h6>
+            </div>
+            <div class="col-1 offset-2" style="margin-top: 0px;">
+              <fa-icon style="font-size: 27px; cursor: pointer;" [icon]="faPlusCircle" (click)="selectCate(cate.name)" data-toggle="modal" data-target="#itemModal"></fa-icon>
+            </div>
+            <div class="col-1 offset-1" style="margin-top: 0px;">
+              <fa-icon style="font-size: 27px; cursor: pointer;" [icon]="faTrash" (click)="removeCategory(cate._id)"></fa-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mobMenu">
+        <div class="col-8 offset-2 categories" style="padding: 7px;">
+          <div class="row">
+            <div class="col-6">
+              <h6 style="font-size: 16px;">{{cate.name}}</h6>
+            </div>
+            <div class="col-1 offset-1" style="margin-top: 4px;">
+              <fa-icon style="font-size: 20px; cursor: pointer;" [icon]="faPlusCircle" (click)="selectCate(cate.name)" data-toggle="modal" data-target="#itemModal"></fa-icon>
+            </div>
+            <div class="col-1 offset-1" style="margin-top: 4px;">
+              <fa-icon style="font-size: 20px; cursor: pointer;" [icon]="faTrash" (click)="removeCategory(cate._id)"></fa-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row deskItems" *ngIf="showMenu[i].items.length > 0">
+        <div class="col-md-4 offset-md-4 items">
+          <div class="row" *ngFor="let item of showMenu[i].items; let j = index">
+            <div class="col-1">
+                <img src={{item.itemImage}} width="30" height="30" style="margin-top: 10px; margin-left: 7px;">
+            </div>
+            <div class="col-8">
+              <h6 class="item">{{item.itemName}} · {{item.itemPrice}}€</h6>
+              <h6 class="desc">{{item.itemDesc}}</h6>
+            </div>
+            <div class="col-1" style="margin-top: 5px;">
+              <fa-icon style="font-size: 20px; cursor: pointer;" [icon]="faEdit" (click)="editItem(item._id, cate.name)"></fa-icon>
+            </div>
+            <div class="col-1" style="margin-top: 5px;">
+              <fa-icon style="font-size: 20px; cursor: pointer;" [icon]="faTrash" (click)="removeItem(item._id, cate._id)"></fa-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mobItems" *ngIf="showMenu[i].items.length > 0">
+        <div class="col-8 offset-2 items">
+          <div class="row" *ngFor="let item of showMenu[i].items; let j = index">
+            <div class="col-1">
+                <img src={{item.itemImage}} width="30" height="30" style="margin-top: 10px; margin-left: 7px;">
+            </div>
+            <div class="col-7">
+              <h6 class="item" style="font-size: 11px;">{{item.itemName}} · {{item.itemPrice}}€</h6>
+              <h6 class="desc" style="font-size: 8px; margin-top: -17px;">{{item.itemDesc}}</h6>
+            </div>
+            <div class="col-1" style="margin-top: 8px;">
+              <fa-icon style="font-size: 16px; cursor: pointer;" [icon]="faEdit" (click)="editItem(item._id, cate.name)"></fa-icon>
+            </div>
+            <div class="col-1" style="margin-top: 8px;">
+              <fa-icon style="font-size: 16px; cursor: pointer;" [icon]="faTrash" (click)="removeItem(item._id, cate._id)"></fa-icon>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <hr style="margin-top: 100px;">
+</div>
+</body>

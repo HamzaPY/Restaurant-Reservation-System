@@ -1,0 +1,7 @@
+      
+      @font-face {
+        font-family: 'Bavro Regular';
+        font-style: normal;
+        font-weight: normal;
+        src: local('Bavro Regular'), url('/assets/font/Bavro-Regular.woff') format('woff');
+        }

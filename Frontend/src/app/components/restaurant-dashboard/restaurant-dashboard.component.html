@@ -1,0 +1,411 @@
+<body>
+    <nav class="navbar navbar-expand-md">
+        <div class="container">
+      <a class="navbar-brand deskLogo" href="/"><img src="../../../assets/img/Gostro.png"></a>
+      <a class="navbar-brand mobLogo" href="/"><img height="22" width="96" src="../../../assets/img/Gostro.png"></a>
+      <button class="navbar-toggler navbar-light" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+        <span class="navbar-toggler-icon"></span>
+      </button>      
+      <div class="collapse navbar-collapse" id="collapsibleNavbar">
+        <ul class="navbar-nav justify-content-end ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/restDashboard">Instrumententafel</a>
+          </li>
+          <a class="loginBtn" style="cursor: pointer;" (click)="logout()">Ausloggen <fa-icon style="margin-left: 5px;" [icon]="faSignOutAlt"></fa-icon></a>
+        </ul>
+    </div>
+    </div>
+    </nav>
+
+    <div class="container deskRest" style="margin-top: 50px;">
+      <div class="row">
+        <div class="col-3">
+          <a style="text-decoration: none" href="/restDashboard"><h4>Überblick</h4></a>
+        </div>
+        <div class="col-3">
+          <a style="text-decoration: none" href="/viewReservation"><h4>Reservierungen</h4></a>
+        </div>
+        <div class="col-3">
+          <a style="text-decoration: none" href="/manageMenu"><h4>Speisekarte</h4></a>
+        </div>
+        <div class="col-3">
+          <a style="text-decoration: none" href="/galleryRestaurant"><h4>Fotogallerie</h4></a>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 50px;">
+        <div class="col-8" style="margin-top: 35px;">
+          <div class="menuCards">
+            <h5 style="margin-bottom: 20px;">Menükarten<a style="text-decoration: none" href="/manageMenu"><span class="edMenu">Bearbeiten</span></a></h5>
+
+            <div class="row" *ngIf="restCategory.length <= 0">
+                <div class="col-3">
+                  <div class="menuBox"></div>
+                </div>
+                <div class="col-3">
+                  <div class="menuBox"></div>
+                </div>
+                <div class="col-3">
+                  <div class="menuBox"></div>
+                </div>
+                <div class="col-3">
+                  <div class="menuBox"></div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="restCategory.length == 1">
+                <div class="col-3">
+                  <img src= "{{restCategory[0].image}}" height="150" width="150">
+                </div>
+                <div class="col-3">
+                  <div class="menuBox"></div>
+                </div>
+                <div class="col-3">
+                  <div class="menuBox"></div>
+                </div>
+                <div class="col-3">
+                  <div class="menuBox"></div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="restCategory.length == 2">
+                <div class="col-3">
+                  <img src= "{{restCategory[0].image}}" height="150" width="150">
+                </div>
+                <div class="col-3">
+                  <img src= "{{restCategory[1].image}}" height="150" width="150">
+                </div>
+                <div class="col-3">
+                  <div class="menuBox"></div>
+                </div>
+                <div class="col-3">
+                  <div class="menuBox"></div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="restCategory.length == 3">
+                <div class="col-3">
+                  <img src= "{{restCategory[0].image}}" height="150" width="150">
+                </div>
+                <div class="col-3">
+                  <img src= "{{restCategory[1].image}}" height="150" width="150">
+                </div>
+                <div class="col-3">
+                  <img src= "{{restCategory[2].image}}" height="150" width="150">
+                </div>
+                <div class="col-3">
+                  <div class="menuBox"></div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="restCategory.length >= 4">
+                <div class="col-3">
+                  <img src= "{{restCategory[0].image}}" height="150" width="150">
+                </div>
+                <div class="col-3">
+                  <img src= "{{restCategory[1].image}}" height="150" width="150">
+                </div>
+                <div class="col-3">
+                  <img src= "{{restCategory[2].image}}" height="150" width="150">
+                </div>
+                <div class="col-3">
+                  <img src= "{{restCategory[3].image}}" height="150" width="150">
+                </div>
+            </div>
+
+          </div>
+
+          <div style="margin-top: 100px;">
+            <div class="row">
+              <div class="col-5">
+                <h5>Reservierungen EIN / AUS</h5>
+              </div>
+              <div class="col-1" style="margin-top: -10px;">
+                <div class="spinner-border" id="loading" role="status"> 
+                </div> 
+                <ui-switch id="reserveCheck" color="red" [(ngModel)]="checker" (valueChange)="onValueChange($event)"></ui-switch>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-4">
+          <h5 style="margin-bottom: 15px;">Letzte Reservierung</h5>
+
+          <div class="spinner-border2" id="loading2" role="status"> 
+          </div> 
+          <div *ngIf="showCustomers.length <= 0 && shower == 1">
+            <div class="reserveCards">
+              <h2>Es gibt keine neuen Reservierungen!</h2>
+            </div>
+          </div>
+
+          <div *ngIf="showCustomers.length == 1">
+            <div class="reserveCards">
+              <h2>Tisch für {{showCustomers[0].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[0].dateReserve}}, {{showCustomers[0].timeReserve}}</h2>
+            </div>
+          </div>
+
+          <div *ngIf="showCustomers.length == 2">
+            <div class="reserveCards">
+              <h2>Tisch für {{showCustomers[0].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[0].dateReserve}}, {{showCustomers[0].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[1].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[1].dateReserve}}, {{showCustomers[1].timeReserve}}</h2>
+            </div>
+          </div>
+
+          <div *ngIf="showCustomers.length == 3">
+            <div class="reserveCards">
+              <h2>Tisch für {{showCustomers[0].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[0].dateReserve}}, {{showCustomers[0].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[1].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[1].dateReserve}}, {{showCustomers[1].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[2].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[2].dateReserve}}, {{showCustomers[2].timeReserve}}</h2>
+            </div>
+          </div>
+
+          <div *ngIf="showCustomers.length >= 4">
+            <div class="reserveCards">
+              <h2>Tisch für {{showCustomers[0].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[0].dateReserve}}, {{showCustomers[0].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[1].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[1].dateReserve}}, {{showCustomers[1].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[2].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[2].dateReserve}}, {{showCustomers[2].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[3].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[3].dateReserve}}, {{showCustomers[3].timeReserve}}</h2>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container mobRest" style="margin-top: 50px;">
+      <div class="row">
+        <div class="col-6">
+          <a style="text-decoration: none" href="/restDashboard"><h4>Überblick</h4></a>
+        </div>
+        <div class="col-6">
+          <a style="text-decoration: none" href="/viewReservation"><h4>Reservierungen</h4></a>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <a style="text-decoration: none" href="/manageMenu"><h4>Speisekarte</h4></a>
+        </div>
+        <div class="col-6">
+          <a style="text-decoration: none" href="/galleryRestaurant"><h4>Fotogallerie</h4></a>
+        </div>
+      </div>
+
+      <div style="margin-top: 50px;">
+        <div class="row">
+          <div class="col-7 offset-1">
+            <h5>Reservierungen EIN / AUS</h5>
+          </div>
+          <div class="col-4" style="margin-top: -10px;">
+            <div class="spinner-border3" id="loading3" role="status"> 
+            </div> 
+            <ui-switch id="mobReserveCheck" color="red" [(ngModel)]="checker" (valueChange)="onValueChange($event)"></ui-switch>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 50px;">
+        <div class="col-12">
+          <div class="menuCards">
+            <h5 style="margin-bottom: 20px; font-size: 16px;">Menükarten<a style="text-decoration: none" href="/manageMenu"><span class="edMenu">Bearbeiten</span></a></h5>
+
+            <div class="row" *ngIf="restCategory.length <= 0">
+                <div class="col-6">
+                  <div class="menuBox"></div>
+                </div>
+                <div class="col-6">
+                  <div class="menuBox"></div>
+                </div>
+            </div>
+            <div class="row" *ngIf="restCategory.length <= 0" style="margin-top: 20px;">
+                <div class="col-6">
+                  <div class="menuBox"></div>
+                </div>
+                <div class="col-6">
+                  <div class="menuBox"></div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="restCategory.length == 1">
+                <div class="col-6">
+                  <img src= "{{restCategory[0].image}}" class="mobMenGall">
+                </div>
+                <div class="col-6">
+                  <div class="menuBox"></div>
+                </div>
+            </div>
+            <div class="row" *ngIf="restCategory.length == 1" style="margin-top: 20px;">
+                <div class="col-6">
+                  <div class="menuBox"></div>
+                </div>
+                <div class="col-6">
+                  <div class="menuBox"></div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="restCategory.length == 2">
+                <div class="col-6">
+                  <img src= "{{restCategory[0].image}}" class="mobMenGall">
+                </div>
+                <div class="col-6">
+                  <img src= "{{restCategory[1].image}}" class="mobMenGall">
+                </div>
+            </div>
+            <div class="row" *ngIf="restCategory.length == 2" style="margin-top: 20px;">
+                <div class="col-6">
+                  <div class="menuBox"></div>
+                </div>
+                <div class="col-6">
+                  <div class="menuBox"></div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="restCategory.length == 3">
+                <div class="col-6">
+                  <img src= "{{restCategory[0].image}}" class="mobMenGall">
+                </div>
+                <div class="col-6">
+                  <img src= "{{restCategory[1].image}}" class="mobMenGall">
+                </div>
+            </div>
+            <div class="row" *ngIf="restCategory.length == 3" style="margin-top: 20px;">
+                <div class="col-6">
+                  <img src= "{{restCategory[2].image}}" class="mobMenGall">
+                </div>
+                <div class="col-6">
+                  <div class="menuBox"></div>
+                </div>
+            </div>
+
+            <div class="row" *ngIf="restCategory.length >= 4">
+                <div class="col-6">
+                  <img src= "{{restCategory[0].image}}" class="mobMenGall">
+                </div>
+                <div class="col-6">
+                  <img src= "{{restCategory[1].image}}" class="mobMenGall">
+                </div>
+            </div>
+            <div class="row" *ngIf="restCategory.length >= 4" style="margin-top: 20px;">
+                <div class="col-6">
+                  <img src= "{{restCategory[2].image}}" class="mobMenGall">
+                </div>
+                <div class="col-6">
+                  <img src= "{{restCategory[3].image}}" class="mobMenGall">
+                </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top: 50px;">
+        <div class="col-12">
+          <h5 style="margin-bottom: 30px; margin-left: 10px;">Letzte Reservierung</h5>
+
+          <div class="spinner-border4" id="loading4" role="status"> 
+          </div> 
+          <div *ngIf="showCustomers.length <= 0 && shower == 1">
+            <div class="reserveCards">
+              <h2>Es gibt keine neuen Reservierungen!</h2>
+            </div>
+          </div>
+
+          <div *ngIf="showCustomers.length == 1">
+            <div class="reserveCards">
+              <h2>Tisch für {{showCustomers[0].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[0].dateReserve}}, {{showCustomers[0].timeReserve}}</h2>
+            </div>
+          </div>
+
+          <div *ngIf="showCustomers.length == 2">
+            <div class="reserveCards">
+              <h2>Tisch für {{showCustomers[0].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[0].dateReserve}}, {{showCustomers[0].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[1].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[1].dateReserve}}, {{showCustomers[1].timeReserve}}</h2>
+            </div>
+          </div>
+
+          <div *ngIf="showCustomers.length == 3">
+            <div class="reserveCards">
+              <h2>Tisch für {{showCustomers[0].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[0].dateReserve}}, {{showCustomers[0].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[1].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[1].dateReserve}}, {{showCustomers[1].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[2].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[2].dateReserve}}, {{showCustomers[2].timeReserve}}</h2>
+            </div>
+          </div>
+
+          <div *ngIf="showCustomers.length >= 4">
+            <div class="reserveCards">
+              <h2>Tisch für {{showCustomers[0].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[0].dateReserve}}, {{showCustomers[0].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[1].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[1].dateReserve}}, {{showCustomers[1].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[2].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[2].dateReserve}}, {{showCustomers[2].timeReserve}}</h2>
+            </div>
+            <div class="reserveCards" style="margin-top: 10px;">
+              <h2>Tisch für {{showCustomers[3].tableReserve}} person<span class="nwMenu">NEU</span></h2>
+              <img class="timen" src="../../../assets/img/time.png">
+              <h2 style="margin-top: -40px; margin-left: 43px;">{{showCustomers[3].dateReserve}}, {{showCustomers[3].timeReserve}}</h2>
+            </div>
+          </div>
+          <hr style="margin-top: 50px;">
+        </div>
+      </div>
+    </div>
+</body>
+    
