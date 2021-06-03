@@ -18,12 +18,12 @@
 - **MEAN Stack**
   - Angular JS (Front-End)
   - Node JS (Back-End)
-  Express JS (Middleware)
-  MongoDB (Database)
+  - Express JS (Middleware)
+  - MongoDB (Database)
 - **Heroku** (Deployment)
 - **Cloudinary** (File and Image Storage)
 
 ## Website Links
 
-- Official Link: Gostro
-- Heroku Link: Gostro Heroku
+- [Official Link:](Gostro)
+- [Heroku Link:](Gostro Heroku)
