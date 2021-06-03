@@ -29,9 +29,9 @@ var storage = multer.diskStorage({
 });
 
 cloudinary.config({
-  cloud_name: 'hamzapy',
-  api_key: '519318448811347',
-  api_secret: 'io1nfdKZdNlLuaw-_RzAuKfCbA0'
+  cloud_name: 'CLOUD NAME?',
+  api_key: 'Enter your API Key',
+  api_secret: 'Enter your API_SECRET'
   });
 
 var upload = multer({storage: storage});
@@ -43,9 +43,9 @@ const cloudinaryImageUploadMethod = async file => {
           console.log( res.secure_url )
           resolve({
             res: res.secure_url
-          }) 
+          })
         }
-      ) 
+      )
   })
 }
 
@@ -64,7 +64,7 @@ adminRoute.post('/addPhotos', upload.array("uploads[]", 20), async (req, res, ne
       //images.push('/' + req.files[i].filename);
     }
     Restaurant.findOneAndUpdate({ name: req.body.rName }, {
-      $push: { galleryImages: images } 
+      $push: { galleryImages: images }
      }, (error, data) => {
       if (error) {
         return next(error);
@@ -129,7 +129,7 @@ adminRoute.post('/addRest', upload.fields([{
       Restaurant.create(rest.save((err,data)=>
       {
         console.log('Restaurant Registered!');
-        User.register(new User({username: req.body.rName}), 
+        User.register(new User({username: req.body.rName}),
         req.body.rPass, (err, user) => {
         if(err) {
           res.statusCode = 600;
@@ -338,8 +338,8 @@ adminRoute.post('/sendContact', (req, res, next) => {
     port: 465,
     secure: true,
     auth: {
-      user: 'info@gostro.de',
-      pass: 'Gostro2021'
+      user: 'User?',
+      pass: 'Password?'
     },
     tls: {
       rejectUnauthorized: false,
@@ -384,8 +384,8 @@ adminRoute.post('/notifyRest', (req, res, next) => {
     port: 465,
     secure: true,
     auth: {
-      user: 'info@gostro.de',
-      pass: 'Gostro2021'
+      user: 'User?',
+      pass: 'Password?'
     },
     tls: {
       rejectUnauthorized: false,
@@ -417,8 +417,8 @@ adminRoute.post('/notifyCust', (req, res, next) => {
     port: 465,
     secure: true,
     auth: {
-      user: 'info@gostro.de',
-      pass: 'Gostro2021'
+      user: 'User?',
+      pass: 'Password?'
     },
    });
 
@@ -470,7 +470,7 @@ adminRoute.get('/getRating', (req, res, next) => {
   Rating.find({}).populate('rateUser').exec(function (err, results) {
     if (err) {
       console.log(err);
-    } else 
+    } else
     {
       res.json(results)
     }
@@ -546,7 +546,7 @@ adminRoute.get('/getCustomer', (req, res, next) => {
   Customer.find({}).populate('reserveUser').exec(function (err, results) {
     if (err) {
       console.log(err);
-    } else 
+    } else
     {
       res.json(results)
     }
@@ -769,7 +769,7 @@ adminRoute.post('/loginRest', passport.authenticate('local'), (req, res) => {
 // Admin Register //
 
 adminRoute.post('/signup', (req, res, next) => {
-  User.register(new User({username: req.body.username}), 
+  User.register(new User({username: req.body.username}),
     req.body.password, (err, user) => {
     if(err) {
       res.statusCode = 600;
@@ -808,7 +808,7 @@ adminRoute.post('/signup', (req, res, next) => {
 adminRoute.post('/signupCust', upload.fields([{
   name: 'fileI', maxCount: 1
   }]), async (req, res, next) => {
-  User.register(new User({username: req.body.username}), 
+  User.register(new User({username: req.body.username}),
     req.body.password, async (err, user) => {
     if(err) {
       res.statusCode = 600;
@@ -843,21 +843,21 @@ adminRoute.post('/signupCust', upload.fields([{
         port: 465,
         secure: true,
         auth: {
-          user: 'info@gostro.de',
-          pass: 'Gostro2021'
+          user: 'User?',
+          pass: 'Password?'
         },
         tls: {
           rejectUnauthorized: false,
         },
        });
-    
+
       const mailOptions = {
         from: 'info@gostro.de', // sender address
         to: req.body.email, // list of receivers
         subject: 'Verify your email address!', // Subject line
         html: '<p>Dear ' + req.body.username +',</p><p>In order to complete your registration, please verify your email address by clicking on the following link:<br> https://www.gostro.de/verifyEmail/'+req.body.username+' </p> <p>Best regards, </p><p>GOSTRO</p>'// plain text body
       };
-    
+
       await transporter.sendMail(mailOptions, function (err, info) {
         if(err)
           console.log(err)
@@ -878,7 +878,7 @@ adminRoute.post('/signupCust', upload.fields([{
         passport.authenticate('local')(req, res, () => {
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
-          
+
 
           res.json({success: true, status: 'Registration Successful!'});
         });
