@@ -25,5 +25,5 @@
 
 ## Website Links
 
-- [Official Link:](Gostro)
-- [Heroku Link:](Gostro Heroku)
+- Official Link: [Gostro](http://www.gostro.de)
+- Heroku Link: [Gostro Heroku](https://obscure-cove-92206.herokuapp.com)
